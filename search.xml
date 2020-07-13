@@ -19,4 +19,24 @@
 <p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
 ]]></content>
   </entry>
+  <entry>
+    <title>模拟面试问答之经典网络模型一：R-CNN</title>
+    <url>/2020/07/13/RCNN/</url>
+    <content><![CDATA[<p><a href="https://arxiv.org/abs/1311.2524" target="_blank" rel="noopener">论文地址：Rich feature hierarchies for accurate object detection and semantic segmentation</a><br><img src="/2020/07/13/RCNN/1.png" alt="RCNN网络结构"></p>
+<a id="more"></a>
+<h1 id="问：请简要概述一下RCNN流程？"><a href="#问：请简要概述一下RCNN流程？" class="headerlink" title="问：请简要概述一下RCNN流程？"></a>问：请简要概述一下RCNN流程？</h1><ol>
+<li>使用Selective Search在输入图像上提取约2000个候选区域；</li>
+<li>将每个候选区域分别输入CNN网络提取特征；</li>
+<li>使用二分类SVM分别对每个候选区域进行分类；</li>
+<li>使用线性回归器分别修正每个候选区域的位置。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>面试</category>
+      </categories>
+      <tags>
+        <tag>深度学习</tag>
+        <tag>经典网络</tag>
+      </tags>
+  </entry>
 </search>
