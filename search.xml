@@ -1,26 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Hello World</title>
-    <url>/2020/07/13/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<a id="more"></a>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br><span class="line">$ <span class="built_in">test</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>模拟面试问答之经典网络模型一：R-CNN</title>
+    <title>模拟面试问答之经典网络模型一：RCNN</title>
     <url>/2020/07/13/RCNN/</url>
     <content><![CDATA[<p>本文总结了面试过程中可能问到的关于RCNN模型的一些问题。</p>
 <p><a href="https://arxiv.org/abs/1311.2524" target="_blank" rel="noopener">论文地址：Rich Feature Hierarchies for Accurate Object Detection and Semantic Segmentation</a><br><img src="/2020/07/13/RCNN/1.png" alt="RCNN网络结构"></p>
@@ -71,9 +52,68 @@
 <h2 id="详细"><a href="#详细" class="headerlink" title="详细"></a>详细</h2><p>定义$P=(P_x,P_y,P_w,P_h)$表示候选区域的中心坐标和宽高，$G=(G_x,G_y,G_w,G_h)$表示ground-truth的中心坐标和宽高。预测$d_*(P)$（$*$表示$x$，$y$，$w$，$h$，下同）得到平移量$\Delta x=P_wd_x(P)$，$\Delta y=P_hd_y(P)$和缩放值$S_w=exp(d_w(P))$，$S_h=exp(d_h(P))$，目标是使变换后的P与G更接近。<br>定义$\widehat{G}=(\widehat{G}_x,\widehat{G}_y,\widehat{G}_w,\widehat{G}_h)$表示变换后的$P$，其中：<br>$$\widehat{G}_x=P_wd_x(P)+P_x$$<br>$$\widehat{G}_y=P_hd_y(P)+P_y$$<br>$$\widehat{G}_w=P_wexp(d_w(P))$$<br>$$\widehat{G}_h=P_hexp(d_h(P))$$<br>回归器的输入是AlexNet提取的候选区域特征，表示为$\phi(P)$，令$d_*(P)=w^T_*\Phi(P)$，$w_*$就是需要学习的线性变换参数了，可以得到：<br>$$w^T_x\Phi(P)=d_x(P)=(\widehat{G}_x-P_x)/P_w$$<br>$$w^T_y\Phi(P)=d_y(P)=(\widehat{G}_y-P_y)/P_h$$<br>$$w^T_w\Phi(P)=d_w(P)=log(\widehat{G}_w/P_w)$$<br>$$w^T_h\Phi(P)=d_h(P)=log(\widehat{G}_h/P_h)$$<br>定义$t_*$为：<br>$$t_x=(G_x-P_x)/P_w$$<br>$$t_y=(G_y-P_y)/P_h$$<br>$$t_w=log(G_w/P_w)$$<br>$$t_h=log(G_h/P_h)$$<br>目标是使P的映射$\widehat{G}$尽量接近$G$，通过以下优化损失函数求解$w_*$：<br>$$w_*=\underset{\widehat{w}_*}{argmin}\sum(t_*^i-\widehat{w}_*^T\phi(P^i))^2+\lambda&#124;&#124;\widehat{w}_*&#124;&#124;^2$$<br>可通过最小二乘法或梯度下降求解该问题。由此也可以看出，对于每个类别，需要4个回归器分别回归$\Delta x$，$\Delta y$，$S_w$，$S_h$，整个模型就包括20×4个回归器。</p>
 <h1 id="回归器为什么不直接预测平移量-Delta-x-和-Delta-y-的值，而是先预测-d-x-P-和-d-y-P-，然后分别乘以-P-w-和-P-h-，间接求出-Delta-x-和-Delta-y-？"><a href="#回归器为什么不直接预测平移量-Delta-x-和-Delta-y-的值，而是先预测-d-x-P-和-d-y-P-，然后分别乘以-P-w-和-P-h-，间接求出-Delta-x-和-Delta-y-？" class="headerlink" title="回归器为什么不直接预测平移量$\Delta x$和$\Delta y$的值，而是先预测$d_x(P)$和$d_y(P)$，然后分别乘以$P_w$和$P_h$，间接求出$\Delta x$和$\Delta y$？"></a>回归器为什么不直接预测平移量$\Delta x$和$\Delta y$的值，而是先预测$d_x(P)$和$d_y(P)$，然后分别乘以$P_w$和$P_h$，间接求出$\Delta x$和$\Delta y$？</h1><p>回归器的输入是候选区域的特征，而每个候选区域在提取特征后的大小时相同的，若是直接预测平移量$\Delta x$和$\Delta y$的值，那么对于任意大小的候选区域，都会得到相同平移量，这显然是有问题的。而分别乘候选区域的宽高$P_w$和$P_h$相当于进行归一化，即尺寸大的候选区域预测的平移量大，尺寸小的候选区域的平移量小。</p>
 <h1 id="回归器预测宽高的缩放值为什么要采用exp？"><a href="#回归器预测宽高的缩放值为什么要采用exp？" class="headerlink" title="回归器预测宽高的缩放值为什么要采用exp？"></a>回归器预测宽高的缩放值为什么要采用exp？</h1><p>保证预测值大于0.</p>
-<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><p>利用CNN提取特征，提升了检测速度。</p>
-<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><p>使用Selective Search提取2000个候选区域，则每张图片需要调用2000次CNN模型，运算量极大导致检测效率低。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ol>
+<li>优点：RCNN引入CNN提取特征，取代手工设计特征，并提升了检测速度；采用了迁移学习的思想，先在大数据集上对模型进行预训练，然后在目标数据集上面进行fine-tuning。</li>
+<li>缺点：RCNN使用Selection Search提取2000个候选区域，不够精确；需要对每个候选区域单独提取特征，无法共享特征，且内存占用和耗时较大；训练过程分为三个阶段，繁琐且耗时较大。</li>
+</ol>
 ]]></content>
+      <categories>
+        <category>面试</category>
+      </categories>
+      <tags>
+        <tag>深度学习</tag>
+        <tag>经典网络</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>模拟面试问答之经典网络模型二：Fast RCNN</title>
+    <url>/2020/07/14/FastRCNN/</url>
+    <content><![CDATA[<p>本文总结了面试过程中可能问到的关于Fast RCNN模型的一些问题。</p>
+<p><a href="https://arxiv.org/abs/1504.08083" target="_blank" rel="noopener">论文地址：Fast R-CNN</a><br><img src="/2020/07/14/FastRCNN/1.jpg" alt="Fast RCNN网络结构"></p>
+<center><b>图1 Fast RCNN网络结构图</b></center>
+
+<a id="more"></a>
+
+<h1 id="简要概述一下Fast-RCNN测试时的检测流程？"><a href="#简要概述一下Fast-RCNN测试时的检测流程？" class="headerlink" title="简要概述一下Fast RCNN测试时的检测流程？"></a>简要概述一下Fast RCNN测试时的检测流程？</h1><ol>
+<li>使用Selective Search在输入图像上提取约2000个候选区域。</li>
+<li>将原始图像输入卷积网络，获得最后一个池化层之前的特征图（16倍下采样）。</li>
+<li>对于每个候选区域，RoI pooling层将候选区域定位到特征图中的对应区域产生RoI，然后将每个RoI转化为相同尺寸（7×7）。</li>
+<li>通过全连接层将RoI转化为一维向量，分别输入并行的分类器和回归器。分类器由一个全连接层和Softmax组成，对每一个RoI输出20+1个类别概率。回归器输出通过一个全连接层对每一个RoI输出20×4维向量，即所有类别下回归RoI的位置和大小。</li>
+</ol>
+<h1 id="描述一下RoI-pooling的工作原理？"><a href="#描述一下RoI-pooling的工作原理？" class="headerlink" title="描述一下RoI pooling的工作原理？"></a>描述一下RoI pooling的工作原理？</h1><p>先将候选区域定位到特征图中的对应区域产生RoI，然后将RoI划分为H×W的区域，然后分别取每个区域的最大值代替该区域，从而将RoI尺寸调整为H×W。</p>
+<h1 id="两次坐标量化是指什么？"><a href="#两次坐标量化是指什么？" class="headerlink" title="两次坐标量化是指什么？"></a>两次坐标量化是指什么？</h1><ol>
+<li>第一次量化时将候选区域映射到特征图上时，需要将候选区域坐标除以16并取整。</li>
+<li>第二次量化是指RoI pooling时，需要将RoI划分为H×W个部分，对左上角坐标采用向下取整，对右下角坐标采用向上取整。两次量化操作会引入误差，Mask RCNN中会解决这一问题。</li>
+</ol>
+<h1 id="Fast-RCNN是如何训练的？"><a href="#Fast-RCNN是如何训练的？" class="headerlink" title="Fast RCNN是如何训练的？"></a>Fast RCNN是如何训练的？</h1><ol>
+<li>以VGG16为例，先在ImageNet上训练一个1000类的分类网络。</li>
+<li>修改预训练后的网络结构，将最后一个池化层替换为RoI pooling层；将最后一个全连接层替换为并行的分类器和回归器；网络输入替换为图像+候选区域集合。</li>
+<li>将修改后的网络在Pascal VOC上进行fine-tuning，定义IoU大于0.5的为正样本，IoU为0.1-0.5之间的为负样本，每次迭代时包括2张图像，每张图像随机采样16个正样本和48个负样本用于训练；采样0.5概率的水平翻转进行数据增强。</li>
+<li>采用分类损失和回归损失的联合组成的多任务损失函数进行训练。</li>
+</ol>
+<h1 id="Fast-RCNN的损失函数是如何构成的？"><a href="#Fast-RCNN的损失函数是如何构成的？" class="headerlink" title="Fast RCNN的损失函数是如何构成的？"></a>Fast RCNN的损失函数是如何构成的？</h1><h2 id="简答"><a href="#简答" class="headerlink" title="简答"></a>简答</h2><p>Fast RCNN采用多任务损失函数，由分类损失和回归损失联合组成。分类采用交叉熵损失函数，回归采用Smooth L1损失函数。</p>
+<h2 id="详细"><a href="#详细" class="headerlink" title="详细"></a>详细</h2><p>Fast RCNN的多任务损失函数如下：<br>$$L(p,u,t^u,v)=L_{cls}(p,u)+\lambda [u\geq 1]L_{loc}(t^u,v)$$<br>其中，$L_{cls}(p,u)=-logp_u$表示真实分类u的概率$p_u$的对数损失。$\lambda$用于平衡分类损失和回归损失，通常取1。$[u\geq 1]$为指示函数，$u\geq 1$时取1否则取0，即当p为负样本时忽略回归损失。$L_{loc}(t^u,v)$为四个Smooth L1损失的和，分别是两个平移量和两个缩放值（具体参考上一篇关于RCNN的博客）。Smooth L1损失函数如下所示：<br>$$Smooth_{L1}(x)=\begin{cases} 0.5x^2 &amp; if&#124;x&#124;&lt;1 \\ &#124;x&#124;-0.5 &amp; otherwise \end{cases}$$<br>Smooth L1损失函数在x较大时（训练初期）采取L1损失函数形式，避免了L2损失在训练初期导数大的问题；在x较小（训练后期）时采取L2损失函数形式，避免了L1损失函数在训练后期导数大的问题。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ol>
+<li>优点：Fast RCNN解决了RCNN的两大问题：①一次性提取特征然后对候选区域进行特征映射，实现特征共享，极大地节约了时间和空间消耗；②将RCNN的三个模型整合为一个模型，一次性进行分类和回归。</li>
+<li>缺点：仍然存在与RCNN一样的问题，即使用Selective Search进行候选框提取。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>面试</category>
+      </categories>
+      <tags>
+        <tag>深度学习</tag>
+        <tag>经典网络</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>模拟面试问答之经典网络模型三：FasterRCNN</title>
+    <url>/2020/07/15/FasterRCNN/</url>
+    <content><![CDATA[<p>本文总结了面试过程中可能问到的关于Faster RCNN模型的一些问题。</p>
+<p><a href="https://arxiv.org/abs/1506.01497" target="_blank" rel="noopener">论文地址：Fast R-CNN</a><br><img src="/2020/07/15/FasterRCNN/1.png" alt="Faster RCNN网络结构"></p>
+<center><b>图1 Faster RCNN网络结构图</b></center>
+
+<a id="more"></a>]]></content>
       <categories>
         <category>面试</category>
       </categories>
