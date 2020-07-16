@@ -2,9 +2,9 @@
 <search>
   <entry>
     <title>模拟面试问答之经典网络模型一：RCNN</title>
-    <url>/2020/07/13/RCNN/</url>
+    <url>/2020/06/13/RCNN/</url>
     <content><![CDATA[<p>本文总结了面试过程中可能问到的关于RCNN模型的一些问题。</p>
-<p><a href="https://arxiv.org/abs/1311.2524" target="_blank" rel="noopener">论文地址：Rich Feature Hierarchies for Accurate Object Detection and Semantic Segmentation</a><br><img src="/2020/07/13/RCNN/1.png" alt="RCNN网络结构"></p>
+<p><a href="https://arxiv.org/abs/1311.2524" target="_blank" rel="noopener">论文地址：Rich Feature Hierarchies for Accurate Object Detection and Semantic Segmentation</a><br><img src="/2020/06/13/RCNN/1.png" alt="RCNN网络结构"></p>
 <center><b>图1 RCNN网络结构图</b></center>
 
 <a id="more"></a>
@@ -22,7 +22,7 @@
 <li>各向异性直接把图像的宽高拉伸到目标尺寸。</li>
 <li>各项同性先按原图像比例进行缩放，然后在再填充到目标价尺寸。</li>
 </ol>
-<h1 id="RCNN的CNN网络是如何训练的？"><a href="#RCNN的CNN网络是如何训练的？" class="headerlink" title="RCNN的CNN网络是如何训练的？"></a>RCNN的CNN网络是如何训练的？</h1><p><img src="/2020/07/13/RCNN/2.jpg" alt="AlexNet网络结构"></p>
+<h1 id="RCNN的CNN网络是如何训练的？"><a href="#RCNN的CNN网络是如何训练的？" class="headerlink" title="RCNN的CNN网络是如何训练的？"></a>RCNN的CNN网络是如何训练的？</h1><p><img src="/2020/06/13/RCNN/2.jpg" alt="AlexNet网络结构"></p>
 <center><b>图2 AlexNet网络结构图</b></center>
 
 <ol>
@@ -67,9 +67,9 @@
   </entry>
   <entry>
     <title>模拟面试问答之经典网络模型二：Fast RCNN</title>
-    <url>/2020/07/14/FastRCNN/</url>
+    <url>/2020/07/01/FastRCNN/</url>
     <content><![CDATA[<p>本文总结了面试过程中可能问到的关于Fast RCNN模型的一些问题。</p>
-<p><a href="https://arxiv.org/abs/1504.08083" target="_blank" rel="noopener">论文地址：Fast R-CNN</a><br><img src="/2020/07/14/FastRCNN/1.jpg" alt="Fast RCNN网络结构"></p>
+<p><a href="https://arxiv.org/abs/1504.08083" target="_blank" rel="noopener">论文地址：Fast R-CNN</a><br><img src="/2020/07/01/FastRCNN/1.jpg" alt="Fast RCNN网络结构"></p>
 <center><b>图1 Fast RCNN网络结构图</b></center>
 
 <a id="more"></a>
@@ -156,6 +156,66 @@
       <tags>
         <tag>深度学习</tag>
         <tag>经典网络</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux-File</title>
+    <url>/2020/07/15/Linux-File/</url>
+    <content><![CDATA[<p>本文总结了Linux系统中对文件属性和权限进行操作的常用命令。</p>
+<a id="more"></a>
+
+<h1 id="ls-l用于查看文件属性"><a href="#ls-l用于查看文件属性" class="headerlink" title="ls -l用于查看文件属性"></a><code>ls -l</code>用于查看文件属性</h1><pre><code>➜  ~ ls -l 
+total 21776
+drwxr-xr-x 26 dong dong     4096 11月 29  2019  anaconda3
+drwxr-xr-x  8 dong dong     4096 7月  13 23:46  Clover</code></pre><p>每一个文件开头10个字符含义如下图：<br><img src="/2020/07/15/Linux-File/1.png" alt><br>第0位文件类型包括：<code>d</code>目录、<code>-</code>文件及其他（<code>l</code>、<code>b</code>、<code>c</code>），第1-3位表示该文件所有者的权限，第4-6位表示所有者同组用户的权限，第7-9位表示其他用户的权限。<code>r</code>读、<code>w</code>写、<code>x</code>执行（execute）表示拥有对应权限，<code>-</code>表示没有该权限。</p>
+<h1 id="chown-R-属主名-文件或目录用于更改文件属主"><a href="#chown-R-属主名-文件或目录用于更改文件属主" class="headerlink" title="chown [-R] 属主名 文件或目录用于更改文件属主"></a><code>chown [-R] 属主名 文件或目录</code>用于更改文件属主</h1><p>加上参数<code>-R</code>表示递归更改文件属主。</p>
+<h1 id="chgrp-R-属组名-文件或目录用于更改文件属组"><a href="#chgrp-R-属组名-文件或目录用于更改文件属组" class="headerlink" title="chgrp [-R] 属组名 文件或目录用于更改文件属组"></a><code>chgrp [-R] 属组名 文件或目录</code>用于更改文件属组</h1><p>加上参数<code>-R</code>表示递归更改文件属组。</p>
+<h1 id="chmod-R-xyz-文件或目录用于更改文件的9个权限"><a href="#chmod-R-xyz-文件或目录用于更改文件的9个权限" class="headerlink" title="chmod [-R] xyz 文件或目录用于更改文件的9个权限"></a><code>chmod [-R] xyz 文件或目录</code>用于更改文件的9个权限</h1><p>加上参数<code>-R</code>表示递归更改文件权限。<br><code>xyz</code>表示要设置的权限数字，每个权限数字为3个权限分数之和，各权限分数对照如下：</p>
+<ul>
+<li><code>r</code>：4</li>
+<li><code>w</code>：2</li>
+<li><code>x</code>：1</li>
+</ul>
+<p>例如<code>7=rwx</code>，<code>0=---</code>，<code>drwxr-xr-x</code>的权限数字为<code>755</code>。</p>
+<p>或者可以使用<code>chmod u=rwx,g=rx,o=r 文件名</code>的命令来设定文件的权限，具体如下表所示：</p>
+<table>
+<thead>
+<tr>
+<th>chmod</th>
+<th>u</th>
+<th>+（加入）</th>
+<th>r</th>
+<th>文件或目录</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td>g</td>
+<td>-（除去）</td>
+<td>w</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>o</td>
+<td>=（设定</td>
+<td>x</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>a</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+]]></content>
+      <categories>
+        <category>Linux基础</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
       </tags>
   </entry>
 </search>
