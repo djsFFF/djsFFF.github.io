@@ -9,7 +9,7 @@
 
 <a id="more"></a>
 
-<h1 id="简要概述一下RCNN测试时的检测流程？"><a href="#简要概述一下RCNN测试时的检测流程？" class="headerlink" title="简要概述一下RCNN测试时的检测流程？"></a>简要概述一下RCNN测试时的检测流程？</h1><ol>
+<h1 id="简述一下RCNN测试时的检测流程？"><a href="#简述一下RCNN测试时的检测流程？" class="headerlink" title="简述一下RCNN测试时的检测流程？"></a>简述一下RCNN测试时的检测流程？</h1><ol>
 <li>使用Selective Search在输入图像上提取约2000个候选区域。</li>
 <li>缩放每个候选区域到固定尺寸大小，227×227。</li>
 <li>将每个候选区域分别输入CNN网络提取特征。</li>
@@ -63,6 +63,7 @@
       <tags>
         <tag>深度学习</tag>
         <tag>经典网络</tag>
+        <tag>目标检测</tag>
       </tags>
   </entry>
   <entry>
@@ -74,7 +75,7 @@
 
 <a id="more"></a>
 
-<h1 id="简要概述一下Fast-RCNN测试时的检测流程？"><a href="#简要概述一下Fast-RCNN测试时的检测流程？" class="headerlink" title="简要概述一下Fast RCNN测试时的检测流程？"></a>简要概述一下Fast RCNN测试时的检测流程？</h1><ol>
+<h1 id="简述一下Fast-RCNN测试时的检测流程？"><a href="#简述一下Fast-RCNN测试时的检测流程？" class="headerlink" title="简述一下Fast RCNN测试时的检测流程？"></a>简述一下Fast RCNN测试时的检测流程？</h1><ol>
 <li>使用Selective Search在输入图像上提取约2000个候选区域。</li>
 <li>将原始图像输入卷积网络，获得最后一个池化层之前的特征图（16倍下采样）。</li>
 <li>对于每个候选区域，RoI pooling层将候选区域定位到特征图中的对应区域产生RoI，然后将每个RoI转化为相同尺寸（7×7）。</li>
@@ -104,6 +105,7 @@
       <tags>
         <tag>深度学习</tag>
         <tag>经典网络</tag>
+        <tag>目标检测</tag>
       </tags>
   </entry>
   <entry>
@@ -115,7 +117,7 @@
 
 <a id="more"></a>
 
-<h1 id="简要概述一下Fast-RCNN测试时的检测流程？"><a href="#简要概述一下Fast-RCNN测试时的检测流程？" class="headerlink" title="简要概述一下Fast RCNN测试时的检测流程？"></a>简要概述一下Fast RCNN测试时的检测流程？</h1><ol>
+<h1 id="简述一下Fast-RCNN测试时的检测流程？"><a href="#简述一下Fast-RCNN测试时的检测流程？" class="headerlink" title="简述一下Fast RCNN测试时的检测流程？"></a>简述一下Fast RCNN测试时的检测流程？</h1><ol>
 <li>调整输入图像尺寸为16的倍数。</li>
 <li>使用CNN（以VGG16为例）提取特征图。</li>
 <li>RPN（Region Proposal Network）在特征图上生成一系列anchor box，并通过两个分支分别判断anchor box是否包含物体以及粗略位置修正。</li>
@@ -156,6 +158,7 @@
       <tags>
         <tag>深度学习</tag>
         <tag>经典网络</tag>
+        <tag>目标检测</tag>
       </tags>
   </entry>
   <entry>
@@ -216,6 +219,274 @@ drwxr-xr-x  8 dong dong     4096 7月  13 23:46  Clover</code></pre><p>每一个
       </categories>
       <tags>
         <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>操作系统知识——进程线程</title>
+    <url>/2020/07/16/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B9%8B%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B/</url>
+    <content><![CDATA[<p>本文总结了进程与线程的基础知识。</p>
+<a id="more"></a>
+
+<h1 id="并发与并行"><a href="#并发与并行" class="headerlink" title="并发与并行"></a>并发与并行</h1><p>并发是指一段时间内在单核CPU上交替运行多个程序。</p>
+<p>并行是指同一时刻在多核CPU上同时运行多个程序。</p>
+<h1 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h1><p>进程是<strong>资源分配</strong>的基本单位。</p>
+<p>进程间数据不共享，创建和销毁的开销较大。</p>
+<h1 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h1><p>线程时<strong>独立调度</strong>的基本单位。</p>
+<p>一个进程至少有一个线程，称为主线程，其他为子线程。</p>
+<p>一个进程中可以有多个线程，它们共享进程资源。</p>
+<h1 id="孤儿进程"><a href="#孤儿进程" class="headerlink" title="孤儿进程"></a>孤儿进程</h1><p>一个父进程退出，而它的子进程还在运行，这些子进程称为孤儿进程。孤儿进程将被init进程（进程号为1）所收养，并由init进程对它们完成状态收集工作。孤儿进程不会对系统造成伤害。</p>
+<h1 id="僵尸进程"><a href="#僵尸进程" class="headerlink" title="僵尸进程"></a>僵尸进程</h1><p>如果子进程退出，而父进程没有调用wait()或waitpid()，那么子进程的进程描述符仍然存在系统中，这些子进程称为僵尸进程。系统能使用的进程号是有限的，若僵尸进程过多，可能导致系统无法产生新的进程。通过杀死父进程可以将僵尸进程变成孤儿进程，从而被init进程收养，只有init进程就会释放所有僵尸进程占有的资源，从而结束僵尸进程。</p>
+<h1 id="进程状态的切换"><a href="#进程状态的切换" class="headerlink" title="进程状态的切换"></a>进程状态的切换</h1><p>进程有三个状态：</p>
+<ul>
+<li>就绪（ready）：等待被调度（等待CPU时间）</li>
+<li>运行（running）</li>
+<li>阻塞（waiting）：等待资源（除CPU时间外的资源）</li>
+</ul>
+<p>就绪和运行可以相互切换，其他都是单向切换。</p>
+<h1 id="进程调度算法"><a href="#进程调度算法" class="headerlink" title="进程调度算法"></a>进程调度算法</h1><h2 id="批处理系统"><a href="#批处理系统" class="headerlink" title="批处理系统"></a>批处理系统</h2><ol>
+<li><p><strong>先来先服务：</strong>非抢占式，有利于长作业，不利于短作业。</p>
+</li>
+<li><p><strong>短作业优先：</strong>非抢占式，长作业可能永远得不到调度。</p>
+</li>
+<li><p><strong>最短剩余时间优先：</strong>抢占式，按剩余运行时间的顺序进行调度。</p>
+</li>
+</ol>
+<h2 id="交互式系统"><a href="#交互式系统" class="headerlink" title="交互式系统"></a>交互式系统</h2><ol>
+<li><strong>时间片轮转：</strong>所有进程按先来先服务的原则排成队列，每次调度时把一个时间片分配给队首进程，队首进程时间片结束后被送到队尾。</li>
+<li><strong>优先级调度：</strong>每个进程分配一个优先级，按优先级进行调度，为了避免低优先级进程永远得不到调度，可以随时间增加等待进程的优先级。</li>
+<li><strong>多级反馈队列：</strong>设置多个时间片大小不同的队列，进程若在第一个队列结束时间片后未执行完毕，则被送到下一个队列末尾。</li>
+</ol>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p><a href="https://cyc2018.github.io/CS-Notes/#/" target="_blank" rel="noopener">CS-Notes</a></p>
+]]></content>
+      <categories>
+        <category>操作系统</category>
+      </categories>
+      <tags>
+        <tag>操作系统</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>字节跳动安卓客户端面试题集</title>
+    <url>/2020/07/17/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%9D%A2%E8%AF%95%E9%A2%98%E9%9B%86/</url>
+    <content><![CDATA[<p>本文搜集整理了网络上关于字节跳动客户端面试题。</p>
+<a id="more"></a>
+
+<ul>
+<li><input disabled type="checkbox"> 线程同步的方式</li>
+<li><input disabled type="checkbox"> 死锁产生的条件？如何避免和解决？</li>
+<li><input disabled type="checkbox"> 为什么有了进程还要线程？</li>
+<li><input disabled type="checkbox"> HTTP和HTTPS的区别？HTTPS连接建立的过程？如果服务端也需要客户端传证书，应该是连接建立的哪个阶段？HTTP用的是TCP还是UDP？</li>
+<li><input disabled type="checkbox"> TCP和UDP的区别？应用场景？</li>
+<li><input disabled type="checkbox"> TCP的拥塞控制</li>
+<li><input disabled type="checkbox"> 分段和分页</li>
+<li><input disabled type="checkbox"> 进程调度算法</li>
+<li><input disabled type="checkbox"> 进程线程的区别与联系？进程之间的通信方式？线程之间通信方式？</li>
+<li><input disabled type="checkbox"> 三次握手</li>
+<li><input disabled type="checkbox"> SSL握手过程？第一次握手如何加密？第二次握手如何加密？对称加密？非对称加密？加密过程？</li>
+<li><input disabled type="checkbox"> 信号量与互斥量的区别？</li>
+<li><input disabled type="checkbox"> wait()和sleep()的区别？</li>
+<li><input disabled type="checkbox"> 设计模式？</li>
+<li><input disabled type="checkbox"> JAVA：LinkedList与ArrayList？HashMap扩容？ConcurrentHashMap？创建对象的几种方式？</li>
+<li><input disabled type="checkbox"> JVM内存模型？</li>
+<li><input disabled type="checkbox"> 活动的生命周期？活动的启动模式？Handler源码？</li>
+<li><input disabled type="checkbox"> 在浏览器输入网址敲回车后经历了什么？a)三次握手；b)https的加密流程；c)对称加密与非对称加密原理（RSA、AES）</li>
+<li><input disabled type="checkbox"> DNS原理</li>
+</ul>
+]]></content>
+      <categories>
+        <category>面试</category>
+      </categories>
+      <tags>
+        <tag>面试</tag>
+        <tag>字节跳动</tag>
+        <tag>JAVA</tag>
+        <tag>安卓客户端</tag>
+        <tag>题集</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>计算机网络——网络层</title>
+    <url>/2020/07/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E7%BD%91%E7%BB%9C%E5%B1%82/</url>
+    <content><![CDATA[<p>本文整理计算机网络中运输层的主要知识点。</p>
+<a id="more"></a>
+
+<p><img src="/2020/07/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E7%BD%91%E7%BB%9C%E5%B1%82/6.png" alt></p>
+<p>网络层向上只提供尽最大努力交付的数据报服务，不提供服务质量的承诺。</p>
+<h1 id="网际协议IP"><a href="#网际协议IP" class="headerlink" title="网际协议IP"></a>网际协议IP</h1><p>ARP协议：从网络层使用的IP地址，解析出数据链路层使用的硬件地址。</p>
+<h2 id="IP数据报的格式"><a href="#IP数据报的格式" class="headerlink" title="IP数据报的格式"></a>IP数据报的格式</h2><p><img src="/2020/07/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E7%BD%91%E7%BB%9C%E5%B1%82/1.png" alt></p>
+<p>20字节固定长度：</p>
+<ul>
+<li>版本：占4位，指IP协议的版本，通信双方版本必须一致。IPv4或IPv6。</li>
+<li>首部长度：占4位，单位是4字节，表示首部最大长度为60字节，当首部长度不是4字节的整数倍时，必须利用填充字段加以填充。</li>
+<li>区分服务：占1字节，用来获得更好的服务，一般不用。</li>
+<li>总长度：占2字节，指首部和数据的总长度。</li>
+<li>标识：占2字节，在数据报过长而发生分片时，相同数据报的不同分片具有相同标识符。</li>
+<li>标志：占3位，第一位为1表示后面还有分片，第二位为0表示不能分片，第三位无意义。</li>
+<li>片偏移：占13位，单位为8字节，表示分片在原数据报中的相对位置。</li>
+<li>生存时间：占1字节，数据报在网络中的寿命。</li>
+<li>协议：占1字节，指出此数据报携带的数据是使用何种协议。</li>
+<li>首部检验和：占2字节，检验数据报的首部。</li>
+<li>原地址：占4字节。</li>
+<li>目的地址：占4字节。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>计算机网络</tag>
+        <tag>网络层</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>计算机网络——运输层协议</title>
+    <url>/2020/07/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E8%BF%90%E8%BE%93%E5%B1%82/</url>
+    <content><![CDATA[<p>本文整理计算机网络中运输层的主要知识点。</p>
+<a id="more"></a>
+
+<p><img src="/2020/07/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E8%BF%90%E8%BE%93%E5%B1%82/6.png" alt></p>
+<p>TCP和UDP是TCP/IP运输层的两个主要协议。</p>
+<h1 id="用户数据报协议UDP（User-Datagram-Protocol）"><a href="#用户数据报协议UDP（User-Datagram-Protocol）" class="headerlink" title="用户数据报协议UDP（User Datagram Protocol）"></a>用户数据报协议UDP（User Datagram Protocol）</h1><ol>
+<li><p>传送数据前不需要建立连接。</p>
+</li>
+<li><p>尽最大努力交付。</p>
+</li>
+<li><p>面向报文，对应用程序交下来的报文，在添加UDP首部后就向下交付给IP层。</p>
+</li>
+<li><p>没有拥塞控制。</p>
+</li>
+<li><p>支持一对一、一对多、多对一、多对多通信。</p>
+</li>
+<li><p>8字节首部，开销小：源端口、目的端口、长度、检验和，每个字段都是两个字节。</p>
+<p><img src="/2020/07/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E8%BF%90%E8%BE%93%E5%B1%82/1.png" alt></p>
+</li>
+</ol>
+<h1 id="传输控制协议TCP（Transmission-Control-Protocol）"><a href="#传输控制协议TCP（Transmission-Control-Protocol）" class="headerlink" title="传输控制协议TCP（Transmission Control Protocol）"></a>传输控制协议TCP（Transmission Control Protocol）</h1><ol>
+<li><p>传送数据前必须建立TCP连接。</p>
+</li>
+<li><p>每一条TCP连接只能是点对点（一对一）。</p>
+</li>
+<li><p>可靠交付。</p>
+</li>
+<li><p>全双工通信（双向同时通信）。</p>
+</li>
+<li><p>面向字节流。</p>
+</li>
+<li><p>最小20字节首部包括：</p>
+<p><img src="/2020/07/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E8%BF%90%E8%BE%93%E5%B1%82/2.png" alt></p>
+<ul>
+<li>源端口和目标端口：各占2字节。</li>
+<li>序号：占4字节，对字节流进行编号，如序号为301，表示第一个字节的编号为301，若携带数据长度为100字节，则下一个报文段的序号应该为401。4字节=32位，可对4GB数据进行编号。</li>
+<li>确认号：占4字节，期望收到下一个报文段的序号。如服务器正确收到客户的一个序号为501的报文段，携带数据长度为200字节，因此服务器期望下一个报文段的序号为701，即发给客户的确认报文段中确认号为701。</li>
+<li>数据偏移：占4位，指TCP首部的长度。单位是4字节，也就是说TCP首部最大长度为60字节。</li>
+<li>保留：占6位，保留，目前置0。</li>
+<li>紧急URG：占1位，为1时表示此报文段中有紧急数据，发送方应优先传送。</li>
+<li>确认ACK：占1位，为1时确认号字段有效，TCP连接建立后所有报文段必须把ACK置1。</li>
+<li>推送PSH：占1位，为1时接收方会尽快交付给接收进程。</li>
+<li>复位RST：占1位，RST=1表示连接中存在严重差错，必须重新建立连接，或用于拒绝非法报文，或拒绝打开一个连接。</li>
+<li>同步SYN：占1位，建立连接时用于同步序号。SYN=1，ACK=0表示连接请求报文段，若对方同意，则响应报文中SYN=1，ACK=1。</li>
+<li>终止FIN：占1位，用于释放一个连接。FIN=1表示此报文段的发送方要求释放连接。</li>
+<li>窗口：占2字节，告诉对方自己能接收的数据流字节长度。</li>
+</ul>
+</li>
+</ol>
+<h2 id="TCP的可靠传输"><a href="#TCP的可靠传输" class="headerlink" title="TCP的可靠传输"></a>TCP的可靠传输</h2><p>TCP使用超时重传来实现可靠传输，若在发送报文段后超时时间内没有收到确认，则重传这个报文段。</p>
+<h2 id="TCP的滑动窗口协议"><a href="#TCP的滑动窗口协议" class="headerlink" title="TCP的滑动窗口协议"></a>TCP的滑动窗口协议</h2><p>发送方和接收方各有一个窗口用于缓存数据。发送缓存用于暂时存放准备发送的数据和已发送而尚未确认的数据。接收缓存用于暂时存放按序到达但尚未被接收进程读取的数据和未按序到达的数据。</p>
+<h2 id="TCP的流量控制"><a href="#TCP的流量控制" class="headerlink" title="TCP的流量控制"></a>TCP的流量控制</h2><p>流量控制时为了控制发送方发送速率，保证接收方来得及接收。</p>
+<p>接收方可以通过确认报文中的窗口字段来控制发送方的窗口大小，从而影响发送方的发送速率。</p>
+<h2 id="TCP的拥塞控制方法"><a href="#TCP的拥塞控制方法" class="headerlink" title="TCP的拥塞控制方法"></a>TCP的拥塞控制方法</h2><p><img src="/2020/07/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E8%BF%90%E8%BE%93%E5%B1%82/3.png" alt></p>
+<ol>
+<li>慢开始：由小到大逐渐增大发送窗口（拥塞窗口），每收到一个确认，窗口长度（cwnd）×2，cwnd超过阈值ssthresh时，停止使用慢开始算法而改用拥塞避免算法（图中点①）。若出现超时，则设置ssthresh=cwnd/2，并重新执行慢开始算法（图中点②）。</li>
+<li>拥塞避免：让发送窗口缓慢地增大，每收到一个确认，把cwnd加1。</li>
+<li>快重传：接受方如果收到失序的报文段，要立即发出前一个报文段的重复确认，发送方只要一连收到3个重复确认，应立即执行快重传（图中点④），重新发送失序报文段。</li>
+<li>快恢复：若发送方一连收到3个重复确认，知道只是丢失了个别字段而不是堵塞，于是不重新启动慢开始算法，而是执行快恢复算法，调整ssthresh=cwnd/2，同时设置cwnd=cwnd/2，并开始执行拥塞避免算法（图中点⑤）。</li>
+</ol>
+<h2 id="TCP的连接"><a href="#TCP的连接" class="headerlink" title="TCP的连接"></a>TCP的连接</h2><p>TCP连接的端点为套接字（socket）或插口：</p>
+<p>$$ 套接字socket=（IP地址：端口号） $$</p>
+<p>每一条TCP连接由两个套接字确定。发起连接的进程称为客户（client），被动等待连接的进程称为服务器（server）。</p>
+<h3 id="TCP的连接建立（三次握手，三报文握手）"><a href="#TCP的连接建立（三次握手，三报文握手）" class="headerlink" title="TCP的连接建立（三次握手，三报文握手）"></a>TCP的连接建立（三次握手，三报文握手）</h3><p><img src="/2020/07/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E8%BF%90%E8%BE%93%E5%B1%82/4.png" alt></p>
+<p>如图所示，TCP建立连接时需要在客户和服务器之间交换三个TCP报文段（客户请求，服务器确认，客户确认）。</p>
+<ol>
+<li>首先服务器端处于监听状态，等待客户的连接请求。</li>
+<li>客户向服务器端发送连接请求报文。</li>
+<li>服务器收到连接请求报文，如果同意连接，则向客户发送连接确认报文。</li>
+<li>客户收到服务器的连接确认报文后，向服务器发出确认，且报文段可以携带数据。</li>
+<li>服务器收到确认后，建立连接。</li>
+</ol>
+<p>第三次握手的原因：防止失效的连接请求到达服务器，让服务器错误打开连接。若客户的某个连接请求在网络中滞留时间过长，客户会重新请求连接，但滞留的连接请求还是会到达服务器，如果不进行第三次握手，那么服务器会打开两个连接。进行第三次握手使得最终连接权在客户。</p>
+<h3 id="TCP的连接释放（四次挥手，四报文握手）"><a href="#TCP的连接释放（四次挥手，四报文握手）" class="headerlink" title="TCP的连接释放（四次挥手，四报文握手）"></a>TCP的连接释放（四次挥手，四报文握手）</h3><p><img src="/2020/07/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E8%BF%90%E8%BE%93%E5%B1%82/5.png" alt></p>
+<p>TCP连接释放过程如图所示（客户释放，服务器确认，服务器释放，客户确认）。</p>
+<ol>
+<li>客户的进程向其TCP发出连接释放报文段，并停止发送数据，主动关闭TCP连接。</li>
+<li>客户把连接释放报文段的FIN置1并发送给服务器，客户进入终止等待1状态，等待服务器的确认。</li>
+<li>服务器收到连接释放报文段后发出确认，然后进入关闭等待状态。服务器通知进程，此时客户到服务器的连接释放了，但是服务器到客户的连接还未关闭。</li>
+<li>客户收到服务器的确认后，进入终止等待2状态，继续等待服务器的连接释放报文。</li>
+<li>若服务器没有要向客户端发送的数据，则向客户发出连接释放报文，必须使FIN=1，进入最后确认状态。</li>
+<li>客户收到服务器的连接释放报文后，对此发出确认，进入时间等待状态，等待2MSL（最长报文寿命）后释放连接。</li>
+<li>服务器收到确认报文后释放连接。</li>
+</ol>
+<p>客户等待2MSL的原因：</p>
+<ol>
+<li>为了保证客户的最后一个确认报文到达服务器，如果服务器没收到客户的确认报文，则会再次发送连接释放报文。</li>
+<li>为了保证本次连接的所有报文已经从网络中消失。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>计算机网络</tag>
+        <tag>运输层</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>模拟面试问答之经典网络模型四：YOLOv1</title>
+    <url>/2020/07/17/yolov1/</url>
+    <content><![CDATA[<p>本文总结了面试过程中可能问到的关于Fast RCNN模型的一些问题。</p>
+<p><a href="https://arxiv.org/abs/1506.02640" target="_blank" rel="noopener">论文地址：You Only Look Once: Unified, Real-Time Object Detection</a></p>
+<p><img src="/2020/07/17/yolov1/1.png" alt></p>
+<center><b>图1 YOLOv1网络结构图</b></center>
+
+<a id="more"></a>
+
+<h1 id="简述一下YOLOv1测试时的检测流程？"><a href="#简述一下YOLOv1测试时的检测流程？" class="headerlink" title="简述一下YOLOv1测试时的检测流程？"></a>简述一下YOLOv1测试时的检测流程？</h1><ol>
+<li>调整输入图像尺寸为448×448×3。</li>
+<li>经过24层卷积输出7×7×1024特征图（64×下采样），再通过一个全连接层输出4096维特征，最后经过一个全连接层输出S×S×30的特征图。</li>
+<li>通过NMS筛选最终结果，NMS的<code>score=某个类别的概率×置信度</code>。</li>
+</ol>
+<h1 id="YOLOv1的创新点有哪些？"><a href="#YOLOv1的创新点有哪些？" class="headerlink" title="YOLOv1的创新点有哪些？"></a>YOLOv1的创新点有哪些？</h1><ol>
+<li>将检测问题转化为回归问题，同时输出预测框的坐标信息和类别概率。</li>
+<li>没有提取候选区域的过程。</li>
+</ol>
+<h1 id="网络最后输出7×7×30特征图的含义？"><a href="#网络最后输出7×7×30特征图的含义？" class="headerlink" title="网络最后输出7×7×30特征图的含义？"></a>网络最后输出7×7×30特征图的含义？</h1><p>YOLOv1将图片划分为7×7个格子，每个格子负责预测中心点落在该格子区域的物体，每个格子预测两个矩形框。每个格子最后输出30个预测值，包括两个矩形框的位置信息<code>(x, y, w, h)</code>和置信度，以及20个类别的概率。</p>
+<h1 id="YOLOv1是如何训练的？"><a href="#YOLOv1是如何训练的？" class="headerlink" title="YOLOv1是如何训练的？"></a>YOLOv1是如何训练的？</h1><ol>
+<li><p>在ImageNet上对前20个卷积层进行预训练，具体地，训练时输入尺寸为224×224，网络结构为前20个卷积层+平均池化层+1000全连接层。</p>
+</li>
+<li><p>添加4个卷积层和两个全连接层，第一个全连接层后添加一个0.5的dropout层。输入尺寸为448×448，激活函数采用Leaky-ReLU（最后一层使用线性激活函数），优化方法采用0.9的Momentum，数据增强采用随机缩放，随机截取，随机调整曝光度和饱和度。</p>
+</li>
+<li><p>Loss函数由五个平方和误差（L2损失）组成：</p>
+<p><img src="/2020/07/17/yolov1/2.png" alt></p>
+<p>其中$\lambda_{coord}=5$，$\lambda_{noobj}=0.5$，由于含有物体的格子较少，因此加大含有物体的格子的损失贡献。</p>
+<ul>
+<li>第一行为与ground-truth的IoU较大的预测框的中心点坐标损失；</li>
+<li>第二行为与ground-truth的IoU较大的预测框的宽高损失，取根号是为了消除大尺寸框与小尺寸框之间的差异；</li>
+<li>第三行和第四行是两个预测框的置信度损失，若格子不含物体则置信度为0，否则为IoU；</li>
+<li>第五行为格子的类别损失。</li>
+</ul>
+<p>对于有物体的格子，需要计算分类损失，两个框的置信度损失，IoU较大的框的位置损失。</p>
+<p>对于没物体的格子，只需要计算两个框的置信度损失。</p>
+</li>
+</ol>
+<h1 id="YOLOv1回归的坐标值是什么含义？"><a href="#YOLOv1回归的坐标值是什么含义？" class="headerlink" title="YOLOv1回归的坐标值是什么含义？"></a>YOLOv1回归的坐标值是什么含义？</h1><p>$(x,y)$是格子左上角坐标的偏移值（0-1），$(w,h)$预测的是预测框的宽高与原始图像宽高的比值（0-1）。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>YOLOv1具有运行速度快，背景误检率等优点，但由于其设置，每个格子最多只能检测一个物体，导致易漏检中心距离近的物体，召回率低，位置准确性较差。</p>
+]]></content>
+      <categories>
+        <category>面试</category>
+      </categories>
+      <tags>
+        <tag>深度学习</tag>
+        <tag>经典网络</tag>
+        <tag>目标检测</tag>
       </tags>
   </entry>
 </search>

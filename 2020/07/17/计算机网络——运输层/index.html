@@ -44,25 +44,28 @@
   };
 </script>
 
-  <meta name="description" content="本文总结了面试过程中可能问到的关于RCNN模型的一些问题。 论文地址：Rich Feature Hierarchies for Accurate Object Detection and Semantic Segmentation 图1 RCNN网络结构图">
+  <meta name="description" content="本文整理计算机网络中运输层的主要知识点。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="模拟面试问答之经典网络模型一：RCNN">
-<meta property="og:url" content="http://djsfff.github.io/2020/06/13/RCNN/index.html">
+<meta property="og:title" content="计算机网络——运输层协议">
+<meta property="og:url" content="http://djsfff.github.io/2020/07/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E8%BF%90%E8%BE%93%E5%B1%82/index.html">
 <meta property="og:site_name" content="Clover">
-<meta property="og:description" content="本文总结了面试过程中可能问到的关于RCNN模型的一些问题。 论文地址：Rich Feature Hierarchies for Accurate Object Detection and Semantic Segmentation 图1 RCNN网络结构图">
+<meta property="og:description" content="本文整理计算机网络中运输层的主要知识点。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://djsfff.github.io/2020/06/13/RCNN/1.png">
-<meta property="og:image" content="http://djsfff.github.io/2020/06/13/RCNN/2.jpg">
-<meta property="article:published_time" content="2020-06-13T10:55:11.000Z">
-<meta property="article:modified_time" content="2020-07-17T12:11:46.198Z">
+<meta property="og:image" content="http://djsfff.github.io/2020/07/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E8%BF%90%E8%BE%93%E5%B1%82/6.png">
+<meta property="og:image" content="http://djsfff.github.io/2020/07/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E8%BF%90%E8%BE%93%E5%B1%82/1.png">
+<meta property="og:image" content="http://djsfff.github.io/2020/07/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E8%BF%90%E8%BE%93%E5%B1%82/2.png">
+<meta property="og:image" content="http://djsfff.github.io/2020/07/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E8%BF%90%E8%BE%93%E5%B1%82/3.png">
+<meta property="og:image" content="http://djsfff.github.io/2020/07/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E8%BF%90%E8%BE%93%E5%B1%82/4.png">
+<meta property="og:image" content="http://djsfff.github.io/2020/07/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E8%BF%90%E8%BE%93%E5%B1%82/5.png">
+<meta property="article:published_time" content="2020-07-16T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-07-17T10:36:21.146Z">
 <meta property="article:author" content="Clover">
-<meta property="article:tag" content="深度学习">
-<meta property="article:tag" content="经典网络">
-<meta property="article:tag" content="目标检测">
+<meta property="article:tag" content="计算机网络">
+<meta property="article:tag" content="运输层">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://djsfff.github.io/2020/06/13/RCNN/1.png">
+<meta name="twitter:image" content="http://djsfff.github.io/2020/07/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E8%BF%90%E8%BE%93%E5%B1%82/6.png">
 
-<link rel="canonical" href="http://djsfff.github.io/2020/06/13/RCNN/">
+<link rel="canonical" href="http://djsfff.github.io/2020/07/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E8%BF%90%E8%BE%93%E5%B1%82/">
 
 
 <script id="page-configurations">
@@ -74,7 +77,7 @@
   };
 </script>
 
-  <title>模拟面试问答之经典网络模型一：RCNN | Clover</title>
+  <title>计算机网络——运输层协议 | Clover</title>
   
 
 
@@ -227,7 +230,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://djsfff.github.io/2020/06/13/RCNN/">
+    <link itemprop="mainEntityOfPage" href="http://djsfff.github.io/2020/07/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E8%BF%90%E8%BE%93%E5%B1%82/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -240,7 +243,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          模拟面试问答之经典网络模型一：RCNN
+          计算机网络——运输层协议
         </h2>
 
         <div class="post-meta">
@@ -250,7 +253,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-06-13 18:55:11" itemprop="dateCreated datePublished" datetime="2020-06-13T18:55:11+08:00">2020-06-13</time>
+              <time title="创建时间：2020-07-17 00:00:00" itemprop="dateCreated datePublished" datetime="2020-07-17T00:00:00+08:00">2020-07-17</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -258,8 +261,8 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E9%9D%A2%E8%AF%95/" itemprop="url" rel="index">
-                    <span itemprop="name">面试</span>
+                  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机网络</span>
                   </a>
                 </span>
             </span>
@@ -282,58 +285,94 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>本文总结了面试过程中可能问到的关于RCNN模型的一些问题。</p>
-<p><a href="https://arxiv.org/abs/1311.2524" target="_blank" rel="noopener">论文地址：Rich Feature Hierarchies for Accurate Object Detection and Semantic Segmentation</a><br><img src="/2020/06/13/RCNN/1.png" alt="RCNN网络结构"></p>
-<center><b>图1 RCNN网络结构图</b></center>
-
+        <p>本文整理计算机网络中运输层的主要知识点。</p>
 <a id="more"></a>
 
-<h1 id="简述一下RCNN测试时的检测流程？"><a href="#简述一下RCNN测试时的检测流程？" class="headerlink" title="简述一下RCNN测试时的检测流程？"></a>简述一下RCNN测试时的检测流程？</h1><ol>
-<li>使用Selective Search在输入图像上提取约2000个候选区域。</li>
-<li>缩放每个候选区域到固定尺寸大小，227×227。</li>
-<li>将每个候选区域分别输入CNN网络提取特征。</li>
-<li>使用二分类SVM分别对每个候选区域进行分类。</li>
-<li>对每个类别进行NMS（非极大抑制）。</li>
-<li>使用线性回归器分别修正每个候选区域的位置。</li>
+<p><img src="/2020/07/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E8%BF%90%E8%BE%93%E5%B1%82/6.png" alt></p>
+<p>TCP和UDP是TCP/IP运输层的两个主要协议。</p>
+<h1 id="用户数据报协议UDP（User-Datagram-Protocol）"><a href="#用户数据报协议UDP（User-Datagram-Protocol）" class="headerlink" title="用户数据报协议UDP（User Datagram Protocol）"></a>用户数据报协议UDP（User Datagram Protocol）</h1><ol>
+<li><p>传送数据前不需要建立连接。</p>
+</li>
+<li><p>尽最大努力交付。</p>
+</li>
+<li><p>面向报文，对应用程序交下来的报文，在添加UDP首部后就向下交付给IP层。</p>
+</li>
+<li><p>没有拥塞控制。</p>
+</li>
+<li><p>支持一对一、一对多、多对一、多对多通信。</p>
+</li>
+<li><p>8字节首部，开销小：源端口、目的端口、长度、检验和，每个字段都是两个字节。</p>
+<p><img src="/2020/07/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E8%BF%90%E8%BE%93%E5%B1%82/1.png" alt></p>
+</li>
 </ol>
-<h1 id="RCNN是如何对候选区域进行缩放的？"><a href="#RCNN是如何对候选区域进行缩放的？" class="headerlink" title="RCNN是如何对候选区域进行缩放的？"></a>RCNN是如何对候选区域进行缩放的？</h1><p>各向异性缩放且padding=16。</p>
-<h1 id="分别介绍一下各向异性和各项同性的缩放？"><a href="#分别介绍一下各向异性和各项同性的缩放？" class="headerlink" title="分别介绍一下各向异性和各项同性的缩放？"></a>分别介绍一下各向异性和各项同性的缩放？</h1><ol>
-<li>各向异性直接把图像的宽高拉伸到目标尺寸。</li>
-<li>各项同性先按原图像比例进行缩放，然后在再填充到目标价尺寸。</li>
+<h1 id="传输控制协议TCP（Transmission-Control-Protocol）"><a href="#传输控制协议TCP（Transmission-Control-Protocol）" class="headerlink" title="传输控制协议TCP（Transmission Control Protocol）"></a>传输控制协议TCP（Transmission Control Protocol）</h1><ol>
+<li><p>传送数据前必须建立TCP连接。</p>
+</li>
+<li><p>每一条TCP连接只能是点对点（一对一）。</p>
+</li>
+<li><p>可靠交付。</p>
+</li>
+<li><p>全双工通信（双向同时通信）。</p>
+</li>
+<li><p>面向字节流。</p>
+</li>
+<li><p>最小20字节首部包括：</p>
+<p><img src="/2020/07/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E8%BF%90%E8%BE%93%E5%B1%82/2.png" alt></p>
+<ul>
+<li>源端口和目标端口：各占2字节。</li>
+<li>序号：占4字节，对字节流进行编号，如序号为301，表示第一个字节的编号为301，若携带数据长度为100字节，则下一个报文段的序号应该为401。4字节=32位，可对4GB数据进行编号。</li>
+<li>确认号：占4字节，期望收到下一个报文段的序号。如服务器正确收到客户的一个序号为501的报文段，携带数据长度为200字节，因此服务器期望下一个报文段的序号为701，即发给客户的确认报文段中确认号为701。</li>
+<li>数据偏移：占4位，指TCP首部的长度。单位是4字节，也就是说TCP首部最大长度为60字节。</li>
+<li>保留：占6位，保留，目前置0。</li>
+<li>紧急URG：占1位，为1时表示此报文段中有紧急数据，发送方应优先传送。</li>
+<li>确认ACK：占1位，为1时确认号字段有效，TCP连接建立后所有报文段必须把ACK置1。</li>
+<li>推送PSH：占1位，为1时接收方会尽快交付给接收进程。</li>
+<li>复位RST：占1位，RST=1表示连接中存在严重差错，必须重新建立连接，或用于拒绝非法报文，或拒绝打开一个连接。</li>
+<li>同步SYN：占1位，建立连接时用于同步序号。SYN=1，ACK=0表示连接请求报文段，若对方同意，则响应报文中SYN=1，ACK=1。</li>
+<li>终止FIN：占1位，用于释放一个连接。FIN=1表示此报文段的发送方要求释放连接。</li>
+<li>窗口：占2字节，告诉对方自己能接收的数据流字节长度。</li>
+</ul>
+</li>
 </ol>
-<h1 id="RCNN的CNN网络是如何训练的？"><a href="#RCNN的CNN网络是如何训练的？" class="headerlink" title="RCNN的CNN网络是如何训练的？"></a>RCNN的CNN网络是如何训练的？</h1><p><img src="/2020/06/13/RCNN/2.jpg" alt="AlexNet网络结构"></p>
-<center><b>图2 AlexNet网络结构图</b></center>
-
+<h2 id="TCP的可靠传输"><a href="#TCP的可靠传输" class="headerlink" title="TCP的可靠传输"></a>TCP的可靠传输</h2><p>TCP使用超时重传来实现可靠传输，若在发送报文段后超时时间内没有收到确认，则重传这个报文段。</p>
+<h2 id="TCP的滑动窗口协议"><a href="#TCP的滑动窗口协议" class="headerlink" title="TCP的滑动窗口协议"></a>TCP的滑动窗口协议</h2><p>发送方和接收方各有一个窗口用于缓存数据。发送缓存用于暂时存放准备发送的数据和已发送而尚未确认的数据。接收缓存用于暂时存放按序到达但尚未被接收进程读取的数据和未按序到达的数据。</p>
+<h2 id="TCP的流量控制"><a href="#TCP的流量控制" class="headerlink" title="TCP的流量控制"></a>TCP的流量控制</h2><p>流量控制时为了控制发送方发送速率，保证接收方来得及接收。</p>
+<p>接收方可以通过确认报文中的窗口字段来控制发送方的窗口大小，从而影响发送方的发送速率。</p>
+<h2 id="TCP的拥塞控制方法"><a href="#TCP的拥塞控制方法" class="headerlink" title="TCP的拥塞控制方法"></a>TCP的拥塞控制方法</h2><p><img src="/2020/07/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E8%BF%90%E8%BE%93%E5%B1%82/3.png" alt></p>
 <ol>
-<li>使用AlexNet(网络结构如<strong>图2</strong>所示)或其他主干网络（如VGG16），先在ILSVRC2012的图像分类数据集上进行预训练，最后一层输出维度为1000。</li>
-<li>将AlexNet最后的1000维Softmax层替换为随机初始化的20+1维Softmax层，其余层使用预训练得到的参数进行初始化，在PASCAL VOC数据集上对预训练后的AlexNet进行fine-tuning（微调）。</li>
-<li>Fine-tuning时，定义与ground-truth的IoU大于0.5的候选区域为正样本，否则为负样本（即背景样本），在每次迭代时，采样32个正样本和96个负样本组成一个128的mini-batch。</li>
+<li>慢开始：由小到大逐渐增大发送窗口（拥塞窗口），每收到一个确认，窗口长度（cwnd）×2，cwnd超过阈值ssthresh时，停止使用慢开始算法而改用拥塞避免算法（图中点①）。若出现超时，则设置ssthresh=cwnd/2，并重新执行慢开始算法（图中点②）。</li>
+<li>拥塞避免：让发送窗口缓慢地增大，每收到一个确认，把cwnd加1。</li>
+<li>快重传：接受方如果收到失序的报文段，要立即发出前一个报文段的重复确认，发送方只要一连收到3个重复确认，应立即执行快重传（图中点④），重新发送失序报文段。</li>
+<li>快恢复：若发送方一连收到3个重复确认，知道只是丢失了个别字段而不是堵塞，于是不重新启动慢开始算法，而是执行快恢复算法，调整ssthresh=cwnd/2，同时设置cwnd=cwnd/2，并开始执行拥塞避免算法（图中点⑤）。</li>
 </ol>
-<h1 id="RCNN的SVM分类器是如何训练的？"><a href="#RCNN的SVM分类器是如何训练的？" class="headerlink" title="RCNN的SVM分类器是如何训练的？"></a>RCNN的SVM分类器是如何训练的？</h1><ol>
-<li>共训练20个二分类SVM。</li>
-<li>使用fine-tuning训练后且去掉最后Softmax层的AlexNet提取候选区域的特征作为SVM的输入。</li>
-<li>定义IoU小于0.3的候选区域为负样本，并进行难负样本挖掘，完整包含物体（IoU=1）的候选区域为正样本，其余样本舍弃。</li>
+<h2 id="TCP的连接"><a href="#TCP的连接" class="headerlink" title="TCP的连接"></a>TCP的连接</h2><p>TCP连接的端点为套接字（socket）或插口：</p>
+<p>$$ 套接字socket=（IP地址：端口号） $$</p>
+<p>每一条TCP连接由两个套接字确定。发起连接的进程称为客户（client），被动等待连接的进程称为服务器（server）。</p>
+<h3 id="TCP的连接建立（三次握手，三报文握手）"><a href="#TCP的连接建立（三次握手，三报文握手）" class="headerlink" title="TCP的连接建立（三次握手，三报文握手）"></a>TCP的连接建立（三次握手，三报文握手）</h3><p><img src="/2020/07/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E8%BF%90%E8%BE%93%E5%B1%82/4.png" alt></p>
+<p>如图所示，TCP建立连接时需要在客户和服务器之间交换三个TCP报文段（客户请求，服务器确认，客户确认）。</p>
+<ol>
+<li>首先服务器端处于监听状态，等待客户的连接请求。</li>
+<li>客户向服务器端发送连接请求报文。</li>
+<li>服务器收到连接请求报文，如果同意连接，则向客户发送连接确认报文。</li>
+<li>客户收到服务器的连接确认报文后，向服务器发出确认，且报文段可以携带数据。</li>
+<li>服务器收到确认后，建立连接。</li>
 </ol>
-<h1 id="RCNN的线性回归器是如何训练的？"><a href="#RCNN的线性回归器是如何训练的？" class="headerlink" title="RCNN的线性回归器是如何训练的？"></a>RCNN的线性回归器是如何训练的？</h1><ol>
-<li>共训练20个回归器，正则项系数$\lambda$=10000。</li>
-<li>输入为AlexNet的第一个全连接层的4096维输出（这里有点问题，论文里面说的是Pool 5，而我理解的Pool 5的输出时6×6×256的），输出为中心点坐标的平移量和宽高的缩放值。</li>
-<li>定义IoU大于0.6的样本作为正样本用于训练。</li>
+<p>第三次握手的原因：防止失效的连接请求到达服务器，让服务器错误打开连接。若客户的某个连接请求在网络中滞留时间过长，客户会重新请求连接，但滞留的连接请求还是会到达服务器，如果不进行第三次握手，那么服务器会打开两个连接。进行第三次握手使得最终连接权在客户。</p>
+<h3 id="TCP的连接释放（四次挥手，四报文握手）"><a href="#TCP的连接释放（四次挥手，四报文握手）" class="headerlink" title="TCP的连接释放（四次挥手，四报文握手）"></a>TCP的连接释放（四次挥手，四报文握手）</h3><p><img src="/2020/07/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E8%BF%90%E8%BE%93%E5%B1%82/5.png" alt></p>
+<p>TCP连接释放过程如图所示（客户释放，服务器确认，服务器释放，客户确认）。</p>
+<ol>
+<li>客户的进程向其TCP发出连接释放报文段，并停止发送数据，主动关闭TCP连接。</li>
+<li>客户把连接释放报文段的FIN置1并发送给服务器，客户进入终止等待1状态，等待服务器的确认。</li>
+<li>服务器收到连接释放报文段后发出确认，然后进入关闭等待状态。服务器通知进程，此时客户到服务器的连接释放了，但是服务器到客户的连接还未关闭。</li>
+<li>客户收到服务器的确认后，进入终止等待2状态，继续等待服务器的连接释放报文。</li>
+<li>若服务器没有要向客户端发送的数据，则向客户发出连接释放报文，必须使FIN=1，进入最后确认状态。</li>
+<li>客户收到服务器的连接释放报文后，对此发出确认，进入时间等待状态，等待2MSL（最长报文寿命）后释放连接。</li>
+<li>服务器收到确认报文后释放连接。</li>
 </ol>
-<h1 id="Fine-tuning后的AlexNet的输出为21维，已经对各个候选区域进行了分类，为什么还要使用SVM进行分类呢？（或为什么不在AlexNet最后使用Softmax进行分类？）"><a href="#Fine-tuning后的AlexNet的输出为21维，已经对各个候选区域进行了分类，为什么还要使用SVM进行分类呢？（或为什么不在AlexNet最后使用Softmax进行分类？）" class="headerlink" title="Fine-tuning后的AlexNet的输出为21维，已经对各个候选区域进行了分类，为什么还要使用SVM进行分类呢？（或为什么不在AlexNet最后使用Softmax进行分类？）"></a>Fine-tuning后的AlexNet的输出为21维，已经对各个候选区域进行了分类，为什么还要使用SVM进行分类呢？（或为什么不在AlexNet最后使用Softmax进行分类？）</h1><ol>
-<li>对AlexNet进行fine-tuning时采用的IoU阈值较小，被分为正样本的候选区域可能只包含部分物体，分类精度较低。</li>
-<li>SVM训练时定义完全包含物体的候选区域才是正样本，分类精度较高。因此，使用SVM能够提高分类精度。</li>
-</ol>
-<h1 id="为什么fine-tuning训练时和SVM训练时的IoU阈值不一样？"><a href="#为什么fine-tuning训练时和SVM训练时的IoU阈值不一样？" class="headerlink" title="为什么fine-tuning训练时和SVM训练时的IoU阈值不一样？"></a>为什么fine-tuning训练时和SVM训练时的IoU阈值不一样？</h1><ol>
-<li>Fine-tuning训练时，若IoU阈值设置过高，则可用于的训练样本较少（正样本减少，负样本为正样本的三倍），并且此时AlexNet已进行预训练，易由于样本过少而产生过拟合。因此，设置0.5的IoU阈值只是为了增加可用于训练的样本数量，避免过拟合。  </li>
-<li>SVM训练时，为了达到进一步提高分类精度的目的，需要设置更为严格的正负样本分类规则。</li>
-</ol>
-<h1 id="回归器是如何进行边界框回归的？"><a href="#回归器是如何进行边界框回归的？" class="headerlink" title="回归器是如何进行边界框回归的？"></a>回归器是如何进行边界框回归的？</h1><h2 id="简答"><a href="#简答" class="headerlink" title="简答"></a>简答</h2><p>通过预测候选区域中心点坐标的平移量$\Delta x$，$\Delta y$和宽高的缩放值$S_w$，$S_h$来回归边界框。因此对于每个类别，需要4个回归器分别回归$\Delta x$，$\Delta y$，$S_w$，$S_h$，整个模型就包括20×4个回归器。</p>
-<h2 id="详细"><a href="#详细" class="headerlink" title="详细"></a>详细</h2><p>定义$P=(P_x,P_y,P_w,P_h)$表示候选区域的中心坐标和宽高，$G=(G_x,G_y,G_w,G_h)$表示ground-truth的中心坐标和宽高。预测$d_*(P)$（$*$表示$x$，$y$，$w$，$h$，下同）得到平移量$\Delta x=P_wd_x(P)$，$\Delta y=P_hd_y(P)$和缩放值$S_w=exp(d_w(P))$，$S_h=exp(d_h(P))$，目标是使变换后的P与G更接近。<br>定义$\widehat{G}=(\widehat{G}_x,\widehat{G}_y,\widehat{G}_w,\widehat{G}_h)$表示变换后的$P$，其中：<br>$$\widehat{G}_x=P_wd_x(P)+P_x$$<br>$$\widehat{G}_y=P_hd_y(P)+P_y$$<br>$$\widehat{G}_w=P_wexp(d_w(P))$$<br>$$\widehat{G}_h=P_hexp(d_h(P))$$<br>回归器的输入是AlexNet提取的候选区域特征，表示为$\phi(P)$，令$d_*(P)=w^T_*\Phi(P)$，$w_*$就是需要学习的线性变换参数了，可以得到：<br>$$w^T_x\Phi(P)=d_x(P)=(\widehat{G}_x-P_x)/P_w$$<br>$$w^T_y\Phi(P)=d_y(P)=(\widehat{G}_y-P_y)/P_h$$<br>$$w^T_w\Phi(P)=d_w(P)=log(\widehat{G}_w/P_w)$$<br>$$w^T_h\Phi(P)=d_h(P)=log(\widehat{G}_h/P_h)$$<br>定义$t_*$为：<br>$$t_x=(G_x-P_x)/P_w$$<br>$$t_y=(G_y-P_y)/P_h$$<br>$$t_w=log(G_w/P_w)$$<br>$$t_h=log(G_h/P_h)$$<br>目标是使P的映射$\widehat{G}$尽量接近$G$，通过以下优化损失函数求解$w_*$：<br>$$w_*=\underset{\widehat{w}_*}{argmin}\sum(t_*^i-\widehat{w}_*^T\phi(P^i))^2+\lambda&#124;&#124;\widehat{w}_*&#124;&#124;^2$$<br>可通过最小二乘法或梯度下降求解该问题。由此也可以看出，对于每个类别，需要4个回归器分别回归$\Delta x$，$\Delta y$，$S_w$，$S_h$，整个模型就包括20×4个回归器。</p>
-<h1 id="回归器为什么不直接预测平移量-Delta-x-和-Delta-y-的值，而是先预测-d-x-P-和-d-y-P-，然后分别乘以-P-w-和-P-h-，间接求出-Delta-x-和-Delta-y-？"><a href="#回归器为什么不直接预测平移量-Delta-x-和-Delta-y-的值，而是先预测-d-x-P-和-d-y-P-，然后分别乘以-P-w-和-P-h-，间接求出-Delta-x-和-Delta-y-？" class="headerlink" title="回归器为什么不直接预测平移量$\Delta x$和$\Delta y$的值，而是先预测$d_x(P)$和$d_y(P)$，然后分别乘以$P_w$和$P_h$，间接求出$\Delta x$和$\Delta y$？"></a>回归器为什么不直接预测平移量$\Delta x$和$\Delta y$的值，而是先预测$d_x(P)$和$d_y(P)$，然后分别乘以$P_w$和$P_h$，间接求出$\Delta x$和$\Delta y$？</h1><p>回归器的输入是候选区域的特征，而每个候选区域在提取特征后的大小时相同的，若是直接预测平移量$\Delta x$和$\Delta y$的值，那么对于任意大小的候选区域，都会得到相同平移量，这显然是有问题的。而分别乘候选区域的宽高$P_w$和$P_h$相当于进行归一化，即尺寸大的候选区域预测的平移量大，尺寸小的候选区域的平移量小。</p>
-<h1 id="回归器预测宽高的缩放值为什么要采用exp？"><a href="#回归器预测宽高的缩放值为什么要采用exp？" class="headerlink" title="回归器预测宽高的缩放值为什么要采用exp？"></a>回归器预测宽高的缩放值为什么要采用exp？</h1><p>保证预测值大于0.</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ol>
-<li>优点：RCNN引入CNN提取特征，取代手工设计特征，并提升了检测速度；采用了迁移学习的思想，先在大数据集上对模型进行预训练，然后在目标数据集上面进行fine-tuning。</li>
-<li>缺点：RCNN使用Selection Search提取2000个候选区域，不够精确；需要对每个候选区域单独提取特征，无法共享特征，且内存占用和耗时较大；训练过程分为三个阶段，繁琐且耗时较大。</li>
+<p>客户等待2MSL的原因：</p>
+<ol>
+<li>为了保证客户的最后一个确认报文到达服务器，如果服务器没收到客户的确认报文，则会再次发送连接释放报文。</li>
+<li>为了保证本次连接的所有报文已经从网络中消失。</li>
 </ol>
 
     </div>
@@ -344,9 +383,8 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag"># 深度学习</a>
-              <a href="/tags/%E7%BB%8F%E5%85%B8%E7%BD%91%E7%BB%9C/" rel="tag"># 经典网络</a>
-              <a href="/tags/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/" rel="tag"># 目标检测</a>
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag"># 计算机网络</a>
+              <a href="/tags/%E8%BF%90%E8%BE%93%E5%B1%82/" rel="tag"># 运输层</a>
           </div>
 
         
@@ -354,10 +392,13 @@
 
         
     <div class="post-nav">
-      <div class="post-nav-item"></div>
       <div class="post-nav-item">
-    <a href="/2020/07/01/FastRCNN/" rel="next" title="模拟面试问答之经典网络模型二：Fast RCNN">
-      模拟面试问答之经典网络模型二：Fast RCNN <i class="fa fa-chevron-right"></i>
+    <a href="/2020/07/16/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B9%8B%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B/" rel="prev" title="操作系统知识——进程线程">
+      <i class="fa fa-chevron-left"></i> 操作系统知识——进程线程
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/07/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E7%BD%91%E7%BB%9C%E5%B1%82/" rel="next" title="计算机网络——网络层">
+      计算机网络——网络层 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -423,7 +464,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简述一下RCNN测试时的检测流程？"><span class="nav-number">1.</span> <span class="nav-text">简述一下RCNN测试时的检测流程？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RCNN是如何对候选区域进行缩放的？"><span class="nav-number">2.</span> <span class="nav-text">RCNN是如何对候选区域进行缩放的？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分别介绍一下各向异性和各项同性的缩放？"><span class="nav-number">3.</span> <span class="nav-text">分别介绍一下各向异性和各项同性的缩放？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RCNN的CNN网络是如何训练的？"><span class="nav-number">4.</span> <span class="nav-text">RCNN的CNN网络是如何训练的？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RCNN的SVM分类器是如何训练的？"><span class="nav-number">5.</span> <span class="nav-text">RCNN的SVM分类器是如何训练的？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RCNN的线性回归器是如何训练的？"><span class="nav-number">6.</span> <span class="nav-text">RCNN的线性回归器是如何训练的？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Fine-tuning后的AlexNet的输出为21维，已经对各个候选区域进行了分类，为什么还要使用SVM进行分类呢？（或为什么不在AlexNet最后使用Softmax进行分类？）"><span class="nav-number">7.</span> <span class="nav-text">Fine-tuning后的AlexNet的输出为21维，已经对各个候选区域进行了分类，为什么还要使用SVM进行分类呢？（或为什么不在AlexNet最后使用Softmax进行分类？）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#为什么fine-tuning训练时和SVM训练时的IoU阈值不一样？"><span class="nav-number">8.</span> <span class="nav-text">为什么fine-tuning训练时和SVM训练时的IoU阈值不一样？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#回归器是如何进行边界框回归的？"><span class="nav-number">9.</span> <span class="nav-text">回归器是如何进行边界框回归的？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简答"><span class="nav-number">9.1.</span> <span class="nav-text">简答</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#详细"><span class="nav-number">9.2.</span> <span class="nav-text">详细</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#回归器为什么不直接预测平移量-Delta-x-和-Delta-y-的值，而是先预测-d-x-P-和-d-y-P-，然后分别乘以-P-w-和-P-h-，间接求出-Delta-x-和-Delta-y-？"><span class="nav-number">10.</span> <span class="nav-text">回归器为什么不直接预测平移量$\Delta x$和$\Delta y$的值，而是先预测$d_x(P)$和$d_y(P)$，然后分别乘以$P_w$和$P_h$，间接求出$\Delta x$和$\Delta y$？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#回归器预测宽高的缩放值为什么要采用exp？"><span class="nav-number">11.</span> <span class="nav-text">回归器预测宽高的缩放值为什么要采用exp？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">12.</span> <span class="nav-text">总结</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#用户数据报协议UDP（User-Datagram-Protocol）"><span class="nav-number">1.</span> <span class="nav-text">用户数据报协议UDP（User Datagram Protocol）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#传输控制协议TCP（Transmission-Control-Protocol）"><span class="nav-number">2.</span> <span class="nav-text">传输控制协议TCP（Transmission Control Protocol）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP的可靠传输"><span class="nav-number">2.1.</span> <span class="nav-text">TCP的可靠传输</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP的滑动窗口协议"><span class="nav-number">2.2.</span> <span class="nav-text">TCP的滑动窗口协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP的流量控制"><span class="nav-number">2.3.</span> <span class="nav-text">TCP的流量控制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP的拥塞控制方法"><span class="nav-number">2.4.</span> <span class="nav-text">TCP的拥塞控制方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP的连接"><span class="nav-number">2.5.</span> <span class="nav-text">TCP的连接</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP的连接建立（三次握手，三报文握手）"><span class="nav-number">2.5.1.</span> <span class="nav-text">TCP的连接建立（三次握手，三报文握手）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP的连接释放（四次挥手，四报文握手）"><span class="nav-number">2.5.2.</span> <span class="nav-text">TCP的连接释放（四次挥手，四报文握手）</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

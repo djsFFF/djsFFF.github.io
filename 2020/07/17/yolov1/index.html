@@ -44,19 +44,25 @@
   };
 </script>
 
-  <meta name="description" content="汝心安处即吾乡">
-<meta property="og:type" content="website">
-<meta property="og:title" content="分类">
-<meta property="og:url" content="http://djsfff.github.io/categories/index.html">
+  <meta name="description" content="本文总结了面试过程中可能问到的关于Fast RCNN模型的一些问题。 论文地址：You Only Look Once: Unified, Real-Time Object Detection  图1 YOLOv1网络结构图">
+<meta property="og:type" content="article">
+<meta property="og:title" content="模拟面试问答之经典网络模型四：YOLOv1">
+<meta property="og:url" content="http://djsfff.github.io/2020/07/17/yolov1/index.html">
 <meta property="og:site_name" content="Clover">
-<meta property="og:description" content="汝心安处即吾乡">
+<meta property="og:description" content="本文总结了面试过程中可能问到的关于Fast RCNN模型的一些问题。 论文地址：You Only Look Once: Unified, Real-Time Object Detection  图1 YOLOv1网络结构图">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-07-13T10:02:47.000Z">
-<meta property="article:modified_time" content="2020-07-13T10:07:26.945Z">
+<meta property="og:image" content="http://djsfff.github.io/2020/07/17/yolov1/1.png">
+<meta property="og:image" content="http://djsfff.github.io/2020/07/17/yolov1/2.png">
+<meta property="article:published_time" content="2020-07-17T11:58:54.000Z">
+<meta property="article:modified_time" content="2020-07-17T14:34:26.535Z">
 <meta property="article:author" content="Clover">
+<meta property="article:tag" content="深度学习">
+<meta property="article:tag" content="经典网络">
+<meta property="article:tag" content="目标检测">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://djsfff.github.io/2020/07/17/yolov1/1.png">
 
-<link rel="canonical" href="http://djsfff.github.io/categories/">
+<link rel="canonical" href="http://djsfff.github.io/2020/07/17/yolov1/">
 
 
 <script id="page-configurations">
@@ -64,12 +70,11 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: false
+    isPost: true
   };
 </script>
 
-  <title>分类 | Clover
-  </title>
+  <title>模拟面试问答之经典网络模型四：YOLOv1 | Clover</title>
   
 
 
@@ -213,57 +218,149 @@
       <div class="main-inner">
         <div class="content-wrap">
           
-  
-  
 
           <div class="content">
             
 
   <div class="posts-expand">
-    
-    
-    
-    <div class="post-block" lang="zh-CN">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://djsfff.github.io/2020/07/17/yolov1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Clover">
+      <meta itemprop="description" content="汝心安处即吾乡">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clover">
+    </span>
       <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          模拟面试问答之经典网络模型四：YOLOv1
+        </h2>
 
-<h2 class="post-title" itemprop="name headline">分类
-</h2>
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
 
-<div class="post-meta">
+              <time title="创建时间：2020-07-17 19:58:54" itemprop="dateCreated datePublished" datetime="2020-07-17T19:58:54+08:00">2020-07-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%9D%A2%E8%AF%95/" itemprop="url" rel="index">
+                    <span itemprop="name">面试</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>本文总结了面试过程中可能问到的关于Fast RCNN模型的一些问题。</p>
+<p><a href="https://arxiv.org/abs/1506.02640" target="_blank" rel="noopener">论文地址：You Only Look Once: Unified, Real-Time Object Detection</a></p>
+<p><img src="/2020/07/17/yolov1/1.png" alt></p>
+<center><b>图1 YOLOv1网络结构图</b></center>
+
+<a id="more"></a>
+
+<h1 id="简述一下YOLOv1测试时的检测流程？"><a href="#简述一下YOLOv1测试时的检测流程？" class="headerlink" title="简述一下YOLOv1测试时的检测流程？"></a>简述一下YOLOv1测试时的检测流程？</h1><ol>
+<li>调整输入图像尺寸为448×448×3。</li>
+<li>经过24层卷积输出7×7×1024特征图（64×下采样），再通过一个全连接层输出4096维特征，最后经过一个全连接层输出S×S×30的特征图。</li>
+<li>通过NMS筛选最终结果，NMS的<code>score=某个类别的概率×置信度</code>。</li>
+</ol>
+<h1 id="YOLOv1的创新点有哪些？"><a href="#YOLOv1的创新点有哪些？" class="headerlink" title="YOLOv1的创新点有哪些？"></a>YOLOv1的创新点有哪些？</h1><ol>
+<li>将检测问题转化为回归问题，同时输出预测框的坐标信息和类别概率。</li>
+<li>没有提取候选区域的过程。</li>
+</ol>
+<h1 id="网络最后输出7×7×30特征图的含义？"><a href="#网络最后输出7×7×30特征图的含义？" class="headerlink" title="网络最后输出7×7×30特征图的含义？"></a>网络最后输出7×7×30特征图的含义？</h1><p>YOLOv1将图片划分为7×7个格子，每个格子负责预测中心点落在该格子区域的物体，每个格子预测两个矩形框。每个格子最后输出30个预测值，包括两个矩形框的位置信息<code>(x, y, w, h)</code>和置信度，以及20个类别的概率。</p>
+<h1 id="YOLOv1是如何训练的？"><a href="#YOLOv1是如何训练的？" class="headerlink" title="YOLOv1是如何训练的？"></a>YOLOv1是如何训练的？</h1><ol>
+<li><p>在ImageNet上对前20个卷积层进行预训练，具体地，训练时输入尺寸为224×224，网络结构为前20个卷积层+平均池化层+1000全连接层。</p>
+</li>
+<li><p>添加4个卷积层和两个全连接层，第一个全连接层后添加一个0.5的dropout层。输入尺寸为448×448，激活函数采用Leaky-ReLU（最后一层使用线性激活函数），优化方法采用0.9的Momentum，数据增强采用随机缩放，随机截取，随机调整曝光度和饱和度。</p>
+</li>
+<li><p>Loss函数由五个平方和误差（L2损失）组成：</p>
+<p><img src="/2020/07/17/yolov1/2.png" alt></p>
+<p>其中$\lambda_{coord}=5$，$\lambda_{noobj}=0.5$，由于含有物体的格子较少，因此加大含有物体的格子的损失贡献。</p>
+<ul>
+<li>第一行为与ground-truth的IoU较大的预测框的中心点坐标损失；</li>
+<li>第二行为与ground-truth的IoU较大的预测框的宽高损失，取根号是为了消除大尺寸框与小尺寸框之间的差异；</li>
+<li>第三行和第四行是两个预测框的置信度损失，若格子不含物体则置信度为0，否则为IoU；</li>
+<li>第五行为格子的类别损失。</li>
+</ul>
+<p>对于有物体的格子，需要计算分类损失，两个框的置信度损失，IoU较大的框的位置损失。</p>
+<p>对于没物体的格子，只需要计算两个框的置信度损失。</p>
+</li>
+</ol>
+<h1 id="YOLOv1回归的坐标值是什么含义？"><a href="#YOLOv1回归的坐标值是什么含义？" class="headerlink" title="YOLOv1回归的坐标值是什么含义？"></a>YOLOv1回归的坐标值是什么含义？</h1><p>$(x,y)$是格子左上角坐标的偏移值（0-1），$(w,h)$预测的是预测框的宽高与原始图像宽高的比值（0-1）。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>YOLOv1具有运行速度快，背景误检率等优点，但由于其设置，每个格子最多只能检测一个物体，导致易漏检中心距离近的物体，召回率低，位置准确性较差。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag"># 深度学习</a>
+              <a href="/tags/%E7%BB%8F%E5%85%B8%E7%BD%91%E7%BB%9C/" rel="tag"># 经典网络</a>
+              <a href="/tags/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/" rel="tag"># 目标检测</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/07/17/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%9D%A2%E8%AF%95%E9%A2%98%E9%9B%86/" rel="prev" title="字节跳动安卓客户端面试题集">
+      <i class="fa fa-chevron-left"></i> 字节跳动安卓客户端面试题集
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
   
 
-</div>
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
-          <div class="category-all-page">
-            <div class="category-all-title">
-              目前共计 4 个分类
-            </div>
-            <div class="category-all">
-              <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux%E5%9F%BA%E7%A1%80/">Linux基础</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%9D%A2%E8%AF%95/">面试</a><span class="category-list-count">5</span></li></ul>
-            </div>
-          </div>
-        
-      </div>
-      
-      
-      
-    </div>
-    
-
-    
-    
-    
   </div>
 
 
           </div>
           
+    
+  <div class="comments">
+    <div id="lv-container" data-id="city" data-uid="MTAyMC8zODU3Mi8xNTEwMA=="></div>
+  </div>
+  
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -310,6 +407,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简述一下YOLOv1测试时的检测流程？"><span class="nav-number">1.</span> <span class="nav-text">简述一下YOLOv1测试时的检测流程？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#YOLOv1的创新点有哪些？"><span class="nav-number">2.</span> <span class="nav-text">YOLOv1的创新点有哪些？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#网络最后输出7×7×30特征图的含义？"><span class="nav-number">3.</span> <span class="nav-text">网络最后输出7×7×30特征图的含义？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#YOLOv1是如何训练的？"><span class="nav-number">4.</span> <span class="nav-text">YOLOv1是如何训练的？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#YOLOv1回归的坐标值是什么含义？"><span class="nav-number">5.</span> <span class="nav-text">YOLOv1回归的坐标值是什么含义？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -461,6 +559,54 @@
   
 
   
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
 
   
 
@@ -500,8 +646,23 @@
       
       new needShareButton('#needsharebutton-float', flOptions);
     
-  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </script>
 
+<script>
+NexT.utils.loadComments(document.querySelector('#lv-container'), () => {
+  // window.livereOptions = {
+  //   refer: location.pathname.replace(CONFIG.root, '').replace('index.html', '')
+  // };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+});
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 </body>
 </html>
