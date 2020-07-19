@@ -442,7 +442,7 @@ drwxr-xr-x  8 dong dong     4096 7月  13 23:46  Clover</code></pre><p>每一个
   <entry>
     <title>模拟面试问答之经典网络模型四：YOLOv1</title>
     <url>/2020/07/17/yolov1/</url>
-    <content><![CDATA[<p>本文总结了面试过程中可能问到的关于Fast RCNN模型的一些问题。</p>
+    <content><![CDATA[<p>本文总结了面试过程中可能问到的关于YOLOv1模型的一些问题。</p>
 <p><a href="https://arxiv.org/abs/1506.02640" target="_blank" rel="noopener">论文地址：You Only Look Once: Unified, Real-Time Object Detection</a></p>
 <p><img src="/2020/07/17/yolov1/1.png" alt></p>
 <center><b>图1 YOLOv1网络结构图</b></center>
@@ -451,7 +451,7 @@ drwxr-xr-x  8 dong dong     4096 7月  13 23:46  Clover</code></pre><p>每一个
 
 <h1 id="简述一下YOLOv1测试时的检测流程？"><a href="#简述一下YOLOv1测试时的检测流程？" class="headerlink" title="简述一下YOLOv1测试时的检测流程？"></a>简述一下YOLOv1测试时的检测流程？</h1><ol>
 <li>调整输入图像尺寸为448×448×3。</li>
-<li>经过24层卷积输出7×7×1024特征图（64×下采样），再通过一个全连接层输出4096维特征，最后经过一个全连接层输出S×S×30的特征图。</li>
+<li>经过24层卷积输出7×7×1024特征图（64×下采样），再通过一个全连接层输出4096维特征，最后经过一个全连接层输出S×S×30的特征图。（Fast YOLO包括9个卷积）</li>
 <li>通过NMS筛选最终结果，NMS的<code>score=某个类别的概率×置信度</code>。</li>
 </ol>
 <h1 id="YOLOv1的创新点有哪些？"><a href="#YOLOv1的创新点有哪些？" class="headerlink" title="YOLOv1的创新点有哪些？"></a>YOLOv1的创新点有哪些？</h1><ol>
@@ -479,6 +479,182 @@ drwxr-xr-x  8 dong dong     4096 7月  13 23:46  Clover</code></pre><p>每一个
 </ol>
 <h1 id="YOLOv1回归的坐标值是什么含义？"><a href="#YOLOv1回归的坐标值是什么含义？" class="headerlink" title="YOLOv1回归的坐标值是什么含义？"></a>YOLOv1回归的坐标值是什么含义？</h1><p>$(x,y)$是格子左上角坐标的偏移值（0-1），$(w,h)$预测的是预测框的宽高与原始图像宽高的比值（0-1）。</p>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>YOLOv1具有运行速度快，背景误检率等优点，但由于其设置，每个格子最多只能检测一个物体，导致易漏检中心距离近的物体，召回率低，位置准确性较差。</p>
+]]></content>
+      <categories>
+        <category>面试</category>
+      </categories>
+      <tags>
+        <tag>深度学习</tag>
+        <tag>经典网络</tag>
+        <tag>目标检测</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Python基础——Python 2.x与Python 3.x的主要区别</title>
+    <url>/2020/07/17/Python%E5%9F%BA%E7%A1%80%E2%80%94%E2%80%942-x%E4%B8%8E3-x%E7%9A%84%E4%B8%BB%E8%A6%81%E5%8C%BA%E5%88%AB/</url>
+    <content><![CDATA[<p>本文总结了Python 2.x与Python 3.x的主要区别。</p>
+<a id="more"></a>
+
+<h1 id="print函数"><a href="#print函数" class="headerlink" title="print函数"></a>print函数</h1><p>print()函数取代print语句。</p>
+<h1 id="Unicode"><a href="#Unicode" class="headerlink" title="Unicode"></a>Unicode</h1><p>Python 2.x默认使用ASCII编码，不能直接输出中文，变量命名只能用英文。</p>
+<p>Python 3.x默认使用UTF-8编码，可以直接输出中文，可以使用中文变量名。</p>
+<h1 id="除法运算"><a href="#除法运算" class="headerlink" title="除法运算/"></a>除法运算<code>/</code></h1><p>Python 2.x，整数相除结果为整数，浮点数相除为浮点数。</p>
+<p>Python 3.x，结果始终是浮点数。</p>
+<h1 id="打开文件"><a href="#打开文件" class="headerlink" title="打开文件"></a>打开文件</h1><p>Python 2.x可以使用file(…)或者open(…)。</p>
+<p>Python 3.x只能使用open(…)。</p>
+<h1 id="xrange函数"><a href="#xrange函数" class="headerlink" title="xrange函数"></a>xrange函数</h1><p>Python 3.x取消了xrange函数，使用range函数完全代替。</p>
+<h1 id="八进制字面量表示"><a href="#八进制字面量表示" class="headerlink" title="八进制字面量表示"></a>八进制字面量表示</h1><p>Python 2.x可以用01000或0o1000表示八进制512。</p>
+<p>Python 3.x只可以使用0o1000。</p>
+<h1 id="不等运算符"><a href="#不等运算符" class="headerlink" title="不等运算符"></a>不等运算符</h1><p>Python 2.x可以用<code>!=</code>或<code>&lt;&gt;</code>。</p>
+<p>Python 3.x只能使用<code>!=</code>。</p>
+<h1 id="Python-3-x使用更加严格的缩进"><a href="#Python-3-x使用更加严格的缩进" class="headerlink" title="Python 3.x使用更加严格的缩进"></a>Python 3.x使用更加严格的缩进</h1><p>Python 2.x中允许tab和space共存。</p>
+<p>Python 3.x只能单独使用tab或者space。</p>
+<h1 id="去掉了repr表达式"><a href="#去掉了repr表达式" class="headerlink" title="去掉了repr表达式"></a>去掉了repr表达式</h1><p>Python 2.x中反引号``相当于repr函数的作用。</p>
+<p>Python 3.x中去掉了``的写法，只允许使用repr函数。</p>
+<h1 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h1><p>Python 3.x去掉了long类型，只有一种整形——int。新增了bytes类型。</p>
+<h1 id="input和raw-input函数"><a href="#input和raw-input函数" class="headerlink" title="input和raw_input函数"></a>input和raw_input函数</h1><p>Python 2.x中raw_input会将所有输入数据当做字符串，返回值为字符串；而input输入时必须是一个合法的Python表达式。</p>
+<p>Python 3.x只能使用input。</p>
+<h1 id="map、filter和reduce"><a href="#map、filter和reduce" class="headerlink" title="map、filter和reduce"></a>map、filter和reduce</h1><p>Python 2.x中map，filter和reduce是内置函数，返回结果为列表。</p>
+<p>Python 3.x中map和filter变成了类，返回结果为可迭代对象。reduce从全局挪到了functool模块中。</p>
+<h1 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h1><p>捕获异常的语法由<code>except exc, var</code>改为<code>except exc as var</code>。</p>
+<p>Python 2.x中所有类型的对象都可以被抛出；Python 3.x中只有继承自BaseException的对象才可以被抛出。</p>
+]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>模拟面试问答之经典网络模型五：YOLOv2</title>
+    <url>/2020/07/18/yolov2/</url>
+    <content><![CDATA[<p>本文总结了面试过程中可能问到的关于YOLOv2模型的一些问题。</p>
+<p><a href="https://arxiv.org/abs/1612.08242" target="_blank" rel="noopener">论文地址：YOLO9000: Better, Faster, Stronger</a><br><img src="/2020/07/18/yolov2/1.png" alt></p>
+<center><b>图1 YOLOv2与YOLOv1技巧对比图</b></center>
+
+<a id="more"></a>
+
+<h1 id="YOLOv2采用了哪些技巧？"><a href="#YOLOv2采用了哪些技巧？" class="headerlink" title="YOLOv2采用了哪些技巧？"></a>YOLOv2采用了哪些技巧？</h1><ol>
+<li>BN层代替Dropout层。</li>
+<li>高分辨率的预训练：预训练时，先使用224×224的输入尺寸训练160个epochs，再使用448×448的输入尺寸训练10个epochs。</li>
+<li>使用anchor boxes预测边界框：输入尺寸调整为416×416，输出特征图尺寸为13×13(32倍下采样），准确率下降但是召回率提高。</li>
+<li>K-means聚类生成anchor box尺寸：聚类的距离函数为$d(box,centroid)=1-IoU(box,centroid)$，若采用欧氏距离会使得尺寸大的框误差也大。实验表明k=5时，在召回率和模型复杂的直接平衡性较好。</li>
+<li>直接位置预测：预测相对锚框所属格子左上角坐标的偏移量$(b_x,b_y)$，以及与anchor box宽高的e的指数比例$(b_w,b_h)$，比RCNN系列采用的位置预测方法更易学习。</li>
+<li>细粒度特征：类似ResNet，将最后一个26×26的特征图连接到最后一个13×13的特征图上。具体地，首先通过1×1卷积将26×26×512减低通道数为26×26×64，再拆分成4个13×13×64并拼接为13×13×256，然后与13×13×1024进行连接生成13×13×(256+1024)的特征图。</li>
+<li>多尺度训练：每隔10个batch随机从{320,352,384,…,608}中选择一个尺度作为输入图像的尺寸。</li>
+</ol>
+<h1 id="YOLOv2的网络结构有哪些改进？"><a href="#YOLOv2的网络结构有哪些改进？" class="headerlink" title="YOLOv2的网络结构有哪些改进？"></a>YOLOv2的网络结构有哪些改进？</h1><p><img src="/2020/07/18/yolov2/2.png" alt></p>
+<center><b>图2 Darknet19网络结构图</b></center>
+
+<ol>
+<li><p>预训练时，如图2所示，Darknet 19包含19个卷积层（YOLOv1网络包含24个卷积层和2个全连接层）。</p>
+<p><img src="/2020/07/18/yolov2/3.png" alt></p>
+<center><b>图2 YOLOv2网络结构图</b></center>
+</li>
+<li><p>用于检测时，如图3所示，首先添加三个3×3的卷积，然后输出特征图与细粒度特征中提到的跳跃连接进行拼接，再通过一个3×3卷积调整通道数，最后通过一个1×1卷积输出13×13×125的检测结果，对于13×13个格子，每个格子输出5×25维向量，其中5表示每个格子有五个anchor boxes，25包括20个类别概率，4个位置预测和1个置信度。</p>
+</li>
+<li><p>预训练时，先使用224×224的输入尺寸训练160个epochs，再使用448×448的输入尺寸训练10个epochs。</p>
+</li>
+</ol>
+<h1 id="YOLOv2的样本是如何设置的？"><a href="#YOLOv2的样本是如何设置的？" class="headerlink" title="YOLOv2的样本是如何设置的？"></a>YOLOv2的样本是如何设置的？</h1><p>类似与YOLOv1，对于一个ground-truth，包含其中心点的格子的5个anchor boxes负责预测该物体框，只有与ground-truth的IoU最大的anchor box会用于计算loss。YOLOv2不再对宽高取根号。与ground-truth的IoU最大或大于0.6的anchor box为正样本。</p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p><a href="https://blog.csdn.net/zijin0802034/article/details/77097894" target="_blank" rel="noopener">https://blog.csdn.net/zijin0802034/article/details/77097894</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/35325884" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/35325884</a></p>
+]]></content>
+      <categories>
+        <category>面试</category>
+      </categories>
+      <tags>
+        <tag>深度学习</tag>
+        <tag>经典网络</tag>
+        <tag>目标检测</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>模拟面试问答之经典网络模型六：YOLOv3</title>
+    <url>/2020/07/18/yolov3/</url>
+    <content><![CDATA[<p>本文总结了面试过程中可能问到的关于YOLOv3模型的一些问题。</p>
+<p><a href="https://arxiv.org/abs/1804.02767" target="_blank" rel="noopener">论文地址：YOLOv3: An Incremental Improvement</a><br><img src="/2020/07/18/yolov3/1.png" alt></p>
+<center><b>图1 Darknet-53网络结构图</b></center>
+
+<a id="more"></a>
+
+<h1 id="YOLOv3在有哪些主要改进？"><a href="#YOLOv3在有哪些主要改进？" class="headerlink" title="YOLOv3在有哪些主要改进？"></a>YOLOv3在有哪些主要改进？</h1><ol>
+<li><p>Darknet-53代替Darknet-19，使用了残差模块，步长为2的卷积层代替池化层进行下采样。</p>
+<p><img src="/2020/07/18/yolov3/3.jpg" alt></p>
+<center><b>图2 YOLOv3网络结构图</b></center>
+</li>
+<li><p>采用了多尺度结构，在获得32倍下采样特征图后，又开始对特征图进行上采样，并与前面的16倍下采样特征图连接，然后继续对特征图进行上采样，并与前面的8倍下采样特征图连接。分别在三个尺度（8,16,32）的特征图上进行检测，输出分别为13×13×(4+1+80)，26×26×(4+1+80)，52×52×(4+1+80)。</p>
+</li>
+<li><p>使用独立的logistic分类器（sigmoid）代替softmax分类器进行分类。</p>
+</li>
+</ol>
+<h1 id="YOLOv3在anchor-boxes方面有什么改进？"><a href="#YOLOv3在anchor-boxes方面有什么改进？" class="headerlink" title="YOLOv3在anchor boxes方面有什么改进？"></a>YOLOv3在anchor boxes方面有什么改进？</h1><p>由于YOLOv3采用了多尺度预测，anchor boxes的设计也做了相应改进。同样是使用k-means进行聚类，YOLOv3聚类了3个尺度，每个尺度聚类了3种尺寸的anchor boxes。</p>
+<h1 id="YOLOv3的损失函数有哪些改进？"><a href="#YOLOv3的损失函数有哪些改进？" class="headerlink" title="YOLOv3的损失函数有哪些改进？"></a>YOLOv3的损失函数有哪些改进？</h1><p>置信度和类别用交叉熵损失替换了平方和损失。为了提高小物体的损失贡献，位置回归损失会乘以系数(2-w×h)。</p>
+<p><img src="/2020/07/18/yolov3/2.png" alt></p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p><a href="https://blog.csdn.net/leonardohaig/article/details/90346325" target="_blank" rel="noopener">https://blog.csdn.net/leonardohaig/article/details/90346325</a></p>
+]]></content>
+      <categories>
+        <category>面试</category>
+      </categories>
+      <tags>
+        <tag>深度学习</tag>
+        <tag>经典网络</tag>
+        <tag>目标检测</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>模拟面试问答之经典网络模型四：SSD</title>
+    <url>/2020/07/19/SSD/</url>
+    <content><![CDATA[<p>本文总结了面试过程中可能问到的关于SSD模型的一些问题。</p>
+<p><a href="https://arxiv.org/abs/1512.02325" target="_blank" rel="noopener">论文地址：Single Shot MultiBox Detector</a></p>
+<p><img src="/2020/07/19/SSD/1.png" alt></p>
+<center><b>图1 SSD与YOLOv1网络结构对比图</b></center>
+
+<a id="more"></a>
+
+<h1 id="SSD有哪些主要特点？"><a href="#SSD有哪些主要特点？" class="headerlink" title="SSD有哪些主要特点？"></a>SSD有哪些主要特点？</h1><ol>
+<li><p>类似YOLO，将检测转化为回归，一次性完成定位与回归。</p>
+</li>
+<li><p>类似Faster RCNN，使用了先验框。</p>
+<p><img src="/2020/07/19/SSD/2.png" alt></p>
+<center><b>图2 SSD详细网络结构图</b></center>
+</li>
+<li><p>利用了多尺度特征进行检测（300–&gt;38,19,10,5,3,1）。</p>
+</li>
+</ol>
+<h1 id="SSD网络的输出是什么含义？"><a href="#SSD网络的输出是什么含义？" class="headerlink" title="SSD网络的输出是什么含义？"></a>SSD网络的输出是什么含义？</h1><p>SSD包括6个输出，分别是38×38×4×(4+21)，19×19×4×(4+21)，10×10×6×(4+21)，5×5×6×(4+21)，3×3×6×(4+21)，1×1×4×(4+21)，其中(4,4,6,6,6,4)表示该尺度下，每个格子预测的先验框数量，4表示预测的位置信息，21表示20个类别+背景的置信度。</p>
+<h1 id="SSD的先验框是如何设置的？"><a href="#SSD的先验框是如何设置的？" class="headerlink" title="SSD的先验框是如何设置的？"></a>SSD的先验框是如何设置的？</h1><ol>
+<li>以特征图每个格子的中心坐标为中心，生成一系列的同心先验框。</li>
+<li>设置了m=6个尺度的先验框，最底层特征图上的尺度为$S_{min}=0.2$，最高层的为$S_{max}=0.9$，其余层在0.2到0.9之间均等取值。$S_K$表示先验框与输入图像的比例。</li>
+<li>每个尺度设置了4或6种（4,6,6,6,4,4）不同的长宽比$a_r\in{1,2,3,1/2,1/3}$，可以计算第k层的先验框的宽为$w_k^a=s_k\sqrt{a_r}$，高为$h_k^a=s_k/\sqrt{a_r}$，此外还有一个边长为$\sqrt{S_kS_{k+1}}$的正方形框，因此每个格子产生6种框。</li>
+</ol>
+<h1 id="SSD中正负样本如何设定的？"><a href="#SSD中正负样本如何设定的？" class="headerlink" title="SSD中正负样本如何设定的？"></a>SSD中正负样本如何设定的？</h1><ol>
+<li>对于每个ground-truth，找到与其IoU最大的先验框设为正样本，这样可以保证每个ground-truth都有一个先验框相匹配。</li>
+<li>对于剩余未匹配的先验框，若与某个ground-truth的IoU大于阈值（0.5），则先验框为正样本，其余为负样本。这意味着某个ground-truth可能与多个先验框相匹配（YOLO中，一个ground-truth只有一个对应的先验框）。</li>
+<li>训练时，将负样本按背景置信度（预测背景的置信度越小，误差越大）进行排序，选取最低的k个，保证正负样本比例为1:3。</li>
+</ol>
+<h1 id="SSD的是如何训练的？"><a href="#SSD的是如何训练的？" class="headerlink" title="SSD的是如何训练的？"></a>SSD的是如何训练的？</h1><ol>
+<li><p>在ILSVRC上预训练VGG16。</p>
+</li>
+<li><p>类似于DeepLabv1，将VGG16的前两个全连接层替换为卷积层，并加入了空洞卷积。</p>
+</li>
+<li><p>采用0.9的Momentum。</p>
+</li>
+<li><p>采用水平翻转，随机裁剪，颜色扭曲，随机采取区域等数据增强方法。</p>
+</li>
+<li><p>损失函数由位置误差和分类置信度误差组成：</p>
+<p><img src="/2020/07/19/SSD/3.png" alt></p>
+<p>位置误差采用Smooth L1损失，预测的$(\Delta x, \Delta y,S_w,S_h)$与RCNN系列中的定义一致。分类置信度误差采用softmax损失（交叉熵损失）。</p>
+</li>
+</ol>
+<h1 id="测试时是SSD如何进行预测的？"><a href="#测试时是SSD如何进行预测的？" class="headerlink" title="测试时是SSD如何进行预测的？"></a>测试时是SSD如何进行预测的？</h1><ol>
+<li>对于每个预测框，首先根据类别置信度确定其类别，并过滤掉置信度小于阈值或属于背景的预测框。</li>
+<li>按置信度进行排序，保留top-k个预测框。</li>
+<li>根据预测框的位置信息对预测框进行修正。</li>
+<li>使用NMS过滤掉重叠较大的预测框。</li>
+</ol>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p><a href="https://blog.csdn.net/thisiszdy/article/details/89576389" target="_blank" rel="noopener">https://blog.csdn.net/thisiszdy/article/details/89576389</a></p>
 ]]></content>
       <categories>
         <category>面试</category>
