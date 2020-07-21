@@ -46,7 +46,7 @@
 
   <meta name="description" content="本文总结了面试过程中可能问到的关于Faster RCNN模型的一些问题。 论文地址：Faster R-CNN 图1 Faster RCNN网络结构图">
 <meta property="og:type" content="article">
-<meta property="og:title" content="模拟面试问答之经典网络模型三：FasterRCNN">
+<meta property="og:title" content="模拟面试问答之经典网络模型三：Faster RCNN">
 <meta property="og:url" content="http://djsfff.github.io/2020/07/15/FasterRCNN/index.html">
 <meta property="og:site_name" content="Clover">
 <meta property="og:description" content="本文总结了面试过程中可能问到的关于Faster RCNN模型的一些问题。 论文地址：Faster R-CNN 图1 Faster RCNN网络结构图">
@@ -54,7 +54,7 @@
 <meta property="og:image" content="http://djsfff.github.io/2020/07/15/FasterRCNN/1.png">
 <meta property="og:image" content="http://djsfff.github.io/2020/07/15/FasterRCNN/3.png">
 <meta property="article:published_time" content="2020-07-15T01:03:28.000Z">
-<meta property="article:modified_time" content="2020-07-17T12:11:54.464Z">
+<meta property="article:modified_time" content="2020-07-21T04:09:37.166Z">
 <meta property="article:author" content="Clover">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="经典网络">
@@ -74,7 +74,7 @@
   };
 </script>
 
-  <title>模拟面试问答之经典网络模型三：FasterRCNN | Clover</title>
+  <title>模拟面试问答之经典网络模型三：Faster RCNN | Clover</title>
   
 
 
@@ -240,7 +240,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          模拟面试问答之经典网络模型三：FasterRCNN
+          模拟面试问答之经典网络模型三：Faster RCNN
         </h2>
 
         <div class="post-meta">
@@ -293,7 +293,6 @@
 <li>使用CNN（以VGG16为例）提取特征图。</li>
 <li>RPN（Region Proposal Network）在特征图上生成一系列anchor box，并通过两个分支分别判断anchor box是否包含物体以及粗略位置修正。</li>
 <li>将特征图和anchor boxes一起输入到RoI pooling层，与Fast RCNN一样，对于每个anchor boxes，RoI pooling层将候选区域定位到特征图中的对应区域产生RoI，然后将每个RoI转化为相同尺寸（7×7）。</li>
-<li>通过全连接层将RoI转化为一维向量，分别输入并行的分类器和回归器。分类器由一个全连接层和Softmax组成，对每一个RoI输出20+1个类别概率。回归器输出通过一个全连接层对每一个RoI输出20×4维向量，即所有类别下回归RoI的位置和大小。</li>
 <li>经过两个全连接+ReLU层将RoI转化为一维向量，分别输入并行的分类器和回归器。分类器由一个全连接层和Softmax组成，对每一个RoI输出80+1个类别概率。回归器输出通过一个全连接层对每一个RoI输出80×4维向量，即所有类别下回归RoI的位置和大小。</li>
 </ol>
 <h1 id="Faster-RCNN相对于Fast-RCNN的主要改进在什么地方？"><a href="#Faster-RCNN相对于Fast-RCNN的主要改进在什么地方？" class="headerlink" title="Faster RCNN相对于Fast RCNN的主要改进在什么地方？"></a>Faster RCNN相对于Fast RCNN的主要改进在什么地方？</h1><ol>

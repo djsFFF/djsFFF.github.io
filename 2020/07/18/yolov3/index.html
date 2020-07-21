@@ -55,7 +55,7 @@
 <meta property="og:image" content="http://djsfff.github.io/2020/07/18/yolov3/3.jpg">
 <meta property="og:image" content="http://djsfff.github.io/2020/07/18/yolov3/2.png">
 <meta property="article:published_time" content="2020-07-18T13:42:06.000Z">
-<meta property="article:modified_time" content="2020-07-19T05:03:34.660Z">
+<meta property="article:modified_time" content="2020-07-21T04:12:57.209Z">
 <meta property="article:author" content="Clover">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="经典网络">
@@ -294,7 +294,7 @@
 <p><img src="/2020/07/18/yolov3/3.jpg" alt></p>
 <center><b>图2 YOLOv3网络结构图</b></center>
 </li>
-<li><p>采用了多尺度结构，在获得32倍下采样特征图后，又开始对特征图进行上采样，并与前面的16倍下采样特征图连接，然后继续对特征图进行上采样，并与前面的8倍下采样特征图连接。分别在三个尺度（8,16,32）的特征图上进行检测，输出分别为13×13×(4+1+80)，26×26×(4+1+80)，52×52×(4+1+80)。</p>
+<li><p>采用了多尺度结构，在获得32倍下采样特征图后，又开始对特征图进行上采样，并与前面的16倍下采样特征图连接，然后继续对特征图进行上采样，并与前面的8倍下采样特征图连接。分别在三个尺度（8,16,32）的特征图上进行检测，输出分别为13×13×3×(4+1+80)，26×26×3×(4+1+80)，52×52×3×(4+1+80)。</p>
 </li>
 <li><p>使用独立的logistic分类器（sigmoid）代替softmax分类器进行分类。</p>
 </li>
@@ -327,8 +327,8 @@
       <i class="fa fa-chevron-left"></i> 模拟面试问答之经典网络模型五：YOLOv2
     </a></div>
       <div class="post-nav-item">
-    <a href="/2020/07/19/SSD/" rel="next" title="模拟面试问答之经典网络模型四：SSD">
-      模拟面试问答之经典网络模型四：SSD <i class="fa fa-chevron-right"></i>
+    <a href="/2020/07/19/SSD/" rel="next" title="模拟面试问答之经典网络模型七：SSD">
+      模拟面试问答之经典网络模型七：SSD <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>

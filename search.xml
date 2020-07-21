@@ -20,7 +20,7 @@
 <h1 id="RCNN是如何对候选区域进行缩放的？"><a href="#RCNN是如何对候选区域进行缩放的？" class="headerlink" title="RCNN是如何对候选区域进行缩放的？"></a>RCNN是如何对候选区域进行缩放的？</h1><p>各向异性缩放且padding=16。</p>
 <h1 id="分别介绍一下各向异性和各项同性的缩放？"><a href="#分别介绍一下各向异性和各项同性的缩放？" class="headerlink" title="分别介绍一下各向异性和各项同性的缩放？"></a>分别介绍一下各向异性和各项同性的缩放？</h1><ol>
 <li>各向异性直接把图像的宽高拉伸到目标尺寸。</li>
-<li>各项同性先按原图像比例进行缩放，然后在再填充到目标价尺寸。</li>
+<li>各项同性先按原图像比例进行缩放，然后在再填充到目标尺寸。</li>
 </ol>
 <h1 id="RCNN的CNN网络是如何训练的？"><a href="#RCNN的CNN网络是如何训练的？" class="headerlink" title="RCNN的CNN网络是如何训练的？"></a>RCNN的CNN网络是如何训练的？</h1><p><img src="/2020/06/13/RCNN/2.jpg" alt="AlexNet网络结构"></p>
 <center><b>图2 AlexNet网络结构图</b></center>
@@ -32,11 +32,11 @@
 </ol>
 <h1 id="RCNN的SVM分类器是如何训练的？"><a href="#RCNN的SVM分类器是如何训练的？" class="headerlink" title="RCNN的SVM分类器是如何训练的？"></a>RCNN的SVM分类器是如何训练的？</h1><ol>
 <li>共训练20个二分类SVM。</li>
-<li>使用fine-tuning训练后且去掉最后Softmax层的AlexNet提取候选区域的特征作为SVM的输入。</li>
+<li>使用fine-tuning训练后且去掉最后softmax层的AlexNet提取候选区域的特征作为SVM的输入。</li>
 <li>定义IoU小于0.3的候选区域为负样本，并进行难负样本挖掘，完整包含物体（IoU=1）的候选区域为正样本，其余样本舍弃。</li>
 </ol>
 <h1 id="RCNN的线性回归器是如何训练的？"><a href="#RCNN的线性回归器是如何训练的？" class="headerlink" title="RCNN的线性回归器是如何训练的？"></a>RCNN的线性回归器是如何训练的？</h1><ol>
-<li>共训练20个回归器，正则项系数$\lambda$=10000。</li>
+<li>共训练20×4个回归器，正则项系数$\lambda$=10000。</li>
 <li>输入为AlexNet的第一个全连接层的4096维输出（这里有点问题，论文里面说的是Pool 5，而我理解的Pool 5的输出时6×6×256的），输出为中心点坐标的平移量和宽高的缩放值。</li>
 <li>定义IoU大于0.6的样本作为正样本用于训练。</li>
 </ol>
@@ -50,7 +50,7 @@
 </ol>
 <h1 id="回归器是如何进行边界框回归的？"><a href="#回归器是如何进行边界框回归的？" class="headerlink" title="回归器是如何进行边界框回归的？"></a>回归器是如何进行边界框回归的？</h1><h2 id="简答"><a href="#简答" class="headerlink" title="简答"></a>简答</h2><p>通过预测候选区域中心点坐标的平移量$\Delta x$，$\Delta y$和宽高的缩放值$S_w$，$S_h$来回归边界框。因此对于每个类别，需要4个回归器分别回归$\Delta x$，$\Delta y$，$S_w$，$S_h$，整个模型就包括20×4个回归器。</p>
 <h2 id="详细"><a href="#详细" class="headerlink" title="详细"></a>详细</h2><p>定义$P=(P_x,P_y,P_w,P_h)$表示候选区域的中心坐标和宽高，$G=(G_x,G_y,G_w,G_h)$表示ground-truth的中心坐标和宽高。预测$d_*(P)$（$*$表示$x$，$y$，$w$，$h$，下同）得到平移量$\Delta x=P_wd_x(P)$，$\Delta y=P_hd_y(P)$和缩放值$S_w=exp(d_w(P))$，$S_h=exp(d_h(P))$，目标是使变换后的P与G更接近。<br>定义$\widehat{G}=(\widehat{G}_x,\widehat{G}_y,\widehat{G}_w,\widehat{G}_h)$表示变换后的$P$，其中：<br>$$\widehat{G}_x=P_wd_x(P)+P_x$$<br>$$\widehat{G}_y=P_hd_y(P)+P_y$$<br>$$\widehat{G}_w=P_wexp(d_w(P))$$<br>$$\widehat{G}_h=P_hexp(d_h(P))$$<br>回归器的输入是AlexNet提取的候选区域特征，表示为$\phi(P)$，令$d_*(P)=w^T_*\Phi(P)$，$w_*$就是需要学习的线性变换参数了，可以得到：<br>$$w^T_x\Phi(P)=d_x(P)=(\widehat{G}_x-P_x)/P_w$$<br>$$w^T_y\Phi(P)=d_y(P)=(\widehat{G}_y-P_y)/P_h$$<br>$$w^T_w\Phi(P)=d_w(P)=log(\widehat{G}_w/P_w)$$<br>$$w^T_h\Phi(P)=d_h(P)=log(\widehat{G}_h/P_h)$$<br>定义$t_*$为：<br>$$t_x=(G_x-P_x)/P_w$$<br>$$t_y=(G_y-P_y)/P_h$$<br>$$t_w=log(G_w/P_w)$$<br>$$t_h=log(G_h/P_h)$$<br>目标是使P的映射$\widehat{G}$尽量接近$G$，通过以下优化损失函数求解$w_*$：<br>$$w_*=\underset{\widehat{w}_*}{argmin}\sum(t_*^i-\widehat{w}_*^T\phi(P^i))^2+\lambda&#124;&#124;\widehat{w}_*&#124;&#124;^2$$<br>可通过最小二乘法或梯度下降求解该问题。由此也可以看出，对于每个类别，需要4个回归器分别回归$\Delta x$，$\Delta y$，$S_w$，$S_h$，整个模型就包括20×4个回归器。</p>
-<h1 id="回归器为什么不直接预测平移量-Delta-x-和-Delta-y-的值，而是先预测-d-x-P-和-d-y-P-，然后分别乘以-P-w-和-P-h-，间接求出-Delta-x-和-Delta-y-？"><a href="#回归器为什么不直接预测平移量-Delta-x-和-Delta-y-的值，而是先预测-d-x-P-和-d-y-P-，然后分别乘以-P-w-和-P-h-，间接求出-Delta-x-和-Delta-y-？" class="headerlink" title="回归器为什么不直接预测平移量$\Delta x$和$\Delta y$的值，而是先预测$d_x(P)$和$d_y(P)$，然后分别乘以$P_w$和$P_h$，间接求出$\Delta x$和$\Delta y$？"></a>回归器为什么不直接预测平移量$\Delta x$和$\Delta y$的值，而是先预测$d_x(P)$和$d_y(P)$，然后分别乘以$P_w$和$P_h$，间接求出$\Delta x$和$\Delta y$？</h1><p>回归器的输入是候选区域的特征，而每个候选区域在提取特征后的大小时相同的，若是直接预测平移量$\Delta x$和$\Delta y$的值，那么对于任意大小的候选区域，都会得到相同平移量，这显然是有问题的。而分别乘候选区域的宽高$P_w$和$P_h$相当于进行归一化，即尺寸大的候选区域预测的平移量大，尺寸小的候选区域的平移量小。</p>
+<h1 id="回归器为什么不直接预测平移量-Delta-x-和-Delta-y-的值，而是先预测-d-x-P-和-d-y-P-，然后分别乘以-P-w-和-P-h-，间接求出-Delta-x-和-Delta-y-？"><a href="#回归器为什么不直接预测平移量-Delta-x-和-Delta-y-的值，而是先预测-d-x-P-和-d-y-P-，然后分别乘以-P-w-和-P-h-，间接求出-Delta-x-和-Delta-y-？" class="headerlink" title="回归器为什么不直接预测平移量$\Delta x$和$\Delta y$的值，而是先预测$d_x(P)$和$d_y(P)$，然后分别乘以$P_w$和$P_h$，间接求出$\Delta x$和$\Delta y$？"></a>回归器为什么不直接预测平移量$\Delta x$和$\Delta y$的值，而是先预测$d_x(P)$和$d_y(P)$，然后分别乘以$P_w$和$P_h$，间接求出$\Delta x$和$\Delta y$？</h1><p>回归器的输入是候选区域的特征，而每个候选区域在提取特征后的大小时相同的，若是直接预测平移量$\Delta x$和$\Delta y$的值，那么对于两个内容相差无几，但是尺寸不一样的图像，会得到相同平移量，这显然是有问题的。而分别乘候选区域的宽高$P_w$和$P_h$相当于进行归一化，即尺寸大的候选区域预测的平移量大，尺寸小的候选区域的平移量小。</p>
 <h1 id="回归器预测宽高的缩放值为什么要采用exp？"><a href="#回归器预测宽高的缩放值为什么要采用exp？" class="headerlink" title="回归器预测宽高的缩放值为什么要采用exp？"></a>回归器预测宽高的缩放值为什么要采用exp？</h1><p>保证预测值大于0.</p>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ol>
 <li>优点：RCNN引入CNN提取特征，取代手工设计特征，并提升了检测速度；采用了迁移学习的思想，先在大数据集上对模型进行预训练，然后在目标数据集上面进行fine-tuning。</li>
@@ -109,7 +109,7 @@
       </tags>
   </entry>
   <entry>
-    <title>模拟面试问答之经典网络模型三：FasterRCNN</title>
+    <title>模拟面试问答之经典网络模型三：Faster RCNN</title>
     <url>/2020/07/15/FasterRCNN/</url>
     <content><![CDATA[<p>本文总结了面试过程中可能问到的关于Faster RCNN模型的一些问题。</p>
 <p><a href="https://arxiv.org/abs/1506.01497" target="_blank" rel="noopener">论文地址：Faster R-CNN</a><br><img src="/2020/07/15/FasterRCNN/1.png" alt="Faster RCNN网络结构"></p>
@@ -122,7 +122,6 @@
 <li>使用CNN（以VGG16为例）提取特征图。</li>
 <li>RPN（Region Proposal Network）在特征图上生成一系列anchor box，并通过两个分支分别判断anchor box是否包含物体以及粗略位置修正。</li>
 <li>将特征图和anchor boxes一起输入到RoI pooling层，与Fast RCNN一样，对于每个anchor boxes，RoI pooling层将候选区域定位到特征图中的对应区域产生RoI，然后将每个RoI转化为相同尺寸（7×7）。</li>
-<li>通过全连接层将RoI转化为一维向量，分别输入并行的分类器和回归器。分类器由一个全连接层和Softmax组成，对每一个RoI输出20+1个类别概率。回归器输出通过一个全连接层对每一个RoI输出20×4维向量，即所有类别下回归RoI的位置和大小。</li>
 <li>经过两个全连接+ReLU层将RoI转化为一维向量，分别输入并行的分类器和回归器。分类器由一个全连接层和Softmax组成，对每一个RoI输出80+1个类别概率。回归器输出通过一个全连接层对每一个RoI输出80×4维向量，即所有类别下回归RoI的位置和大小。</li>
 </ol>
 <h1 id="Faster-RCNN相对于Fast-RCNN的主要改进在什么地方？"><a href="#Faster-RCNN相对于Fast-RCNN的主要改进在什么地方？" class="headerlink" title="Faster RCNN相对于Fast RCNN的主要改进在什么地方？"></a>Faster RCNN相对于Fast RCNN的主要改进在什么地方？</h1><ol>
@@ -584,7 +583,7 @@ drwxr-xr-x  8 dong dong     4096 7月  13 23:46  Clover</code></pre><p>每一个
 <p><img src="/2020/07/18/yolov3/3.jpg" alt></p>
 <center><b>图2 YOLOv3网络结构图</b></center>
 </li>
-<li><p>采用了多尺度结构，在获得32倍下采样特征图后，又开始对特征图进行上采样，并与前面的16倍下采样特征图连接，然后继续对特征图进行上采样，并与前面的8倍下采样特征图连接。分别在三个尺度（8,16,32）的特征图上进行检测，输出分别为13×13×(4+1+80)，26×26×(4+1+80)，52×52×(4+1+80)。</p>
+<li><p>采用了多尺度结构，在获得32倍下采样特征图后，又开始对特征图进行上采样，并与前面的16倍下采样特征图连接，然后继续对特征图进行上采样，并与前面的8倍下采样特征图连接。分别在三个尺度（8,16,32）的特征图上进行检测，输出分别为13×13×3×(4+1+80)，26×26×3×(4+1+80)，52×52×3×(4+1+80)。</p>
 </li>
 <li><p>使用独立的logistic分类器（sigmoid）代替softmax分类器进行分类。</p>
 </li>
@@ -604,7 +603,7 @@ drwxr-xr-x  8 dong dong     4096 7月  13 23:46  Clover</code></pre><p>每一个
       </tags>
   </entry>
   <entry>
-    <title>模拟面试问答之经典网络模型四：SSD</title>
+    <title>模拟面试问答之经典网络模型七：SSD</title>
     <url>/2020/07/19/SSD/</url>
     <content><![CDATA[<p>本文总结了面试过程中可能问到的关于SSD模型的一些问题。</p>
 <p><a href="https://arxiv.org/abs/1512.02325" target="_blank" rel="noopener">论文地址：Single Shot MultiBox Detector</a></p>
