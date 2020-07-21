@@ -44,24 +44,29 @@
   };
 </script>
 
-  <meta name="description" content="本文整理计算机网络中运输层的主要知识点。">
+  <meta name="description" content="本文整理计算机网络中应用层的主要知识点。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="计算机网络——网络层">
-<meta property="og:url" content="http://djsfff.github.io/2020/07/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E7%BD%91%E7%BB%9C%E5%B1%82/index.html">
+<meta property="og:title" content="计算机网络——应用层">
+<meta property="og:url" content="http://djsfff.github.io/2020/07/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/index.html">
 <meta property="og:site_name" content="Clover">
-<meta property="og:description" content="本文整理计算机网络中运输层的主要知识点。">
+<meta property="og:description" content="本文整理计算机网络中应用层的主要知识点。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://djsfff.github.io/2020/07/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E7%BD%91%E7%BB%9C%E5%B1%82/6.png">
-<meta property="og:image" content="http://djsfff.github.io/2020/07/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E7%BD%91%E7%BB%9C%E5%B1%82/1.png">
-<meta property="article:published_time" content="2020-07-16T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-07-17T11:54:20.779Z">
+<meta property="og:image" content="http://djsfff.github.io/2020/07/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/6.png">
+<meta property="og:image" content="http://djsfff.github.io/2020/07/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/2.png">
+<meta property="og:image" content="http://djsfff.github.io/2020/07/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/1.png">
+<meta property="og:image" content="http://djsfff.github.io/2020/07/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/3.png">
+<meta property="og:image" content="http://djsfff.github.io/2020/07/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/4.png">
+<meta property="og:image" content="http://djsfff.github.io/2020/07/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/5.png">
+<meta property="og:image" content="http://djsfff.github.io/2020/07/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/7.png">
+<meta property="article:published_time" content="2020-07-21T11:20:20.000Z">
+<meta property="article:modified_time" content="2020-07-21T15:38:44.870Z">
 <meta property="article:author" content="Clover">
 <meta property="article:tag" content="计算机网络">
-<meta property="article:tag" content="网络层">
+<meta property="article:tag" content="应用层">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://djsfff.github.io/2020/07/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E7%BD%91%E7%BB%9C%E5%B1%82/6.png">
+<meta name="twitter:image" content="http://djsfff.github.io/2020/07/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/6.png">
 
-<link rel="canonical" href="http://djsfff.github.io/2020/07/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E7%BD%91%E7%BB%9C%E5%B1%82/">
+<link rel="canonical" href="http://djsfff.github.io/2020/07/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/">
 
 
 <script id="page-configurations">
@@ -73,7 +78,7 @@
   };
 </script>
 
-  <title>计算机网络——网络层 | Clover</title>
+  <title>计算机网络——应用层 | Clover</title>
   
 
 
@@ -226,7 +231,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://djsfff.github.io/2020/07/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E7%BD%91%E7%BB%9C%E5%B1%82/">
+    <link itemprop="mainEntityOfPage" href="http://djsfff.github.io/2020/07/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -239,7 +244,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          计算机网络——网络层
+          计算机网络——应用层
         </h2>
 
         <div class="post-meta">
@@ -249,7 +254,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-07-17 00:00:00" itemprop="dateCreated datePublished" datetime="2020-07-17T00:00:00+08:00">2020-07-17</time>
+              <time title="创建时间：2020-07-21 19:20:20" itemprop="dateCreated datePublished" datetime="2020-07-21T19:20:20+08:00">2020-07-21</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -281,28 +286,126 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>本文整理计算机网络中运输层的主要知识点。</p>
+        <p>本文整理计算机网络中应用层的主要知识点。</p>
 <a id="more"></a>
 
-<p><img src="/2020/07/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E7%BD%91%E7%BB%9C%E5%B1%82/6.png" alt></p>
-<p>网络层向上只提供尽最大努力交付的数据报服务，不提供服务质量的承诺。</p>
-<h1 id="网际协议IP"><a href="#网际协议IP" class="headerlink" title="网际协议IP"></a>网际协议IP</h1><p>ARP协议：从网络层使用的IP地址，解析出数据链路层使用的硬件地址。</p>
-<h2 id="IP数据报的格式"><a href="#IP数据报的格式" class="headerlink" title="IP数据报的格式"></a>IP数据报的格式</h2><p><img src="/2020/07/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E7%BD%91%E7%BB%9C%E5%B1%82/1.png" alt></p>
-<p>20字节固定长度：</p>
+<p><img src="/2020/07/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/6.png" alt></p>
+<h1 id="DNS——域名系统"><a href="#DNS——域名系统" class="headerlink" title="DNS——域名系统"></a>DNS——域名系统</h1><p>主机不仅有IP地址，还有便于用户记忆的主机名字。DNS能够将互联网上的主机名字转换为IP地址。</p>
 <ul>
-<li>版本：占4位，指IP协议的版本，通信双方版本必须一致。IPv4或IPv6。</li>
-<li>首部长度：占4位，单位是4字节，表示首部最大长度为60字节，当首部长度不是4字节的整数倍时，必须利用填充字段加以填充。</li>
-<li>区分服务：占1字节，用来获得更好的服务，一般不用。</li>
-<li>总长度：占2字节，指首部和数据的总长度。</li>
-<li>标识：占2字节，在数据报过长而发生分片时，相同数据报的不同分片具有相同标识符。</li>
-<li>标志：占3位，第一位为1表示后面还有分片，第二位为0表示不能分片，第三位无意义。</li>
-<li>片偏移：占13位，单位为8字节，表示分片在原数据报中的相对位置。</li>
-<li>生存时间：占1字节，数据报在网络中的寿命。</li>
-<li>协议：占1字节，指出此数据报携带的数据是使用何种协议。</li>
-<li>首部检验和：占2字节，检验数据报的首部。</li>
-<li>原地址：占4字节。</li>
-<li>目的地址：占4字节。</li>
+<li>域名具有层次结构：</li>
 </ul>
+<p><img src="/2020/07/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/2.png" alt></p>
+<ul>
+<li>级别最低的域名写在最左边，级别最高的域名写在最右边：</li>
+</ul>
+<p><img src="/2020/07/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/1.png" alt></p>
+<ul>
+<li><p>域名到IP的解析过程：</p>
+<ol>
+<li><p>应用进程调用解析程序，并成为DNS的一个客户，把待解析的域名放在DNS请求报文中，以UDP或TCP（一般用UDP）用户数据报方式发给本地域名服务器。</p>
+</li>
+<li><p>若本地域名服务器能解析该域名，把对应的IP地址放在回答报文中返回。</p>
+</li>
+<li><p>若本地域名服务器不能回答该请求，则此域名服务器就暂时成为DNS中的另一个客户，并向其他域名服务器发出查询请求：</p>
+<ul>
+<li>迭代查询（常用）：其他域名服务器收到域名服务器的查询请求报文时，返回IP或告诉本地域名服务器下一步应该向哪一个域名服务器查询。</li>
+<li>递归查询：其他域名服务器收到域名服务器的查询请求报文时，返回IP或成为DNS客户继续向其他域名服务器查询。</li>
+</ul>
+<p>其他域名服务器采用哪种查询方式取决于最初的查询报文的设置。</p>
+</li>
+</ol>
+</li>
+<li><p>域名服务器和主机中广泛地使用了高速缓存来存放最近查询的域名以及从何处获得域名映射信息的记录。</p>
+</li>
+</ul>
+<h1 id="FTP——文件传送协议"><a href="#FTP——文件传送协议" class="headerlink" title="FTP——文件传送协议"></a>FTP——文件传送协议</h1><ul>
+<li>FTP使用客户服务器方式。FTP服务器进程包括两大部分：<ul>
+<li>一个进程：负责接受新的请求。</li>
+<li>若干个从属进程：负责处理单个请求。</li>
+</ul>
+</li>
+<li>FTP使用TCP进行连接，需要两个TCP连接（控制连接和文件传送连接）来传送一个文件。</li>
+<li>主进程工作步骤如下：<ol>
+<li>打开端口熟知端口21，等待客户发出连接请求。</li>
+<li>启动从属进程处理客户的请求。<ul>
+<li>控制进程：接收到客户通过“控制连接”发送的文件传送请求后，利用自己的熟知端口20与客户提供的端口号建立“数据连接”，并打开“数据传送进程”。</li>
+<li>数据传送进程：用于传送文件数据，传送完毕后关闭。</li>
+</ul>
+</li>
+<li>回到等待状态。</li>
+</ol>
+</li>
+<li>简单文件传送协议TPTP使用UDP连接。</li>
+</ul>
+<h1 id="TELNET——远程终端协议"><a href="#TELNET——远程终端协议" class="headerlink" title="TELNET——远程终端协议"></a>TELNET——远程终端协议</h1><p>TELNET通过TCP连接登录，能将客户的击键传送到服务器，同时也能将服务器的输出返回到客户屏幕，可以适应许多计算机和操作系统的差异。和FTP情况类似，服务器中的主进程等待新的请求，并产生从属进程来处理每一个连接。</p>
+<h1 id="电子邮件协议"><a href="#电子邮件协议" class="headerlink" title="电子邮件协议"></a>电子邮件协议</h1><ul>
+<li><p>一个电子邮件系统由三部分组成：</p>
+<ul>
+<li>用户代理：用户与电子邮件系统的接口，即客户端软件。</li>
+<li>邮件服务器：发送和接收邮件等。</li>
+<li>邮件协议：发送协议SMTP，读取协议POP3或IMAP，都是使用TCP连接。</li>
+</ul>
+</li>
+<li><p>电子邮件发送和接收步骤：</p>
+<p><img src="/2020/07/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/3.png" alt></p>
+<ol>
+<li><p>用户代理用SMTP协议将邮件发给邮件服务器。</p>
+</li>
+<li><p>邮件服务器将邮件临时存放在邮件缓存队列中，等待发送到邮件服务器。</p>
+</li>
+<li><p>发送方邮件服务器的SMTP客户与接收方邮件服务器的SMTP服务器建立TCP连接，然后把邮件缓存队里中的邮件依次发出去。</p>
+</li>
+<li><p>接收方的SMTP服务器把邮件放入收件人的用户邮箱。</p>
+</li>
+<li><p>收件人使用POP3（或IMAP）协议读取邮件。</p>
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="SMTP——简单邮件传送协议"><a href="#SMTP——简单邮件传送协议" class="headerlink" title="SMTP——简单邮件传送协议"></a>SMTP——简单邮件传送协议</h2><p>SMTP 只能发送 ASCII 码，而互联网邮件扩充 MIME 可以发送二进制文件。MIME 并没有改动或者取代 SMTP，而是增加邮件主体的结构，定义了非 ASCII 码的编码规则。</p>
+<h2 id="POP3——邮局协议"><a href="#POP3——邮局协议" class="headerlink" title="POP3——邮局协议"></a>POP3——邮局协议</h2><p>POP3 的特点是只要用户从POP3服务器上读取了邮件，POP3就把该邮件删除。功能扩充的 POP3 可以设置读取后的存放时间。</p>
+<h2 id="IMAP——网际报文存取协议"><a href="#IMAP——网际报文存取协议" class="headerlink" title="IMAP——网际报文存取协议"></a>IMAP——网际报文存取协议</h2><p>IMAP 协议中客户端和服务器上的邮件保持同步，如果不手动删除邮件，那么服务器上的邮件也不会被删除。IMAP 这种做法可以让用户随时随地去访问服务器上的邮件。</p>
+<h1 id="DHCP——动态主机配置协议"><a href="#DHCP——动态主机配置协议" class="headerlink" title="DHCP——动态主机配置协议"></a>DHCP——动态主机配置协议</h1><p>DHCP提供了一种即插即用连网的机制，自动配置IP地址、子网掩码和网关IP地址。</p>
+<p>工作过程：</p>
+<p><img src="/2020/07/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/4.png" alt></p>
+<ol>
+<li>需要IP地址的主机以广播方式发送发现报文，该报文目的地址为255.255.255.255:67，源地址为0.0.0.0:68，被放入UDP中。</li>
+<li>DHCP中继代理（通常是一台路由器）收到发现报文后，以单播方式向DHCP服务器转发此报文。</li>
+<li>收到DHCP服务器回答的提供报文后，DHCP中继代理再把此提供报文发回给主机。</li>
+</ol>
+<h1 id="HTTP——超文本传送协议"><a href="#HTTP——超文本传送协议" class="headerlink" title="HTTP——超文本传送协议"></a>HTTP——超文本传送协议</h1><p>HTTP协议是客户和服务器之间进行请求和应答的格式和规范。</p>
+<p>HTTP使用了TCP作为运输层协议，但是HTTP本身是<strong>无连接的</strong>，也就是说通信双方在交换HTTP报文之前不需要先建立HTTP连接。</p>
+<p>HTTP协议时<strong>无状态的</strong>，也就是说同一个客户第二次访问同一个服务器的页面时，服务器的响应与第一次访问相同。</p>
+<p>在浏览器地址栏键入URL，按下回车之后会经历以下流程：</p>
+<ol>
+<li>浏览器向本地DNS服务器请求解析该URL中的域名对应的IP地址。</li>
+<li>根据该IP地址和默认端口80，与服务器建立TCP连接，HTTP请求报文会被放入TCP连接三次握手的第三个报文数据中发给服务器。</li>
+<li>服务器对浏览器请求做出响应，并把所请求的文档作为响应报文返回给浏览器。</li>
+<li>HTTP/1.0立即释放TCP连接，HTTP/1.1在一段时间内保持该连接。</li>
+<li>浏览器显示文档内容。</li>
+</ol>
+<h2 id="HTTP报文结构"><a href="#HTTP报文结构" class="headerlink" title="HTTP报文结构"></a>HTTP报文结构</h2><p><img src="/2020/07/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/5.png" alt></p>
+<p>HTTP有两类报文：</p>
+<ul>
+<li><p>请求报文：从客户向服务器发送请求报文。</p>
+<ul>
+<li>请求报文常用的方法：</li>
+</ul>
+<p><img src="/2020/07/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/7.png" alt></p>
+</li>
+<li><p>响应报文：从服务器到客户的回答。</p>
+<ul>
+<li>响应报文状态码包括：<ul>
+<li>1xx表示通知信息，如请求收到了或正在进行处理。</li>
+<li>2xx表示成功，如接受或者知道了。常用<code>HTTP/1.1 202 Accepted {接受}</code>。</li>
+<li>3xx表示重定向，如要完成请求还必须采取进一步行动。常用<code>HTTP//1.1 301 Moved Permanently {永久性地转移了}</code>。</li>
+<li>4xx表示客户的差错，如请求中有错误的语法或不能完成。常用<code>HTTP/1.1 400 Bad Request {错误的请求}</code>，<code>HTTP/1.1 404 Not Found {找不到}</code> 。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p>《计算机网络 第七版》谢希仁</p>
 
     </div>
 
@@ -313,7 +416,7 @@
       <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag"># 计算机网络</a>
-              <a href="/tags/%E7%BD%91%E7%BB%9C%E5%B1%82/" rel="tag"># 网络层</a>
+              <a href="/tags/%E5%BA%94%E7%94%A8%E5%B1%82/" rel="tag"># 应用层</a>
           </div>
 
         
@@ -322,13 +425,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/07/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E8%BF%90%E8%BE%93%E5%B1%82/" rel="prev" title="计算机网络——运输层协议">
-      <i class="fa fa-chevron-left"></i> 计算机网络——运输层协议
+    <a href="/2020/07/19/SSD/" rel="prev" title="模拟面试问答之经典网络模型七：SSD">
+      <i class="fa fa-chevron-left"></i> 模拟面试问答之经典网络模型七：SSD
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/07/17/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%9D%A2%E8%AF%95%E9%A2%98%E9%9B%86/" rel="next" title="字节跳动安卓客户端面试题集">
-      字节跳动安卓客户端面试题集 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -393,7 +493,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#网际协议IP"><span class="nav-number">1.</span> <span class="nav-text">网际协议IP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#IP数据报的格式"><span class="nav-number">1.1.</span> <span class="nav-text">IP数据报的格式</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#DNS——域名系统"><span class="nav-number">1.</span> <span class="nav-text">DNS——域名系统</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#FTP——文件传送协议"><span class="nav-number">2.</span> <span class="nav-text">FTP——文件传送协议</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TELNET——远程终端协议"><span class="nav-number">3.</span> <span class="nav-text">TELNET——远程终端协议</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#电子邮件协议"><span class="nav-number">4.</span> <span class="nav-text">电子邮件协议</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SMTP——简单邮件传送协议"><span class="nav-number">4.1.</span> <span class="nav-text">SMTP——简单邮件传送协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#POP3——邮局协议"><span class="nav-number">4.2.</span> <span class="nav-text">POP3——邮局协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IMAP——网际报文存取协议"><span class="nav-number">4.3.</span> <span class="nav-text">IMAP——网际报文存取协议</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DHCP——动态主机配置协议"><span class="nav-number">5.</span> <span class="nav-text">DHCP——动态主机配置协议</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTP——超文本传送协议"><span class="nav-number">6.</span> <span class="nav-text">HTTP——超文本传送协议</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP报文结构"><span class="nav-number">6.1.</span> <span class="nav-text">HTTP报文结构</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">7.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -409,7 +509,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-count">14</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -422,7 +522,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -545,6 +645,54 @@
   
 
   
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
 
   
 
