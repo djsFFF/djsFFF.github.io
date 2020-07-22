@@ -59,7 +59,7 @@
 <meta property="og:image" content="http://djsfff.github.io/2020/07/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E8%BF%90%E8%BE%93%E5%B1%82/4.png">
 <meta property="og:image" content="http://djsfff.github.io/2020/07/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E8%BF%90%E8%BE%93%E5%B1%82/5.png">
 <meta property="article:published_time" content="2020-07-16T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-07-21T11:35:22.557Z">
+<meta property="article:modified_time" content="2020-07-21T16:42:58.984Z">
 <meta property="article:author" content="Clover">
 <meta property="article:tag" content="计算机网络">
 <meta property="article:tag" content="运输层">
@@ -353,7 +353,7 @@
 <p>$$ 套接字socket=（IP地址：端口号） $$</p>
 <p>每一条TCP连接由两个套接字确定。发起连接的进程称为客户（client），被动等待连接的进程称为服务器（server）。</p>
 <h3 id="TCP的连接建立（三次握手，三报文握手）"><a href="#TCP的连接建立（三次握手，三报文握手）" class="headerlink" title="TCP的连接建立（三次握手，三报文握手）"></a>TCP的连接建立（三次握手，三报文握手）</h3><p><img src="/2020/07/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E8%BF%90%E8%BE%93%E5%B1%82/4.png" alt></p>
-<p>如图所示，TCP建立连接时需要在客户和服务器之间交换三个TCP报文段（客户请求，服务器确认，客户确认）。</p>
+<p>如图所示，TCP建立连接时需要在客户和服务器之间交换三个TCP报文段（客户请求连接，服务器确认，客户确认）。</p>
 <ol>
 <li>首先服务器端处于监听状态，等待客户的连接请求。</li>
 <li>客户向服务器端发送连接请求报文。</li>
@@ -363,7 +363,7 @@
 </ol>
 <p>第三次握手的原因：防止失效的连接请求到达服务器，让服务器错误打开连接。若客户的某个连接请求在网络中滞留时间过长，客户会重新请求连接，但滞留的连接请求还是会到达服务器，如果不进行第三次握手，那么服务器会打开两个连接。进行第三次握手使得最终连接权在客户。</p>
 <h3 id="TCP的连接释放（四次挥手，四报文握手）"><a href="#TCP的连接释放（四次挥手，四报文握手）" class="headerlink" title="TCP的连接释放（四次挥手，四报文握手）"></a>TCP的连接释放（四次挥手，四报文握手）</h3><p><img src="/2020/07/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E8%BF%90%E8%BE%93%E5%B1%82/5.png" alt></p>
-<p>TCP连接释放过程如图所示（客户释放，服务器确认，服务器释放，客户确认）。</p>
+<p>TCP连接释放过程如图所示（客户请求释放，服务器确认，服务器请求释放，客户确认）。</p>
 <ol>
 <li>客户的进程向其TCP发出连接释放报文段，并停止发送数据，主动关闭TCP连接。</li>
 <li>客户把连接释放报文段的FIN置1并发送给服务器，客户进入终止等待1状态，等待服务器的确认。</li>
