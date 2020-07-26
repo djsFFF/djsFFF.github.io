@@ -1331,7 +1331,10 @@ drwxr-xr-x  8 dong dong     4096 7月  13 23:46  Clover</code></pre><p>每一个
   <entry>
     <title>JAVA面试问题</title>
     <url>/2020/07/26/JAVA%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<h1 id="JAVA基础"><a href="#JAVA基础" class="headerlink" title="JAVA基础"></a>JAVA基础</h1><h2 id="面向对象的三大特性"><a href="#面向对象的三大特性" class="headerlink" title="面向对象的三大特性"></a>面向对象的三大特性</h2><ul>
+    <content><![CDATA[<h1 id="JAVA基础"><a href="#JAVA基础" class="headerlink" title="JAVA基础"></a>JAVA基础</h1><p>本文总结了面试过程中可能问到的关于JAVA的一些问题。</p>
+<a id="more"></a>
+
+<h2 id="面向对象的三大特性"><a href="#面向对象的三大特性" class="headerlink" title="面向对象的三大特性"></a>面向对象的三大特性</h2><ul>
 <li>封装：将对象的实现细节隐藏起来，通过公共的方法向外暴露该对象的功能。</li>
 <li>继承：子类通过继承可以直接或间接地获得父类的成员。继承破坏了封装，因为父类的实现细节对子类是透明的。</li>
 <li>多态：同一个行为具有多个不同表现形式的能力。条件：继承、重写、向上转型。</li>
