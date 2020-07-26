@@ -221,7 +221,7 @@ drwxr-xr-x  8 dong dong     4096 7月  13 23:46  Clover</code></pre><p>每一个
       </tags>
   </entry>
   <entry>
-    <title>操作系统知识——进程线程</title>
+    <title>操作系统——进程线程</title>
     <url>/2020/07/16/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B9%8B%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B/</url>
     <content><![CDATA[<p>本文总结了进程与线程的基础知识。</p>
 <a id="more"></a>
@@ -233,6 +233,12 @@ drwxr-xr-x  8 dong dong     4096 7月  13 23:46  Clover</code></pre><p>每一个
 <h1 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h1><p>线程时<strong>独立调度</strong>的基本单位。</p>
 <p>一个进程至少有一个线程，称为主线程，其他为子线程。</p>
 <p>一个进程中可以有多个线程，它们共享进程资源。</p>
+<h1 id="进程与线程的区别"><a href="#进程与线程的区别" class="headerlink" title="进程与线程的区别"></a>进程与线程的区别</h1><ol>
+<li>操作系统中能同时运行多个进程，而进程中能同时运行多个线程。</li>
+<li>进程是资源分配的基本单位，线程时任务调度和执行的基本单位。</li>
+<li>每个进程有独立的地址空间和资源，进程之间的切换会有较大开销；同一进程的线程共享所属进程的地址空间和资源，每个线程有独立的堆栈和程序计数器，线程之间切换的开销小。</li>
+<li>一个进程崩溃后，在保护模式下不会影响其他进程，而一个线程崩溃则整个进程死掉。所以多进程比多线程健壮。</li>
+</ol>
 <h1 id="孤儿进程"><a href="#孤儿进程" class="headerlink" title="孤儿进程"></a>孤儿进程</h1><p>一个父进程退出，而它的子进程还在运行，这些子进程称为孤儿进程。孤儿进程将被init进程（进程号为1）所收养，并由init进程对它们完成状态收集工作。孤儿进程不会对系统造成伤害。</p>
 <h1 id="僵尸进程"><a href="#僵尸进程" class="headerlink" title="僵尸进程"></a>僵尸进程</h1><p>如果子进程退出，而父进程没有调用wait()或waitpid()，那么子进程的进程描述符仍然存在系统中，这些子进程称为僵尸进程。系统能使用的进程号是有限的，若僵尸进程过多，可能导致系统无法产生新的进程。通过杀死父进程可以将僵尸进程变成孤儿进程，从而被init进程收养，只有init进程就会释放所有僵尸进程占有的资源，从而结束僵尸进程。</p>
 <h1 id="进程状态的切换"><a href="#进程状态的切换" class="headerlink" title="进程状态的切换"></a>进程状态的切换</h1><p>进程有三个状态：</p>
@@ -255,6 +261,18 @@ drwxr-xr-x  8 dong dong     4096 7月  13 23:46  Clover</code></pre><p>每一个
 <li><strong>优先级调度：</strong>每个进程分配一个优先级，按优先级进行调度，为了避免低优先级进程永远得不到调度，可以随时间增加等待进程的优先级。</li>
 <li><strong>多级反馈队列：</strong>设置多个时间片大小不同的队列，进程若在第一个队列结束时间片后未执行完毕，则被送到下一个队列末尾。</li>
 </ol>
+<h1 id="线程同步"><a href="#线程同步" class="headerlink" title="线程同步"></a>线程同步</h1><h2 id="临界区"><a href="#临界区" class="headerlink" title="临界区"></a>临界区</h2><p>对多线程串行化访问公共资源，任意时刻只允许一个线程对公共资源进行访问。同步速度快，但是只能用于同步本进程内的线程，而不可用于同步多个进程中的线程。</p>
+<h2 id="互斥量"><a href="#互斥量" class="headerlink" title="互斥量"></a>互斥量</h2><p>采用互斥对象机制，只有拥有互斥对象的线程才能访问公共资源的权限。互斥量可以命名，因此可以实现跨进程的线程同步，创建互斥量需要的资源也更多。</p>
+<h2 id="信号量"><a href="#信号量" class="headerlink" title="信号量"></a>信号量</h2><p>信号量允许多个线程同一时刻访问同一资源，但是需要限制在同一时刻访问此资源的最大线程数目。</p>
+<p>信号量用于累计进程的唤醒次数，可以取0或正值，有两种操作：</p>
+<ul>
+<li>down：若信号量大于0，则执行-1；若信号量为0，则将进程睡眠，等待信号量大于1，此时down操作未完成。</li>
+<li>up：将信号量+1，唤醒睡眠的进程让其完成down操作。</li>
+</ul>
+<p>若信号量取值只能为0或1，则为互斥量（Mutex）。</p>
+<h2 id="事件"><a href="#事件" class="headerlink" title="事件"></a>事件</h2><p>通过通知操作的方式来保持线程同步，还可以实现多个线程优先级的比较。</p>
+<h1 id="进程同步"><a href="#进程同步" class="headerlink" title="进程同步"></a>进程同步</h1><h2 id="互斥量-1"><a href="#互斥量-1" class="headerlink" title="互斥量"></a>互斥量</h2><h2 id="信号量-1"><a href="#信号量-1" class="headerlink" title="信号量"></a>信号量</h2><h2 id="管程"><a href="#管程" class="headerlink" title="管程"></a>管程</h2><p>管程是由过程、变量及数据结构等组成的一个集合，是一个特殊的模块或软件包。任一时刻只能有一个进程调用管程中的过程。</p>
+<h2 id="消息传递"><a href="#消息传递" class="headerlink" title="消息传递"></a>消息传递</h2><p>使用两条原语send和receive，类似信号量而不是管程，是系统调用而不是语言成分。</p>
 <h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p><a href="https://cyc2018.github.io/CS-Notes/#/" target="_blank" rel="noopener">CS-Notes</a></p>
 ]]></content>
       <categories>
@@ -271,25 +289,148 @@ drwxr-xr-x  8 dong dong     4096 7月  13 23:46  Clover</code></pre><p>每一个
 <a id="more"></a>
 
 <ul>
-<li><input disabled type="checkbox"> 线程同步的方式</li>
-<li><input disabled type="checkbox"> 死锁产生的条件？如何避免和解决？</li>
-<li><input disabled type="checkbox"> 为什么有了进程还要线程？</li>
-<li><input disabled type="checkbox"> HTTP和HTTPS的区别？HTTPS连接建立的过程？如果服务端也需要客户端传证书，应该是连接建立的哪个阶段？HTTP用的是TCP还是UDP？</li>
-<li><input disabled type="checkbox"> TCP和UDP的区别？应用场景？</li>
-<li><input disabled type="checkbox"> TCP的拥塞控制</li>
-<li><input disabled type="checkbox"> 分段和分页</li>
-<li><input disabled type="checkbox"> 进程调度算法</li>
-<li><input disabled type="checkbox"> 进程线程的区别与联系？进程之间的通信方式？线程之间通信方式？</li>
-<li><input disabled type="checkbox"> 三次握手</li>
-<li><input disabled type="checkbox"> SSL握手过程？第一次握手如何加密？第二次握手如何加密？对称加密？非对称加密？加密过程？</li>
-<li><input disabled type="checkbox"> 信号量与互斥量的区别？</li>
-<li><input disabled type="checkbox"> wait()和sleep()的区别？</li>
-<li><input disabled type="checkbox"> 设计模式？</li>
-<li><input disabled type="checkbox"> JAVA：LinkedList与ArrayList？HashMap扩容？ConcurrentHashMap？创建对象的几种方式？</li>
-<li><input disabled type="checkbox"> JVM内存模型？</li>
-<li><input disabled type="checkbox"> 活动的生命周期？活动的启动模式？Handler源码？</li>
-<li><input disabled type="checkbox"> 在浏览器输入网址敲回车后经历了什么？a)三次握手；b)https的加密流程；c)对称加密与非对称加密原理（RSA、AES）</li>
-<li><input disabled type="checkbox"> DNS原理</li>
+<li><input checked disabled type="checkbox"> <p>线程同步的方式</p>
+<ul>
+<li><p>JAVA</p>
+<ol>
+<li>synchronized关键字修饰方法或代码块。</li>
+<li>域变量volatile，每次使用域变量需要重新计算，而不是使用寄存器中的值。</li>
+<li>使用重入锁ReetrantLock。</li>
+<li>使用局部变量ThreadLocal，在线程中对变量的副本进行操作。</li>
+<li>使用阻塞队列LinkedBlockingQueue。</li>
+<li>使用原子操作java.util.concurrent.atomic，将读、写和保存看做一个整体进行操作，不可分割。</li>
+</ol>
+</li>
+<li><p>操作系统</p>
+<p>临界区、互斥量、信号量、事件</p>
+</li>
+</ul>
+</li>
+<li><input checked disabled type="checkbox"> <p>死锁产生的条件？如何避免和解决？</p>
+<p>死锁条件：互斥、占有和等待、不可抢占、环路等待</p>
+<p>死锁解决方法：</p>
+<ul>
+<li><p>鸵鸟政策：忽略死锁。</p>
+</li>
+<li><p>死锁预防：破坏四个条件至少一个。</p>
+</li>
+<li><p>死锁避免：使用银行家算法判断安全状态。</p>
+</li>
+<li><p>死锁检测和死锁恢复：检测并恢复死锁。</p>
+</li>
+</ul>
+</li>
+<li><input checked disabled type="checkbox"> <p>为什么有了进程还要线程？</p>
+<ol>
+<li>为了在进程中实现并发.</li>
+<li>没有线程的进程遇到阻塞时，整个线程就会挂起，而不依赖输入的线程可以继续工作。</li>
+</ol>
+</li>
+<li><input checked disabled type="checkbox"> <p>HTTP和HTTPS的区别？HTTPS连接建立的过程？如果服务端也需要客户端传证书，应该是连接建立的哪个阶段？HTTP用的是TCP还是UDP？</p>
+</li>
+<li><input checked disabled type="checkbox"> <p>TCP和UDP的区别？应用场景？</p>
+<p>TCP：HTTP，FTP，SMTP，IMAP，POP3，TELNET</p>
+<p>UDP：DNS，TFTP，DHCP，RIP</p>
+</li>
+<li><input checked disabled type="checkbox"> <p>TCP的拥塞控制</p>
+<p>慢开始、拥塞避免、快重传、快恢复</p>
+</li>
+<li><input checked disabled type="checkbox"> <p>分段和分页</p>
+<p>分页：把虚拟内存的地址空间划分为固定大小的页。</p>
+<p>分段：把虚拟内存分成多个独立的地址空间，每个段的长度可以不同，并且可以动态增长。</p>
+</li>
+<li><input checked disabled type="checkbox"> <p>进程调度算法</p>
+<p>分布式操作系统：先来先服务、短作业优先、最短剩余时间优先。</p>
+<p>交互式操作系统：时间片轮转、优先级调度、多级反馈队列。</p>
+</li>
+<li><input checked disabled type="checkbox"> <p>进程线程的区别与联系？进程之间的通信方式？线程之间通信方式？</p>
+<ul>
+<li><p>区别：</p>
+<ol>
+<li>系统中可以同时运行多个进程，进程中可以同时运行多个线程。</li>
+<li>进程是资源分配的基本单位，线程是任务调度和执行的基本单位。</li>
+<li>每个进程有独立的地址空间和资源，进程之间的切换会有较大的开销；同一进程的线程共享所属进程的地址空间和资源，线程之间的切换开销较小。</li>
+</ol>
+</li>
+<li><p>联系：</p>
+<ol>
+<li>一个线程属于某个进程，一个进程拥有至少一个线程。</li>
+<li>线程共享所属进程的地址空间和资源。</li>
+</ol>
+</li>
+<li><p>进程之间通信的方式：</p>
+<p>管道，命名管道，消息队列，信号量，共享存储，套接字。</p>
+</li>
+<li><p>线程之间通信的方式：</p>
+<p>消息机制、共享内存中的变量。</p>
+</li>
+</ul>
+</li>
+<li><input checked disabled type="checkbox"> <p>三次握手</p>
+<ol>
+<li>客户向服务器发送TCP连接请求报文。</li>
+<li>服务器收到连接请求报文，若同意，则向客户返回确认报文。</li>
+<li>客户收到服务器确认报文，并向服务器发送确认报文，且报文可以携带数据。</li>
+<li>服务器收到确认后，建立TCP连接。</li>
+</ol>
+</li>
+<li><input checked disabled type="checkbox"> <p>SSL握手过程？第一次握手如何加密？第二次握手如何加密？对称加密？非对称加密？加密过程？</p>
+<ol>
+<li>客户向服务器发送支持的加密算法列表和一个客户不重数。</li>
+<li>服务器将选择的加密算法、一个服务器不重数和包含公钥的证书发送给客户。</li>
+<li>客户对服务器的证书进行验证，获取服务器的公钥，生成一个随机数，用服务器的公钥加密后发送给服务器。</li>
+<li>服务器使用私钥解密出随机数。客户和服务器独立地利用随机数、客户不重数和服务器不重数计算出报文加密密钥和报文鉴别码生成密钥。至此，客户和服务器之间发送的所有报文均可被加密和鉴别。</li>
+<li>客户发送所有握手报文的一个MAC。</li>
+<li>服务器发送所有握手报文的一个MAC。</li>
+</ol>
+</li>
+<li><input checked disabled type="checkbox"> <p>信号量与互斥量的区别？</p>
+<ul>
+<li>信号量用于线程的同步，互斥量用于线程的互斥。</li>
+<li>信号量可以为非负整数，互斥量只能为0或1.</li>
+<li>信号量可以由一个线程释放，另一个线程得到，互斥量的加锁解锁必须由同一个线程操作。</li>
+</ul>
+</li>
+<li><input checked disabled type="checkbox"> <p>同步与互斥的区别？</p>
+<ul>
+<li>互斥是指某一资源同时只允许一个线程进行访问。</li>
+<li>同步时指在互斥的基础上，实现多个线程对资源的<strong>有序访问</strong>，同步包含了互斥。</li>
+<li>同步是一种复杂的互斥，互斥是一种特殊的同步。</li>
+</ul>
+</li>
+<li><input checked disabled type="checkbox"> <p>wait()和sleep()的区别？</p>
+<p>都是使线程进入阻塞状态，让出CPU时间，执行其他线程。</p>
+<ul>
+<li>sleep()是Thread类的方法，不会释放锁，时间结束后继续执行。</li>
+<li>wait()是Object类的方法，会释放锁，需要等待notify()唤醒。</li>
+</ul>
+</li>
+<li><input disabled type="checkbox"> <p>设计模式？</p>
+</li>
+<li><input disabled type="checkbox"> <p>JAVA：LinkedList与ArrayList？HashMap扩容？ConcurrentHashMap？创建对象的几种方式？</p>
+</li>
+<li><input disabled type="checkbox"> <p>JVM内存模型？</p>
+</li>
+<li><input disabled type="checkbox"> <p>活动的生命周期？活动的启动模式？Handler源码？</p>
+</li>
+<li><input checked disabled type="checkbox"> <p>在浏览器输入网址敲回车后经历了什么？a)三次握手；b)https的加密流程；c)对称加密与非对称加密原理（RSA、AES）</p>
+<p>敲回车后：</p>
+<ol>
+<li>浏览器向本地DNS服务器请求查询URL对应的IP地址。</li>
+<li>浏览器根据获得的IP地址进行TCP连接三次握手，向服务器发送TCP连接请求报文。</li>
+<li>服务器收到连接请求报文后，若同意连接，则向浏览器发送确认报文。</li>
+<li>浏览器收到服务器的确认报文后，将HTTP请求报文封装在TCP报文的数据部分并发送给服务器。</li>
+<li>服务器根据HTTP请求报文，查询浏览器需要的资源并以HTTP响应报文的形式发送给浏览器。</li>
+<li>浏览器接收到响应报文后展示请求资源。</li>
+</ol>
+</li>
+<li><input checked disabled type="checkbox"> <p>DNS原理</p>
+<p>DNS能够将主机名转换为对应的IP地址。</p>
+<ol>
+<li>客户向本地服务器请求解析主机名。</li>
+<li>若本地DNS服务器能够解析该主机名，则直接返回对应的IP地址；否则，本地DNS服务器向其他DNS服务器迭代地查询，直到解析出IP地址，然后返回给客户。</li>
+</ol>
+</li>
 </ul>
 ]]></content>
       <categories>
@@ -859,6 +1000,425 @@ drwxr-xr-x  8 dong dong     4096 7月  13 23:46  Clover</code></pre><p>每一个
       <tags>
         <tag>计算机网络</tag>
         <tag>应用层</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CenterNet</title>
+    <url>/2020/07/22/CenterNet/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>模拟面试问答之经典网络模型八：CornerNet</title>
+    <url>/2020/07/22/CornerNet/</url>
+    <content><![CDATA[<p>本文总结了面试过程中可能问到的关于CornerNet模型的一些问题。</p>
+<p><img src="/2020/07/22/CornerNet/1.png" alt></p>
+<a id="more"></a>
+
+<h1 id="介绍一下CornerNet的网络结构？"><a href="#介绍一下CornerNet的网络结构？" class="headerlink" title="介绍一下CornerNet的网络结构？"></a>介绍一下CornerNet的网络结构？</h1><ol>
+<li><p>首先采用一个7×7卷积将输入图像尺寸缩小为原来的1/4。</p>
+</li>
+<li><p>采用两个hourglass模块组成的Hourglass-104作为主干网络提取特征。</p>
+</li>
+<li><p>每个hourglass模块先通过一系列卷积下采样输入尺寸，然后逐步上采样恢复到输入尺寸大小。</p>
+</li>
+<li><p>主干网络后面有两个输出分支，分别是左上角关键点预测分支和右下角关键点预测分支。</p>
+</li>
+<li><p>每个分支通过corner pooling和一系列卷积产生3个输出</p>
+<ul>
+<li><p>Heatmaps：输出维度为H×W×C，表示C个类别下H×W个特征点是左上角（右下角）关键点的概率。</p>
+</li>
+<li><p>Embeddings：输出维度为H×W×1，每个特征点的embedding是一个一维标量，用于计算两个关键点之间的距离。</p>
+</li>
+<li><p>Offsets：输出维度为H×W×2，每个点输出两个坐标偏移量：</p>
+<p><img src="/2020/07/22/CornerNet/2.png" alt></p>
+<p>其中$x_k$，$y_k$表示关键点k的坐标。设在heatmap上点$(x,y)$预测为corner，对应的offset为$\hat o=(\Delta x, \Delta y)$，那么在原图上corner的坐标为</p>
+<p>$$x_0=\lfloor (x+\Delta x)n \rfloor,y_0=\lfloor (y+\Delta y)n\rfloor$$</p>
+</li>
+</ul>
+</li>
+</ol>
+<h1 id="CornerNet有什么特点？"><a href="#CornerNet有什么特点？" class="headerlink" title="CornerNet有什么特点？"></a>CornerNet有什么特点？</h1><p>CornerNet是一种Anchor-free的目标检测方法，它通过预测物体框的左上角和右下角两个关键点来定位物体。</p>
+<h1 id="CornerNet的损失函数是如何计算的？"><a href="#CornerNet的损失函数是如何计算的？" class="headerlink" title="CornerNet的损失函数是如何计算的？"></a>CornerNet的损失函数是如何计算的？</h1><p>CornerNet的损失函数由四部分组成，论文中设置$\alpha=\beta=\gamma=1$：</p>
+<p>$$L=L_{det}+\alpha L_{pull}+\beta L_{push}+\gamma L_{off}$$</p>
+<p>$L_{det}$为分类损失，采用focal loss。训练时，当坐标(i,j)处是gt点且类别相同，则该坐标为正样本，其他均为负样本。损失函数中设置距离gt越近的负样本会贡献更小的loss：</p>
+<p><img src="/2020/07/22/CornerNet/3.png" alt></p>
+<p>$L_{pull}$损失是为了将属于同一个目标的两个关键点的embedding拉的更近，$L_{push}$损失是为了将属于不同目标的两个关键点的embedding距离尽可能推开。</p>
+<p><img src="/2020/07/22/CornerNet/4.png" alt></p>
+<p>$L_{off}$为坐标偏移损失，采用Smooth L1损失：</p>
+<p><img src="/2020/07/22/CornerNet/5.png" alt></p>
+<h1 id="介绍一下corner-pooling？"><a href="#介绍一下corner-pooling？" class="headerlink" title="介绍一下corner pooling？"></a>介绍一下corner pooling？</h1><p><img src="/2020/07/22/CornerNet/6.png" alt></p>
+]]></content>
+      <categories>
+        <category>面试</category>
+      </categories>
+      <tags>
+        <tag>深度学习</tag>
+        <tag>经典网络</tag>
+        <tag>目标检测</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>设计模式</title>
+    <url>/2020/07/23/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</url>
+    <content><![CDATA[<p>设计模式是一套被反复使用、多数人知晓、经过分类编目的、代码设计经验的总结。使用设计模式是为了重用代码、让代码更容易被他人理解、保证代码可靠性。</p>
+<a id="more"></a>
+
+<table>
+<thead>
+<tr>
+<th>模式&amp;藐视</th>
+<th>包括</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>创建型模式</strong><br>创建对象的同时隐藏创建逻辑</td>
+<td><strong>工厂模式</strong>（Factory Pattern）<br>抽象工厂模式（Abstract Factory Pattern）<br><strong>单例模式</strong>（Singleton Pattern）<br>建造者模式（Builder Pattern）<br>原型模式（Prototype Pattern）</td>
+</tr>
+<tr>
+<td><strong>结构型模式</strong><br>关注类和对象的组合</td>
+<td><strong>适配器模式</strong>（Adapter Pattern）<br>桥接模式（Bridge Pattern）<br>过滤器模式（Filter Pattern）<br>组合模式（Composite Pattern）<br>装饰器模式（Decorator Pattern）<br>外观模式（Facade Pattern）<br>享元模式（Flyweight Pattern）<br><strong>代理模式</strong>（Proxy Pattern）</td>
+</tr>
+<tr>
+<td><strong>行为型模式</strong><br>关注对象之间的通信</td>
+<td>责任链模式（Chain of Responsibility Pattern）<br><strong>命令模式</strong>（Command Pattern）<br>解释器模式（Interpreter Pattern）<br>迭代器模式（Iterator Pattern）<br>中介者模式（Mediator Pattern）<br>备忘录模式（Memento Pattern）<br><strong>观察者模式</strong>（Observer Pattern）<br>状态模式（State Pattern）<br>空对象模式（Null Object Pattern）<br>策略模式（Strategy Pattern）<br>模板模式（Template Pattern）<br>访问者模式（Visitor Pattern）</td>
+</tr>
+<tr>
+<td><strong>J2EE模式</strong><br>关注表示层</td>
+<td>MVC模式（MVC Pattern）<br>业务代表模式（Business Delegate Pattern）<br>组合实体模式（Composite Entity Pattern）<br>数据访问对象模式（Data Access Object Pattern）<br>前端控制器模式（Front Controller Pattern）<br>拦截过滤器模式（Intercepting FIlter Pattern）<br>服务定位模式（Service Locator Pattern）<br>传输对象模式（Transfer Object Pattern）</td>
+</tr>
+</tbody></table>
+<h1 id="六大原则"><a href="#六大原则" class="headerlink" title="六大原则"></a>六大原则</h1><ol>
+<li>开闭原则：在程序需要扩展时，不能修改原有的代码，而应该借助接口和抽象类实现扩展性。</li>
+<li>里氏代换原则：任何基类可以出现的地方，子类一定也可以出现。即子类继承实现了基类的所有功能。</li>
+<li>依赖倒转原则：针对接口编程，依赖于抽象而不依赖于具体。</li>
+<li>接口隔离原则：使用多个隔离的接口比使用单个接口好。即降低类之间的耦合度。</li>
+<li>最少知道原则：一个实体应该尽量少地与其他实体之间发生相互作用，使得系统功能模块相对独立。</li>
+<li>合成复用原则：尽量使用合成/聚合的方式，而不是使用继承。</li>
+</ol>
+<h1 id="观察者模式"><a href="#观察者模式" class="headerlink" title="观察者模式"></a>观察者模式</h1><p><strong>作用：</strong>当对象存在一对多关系时，可使用观察者模式，如当一个对象（被观察者）被修改时，则会通知依赖它的对象（观察者）。</p>
+<p><strong>关键代码</strong>：在被观察者类中有一个ArrayList存放观察者。</p>
+<p><strong>应用实例：</strong>消息通知，广播等。</p>
+<p><strong>优点：</strong>①观察者和被观察者是抽象耦合的。②建立了一套触发机制。</p>
+<p><strong>缺点：</strong>①当观察者太多时，更新通知会花费很多时间。②如果观察者和被观察者之间有循环依赖的话，更新会触发循环循环调用，可能导致系统崩溃。③只能知道被观察者发生了变化，而无法知道是如何变化的。</p>
+<p><strong>注意事项：</strong>如果顺序执行，某一观察者错误会导致系统卡壳，一般采用异步方式。</p>
+<p><strong>实现：</strong>使用三个类Subject、Observer和Client。Subject为被观察者类，Observer为观察者抽象类，Client为Observer的实体类。</p>
+<h2 id="Subject类"><a href="#Subject类" class="headerlink" title="Subject类"></a>Subject类</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Subject</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> List&lt;Observer&gt; observers = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> state;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getState</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> state;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setState</span><span class="params">(<span class="keyword">int</span> state)</span></span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.state = state;</span><br><span class="line">		notifyAllObservers();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">attach</span><span class="params">(Observer observer)</span></span>&#123;</span><br><span class="line">		observers.add(observer);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">notifyAllObservers</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">for</span>(Observer observer : observers)&#123;</span><br><span class="line">			observer.update();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Observer抽象类"><a href="#Observer抽象类" class="headerlink" title="Observer抽象类"></a>Observer抽象类</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Observer</span></span>&#123;</span><br><span class="line">	<span class="keyword">protected</span> Subject subject;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Observer实体类"><a href="#Observer实体类" class="headerlink" title="Observer实体类"></a>Observer实体类</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AObserver</span> <span class="keyword">extends</span> <span class="title">Observer</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">AObserver</span><span class="params">(Subject subject)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.subject = subject;</span><br><span class="line">        <span class="keyword">this</span>.subject.attach(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(subject.getState());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="适配器模式"><a href="#适配器模式" class="headerlink" title="适配器模式"></a>适配器模式</h1><p><strong>作用：</strong>结合两个独立的接口。</p>
+<p><strong>关键代码：</strong>适配器继承或依赖已有的对象，实现想要的目标接口。</p>
+<p><strong>应用实例：</strong></p>
+<p><strong>优点：</strong></p>
+<p><strong>缺点：</strong></p>
+<p><strong>注意事项：</strong></p>
+<p><strong>实现：</strong></p>
+<h1 id="代理模式"><a href="#代理模式" class="headerlink" title="代理模式"></a>代理模式</h1><p><strong>作用：</strong>在直接访问某个对象比较麻烦时，可以加一个对此对象的访问类。</p>
+<p><strong>关键代码：</strong></p>
+<p><strong>应用实例：</strong></p>
+<p><strong>优点：</strong></p>
+<p><strong>缺点：</strong></p>
+<p><strong>注意事项：</strong></p>
+<p><strong>实现：</strong>创建一个Image接口，一个实现了Image的实体类RealImage。ProxyImage是一个代理类，其中保存了一个RealImage对象。</p>
+<h2 id="Image接口"><a href="#Image接口" class="headerlink" title="Image接口"></a>Image接口</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Image</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">display</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="实现Image接口的实体类"><a href="#实现Image接口的实体类" class="headerlink" title="实现Image接口的实体类"></a>实现Image接口的实体类</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RealImage</span> <span class="keyword">implements</span> <span class="title">Image</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String fileName;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">RealImage</span><span class="params">(String fileName)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.fileName = fileName;</span><br><span class="line">        loadFromDisk(fileName);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">display</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Displaying "</span> + fileName);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">loadFromDisk</span><span class="params">(String fileName)</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Loading "</span> + fileName);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProxyImage</span> <span class="keyword">implements</span> <span class="title">Image</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> RealImage realImage;</span><br><span class="line">    <span class="keyword">private</span> String fileName;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">proxyImage</span><span class="params">(String fileName)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.fileName = fileName;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> display&#123;</span><br><span class="line">        <span class="keyword">if</span>(realImage == <span class="keyword">null</span>)&#123;</span><br><span class="line">            realImage = <span class="keyword">new</span> RealImage(fileName);</span><br><span class="line">        &#125;</span><br><span class="line">        realImage.display();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProxyPatternDemo</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">		Image image = <span class="keyword">new</span> ProxyImage(<span class="string">"test.jpg"</span>);</span><br><span class="line">		<span class="comment">// 图像从磁盘加载</span></span><br><span class="line">		image.display();</span><br><span class="line">		<span class="comment">// 图像不需要从磁盘加载</span></span><br><span class="line">		image.display();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h1><p><strong>作用：</strong>在不同条件下需要不同实例时。</p>
+<p><strong>关键代码：</strong>创建过程在子类执行。</p>
+<p><strong>应用实例：</strong></p>
+<p><strong>优点：</strong></p>
+<p><strong>缺点：</strong></p>
+<p><strong>注意事项：</strong></p>
+<p><strong>实现：</strong>创建一个Shape接口和实现Shape的实体类，定义工厂类可根据给定信息生成对应的实体类。</p>
+<h2 id="创建一个接口"><a href="#创建一个接口" class="headerlink" title="创建一个接口"></a>创建一个接口</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Shape</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="创建接口的实体类"><a href="#创建接口的实体类" class="headerlink" title="创建接口的实体类"></a>创建接口的实体类</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Rectangle</span> <span class="keyword">implements</span> <span class="title">Shape</span></span>&#123;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span></span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"Rectangle"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Circle</span> <span class="keyword">implements</span> <span class="title">Shape</span></span>&#123;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span></span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"Circle"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="创建一个工厂，基于给定信息生成对应的实体类对象"><a href="#创建一个工厂，基于给定信息生成对应的实体类对象" class="headerlink" title="创建一个工厂，基于给定信息生成对应的实体类对象"></a>创建一个工厂，基于给定信息生成对应的实体类对象</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ShapeFactory</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> Shape <span class="title">getShape</span><span class="params">(String shapeType)</span></span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(shapeType == <span class="keyword">null</span>)&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(shapeType.equalsIgnoreCase(<span class="string">"CIRCLE"</span>))&#123;</span><br><span class="line">        	<span class="keyword">return</span> <span class="keyword">new</span> Circle();</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(shapeType.equalsIgnoreCase(<span class="string">"RECTANGLE"</span>))&#123;</span><br><span class="line">        	<span class="keyword">return</span> <span class="keyword">new</span> Rectangle();</span><br><span class="line">        &#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h1><p><strong>作用：</strong>保证一个类仅有一个实例，并提供一个访问它的全局访问点。</p>
+<p><strong>关键代码：</strong>私有化类的构造函数。</p>
+<p><strong>应用实例：</strong></p>
+<p><strong>优点：</strong></p>
+<p><strong>缺点：</strong></p>
+<p><strong>注意事项：</strong>getInstance()方法中需要使用同步锁synchronized防止多线程同时进入造成Instance被多次实例化。</p>
+<p><strong>实现：</strong></p>
+<h2 id="懒汉式，线程不安全"><a href="#懒汉式，线程不安全" class="headerlink" title="懒汉式，线程不安全"></a>懒汉式，线程不安全</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SingleObject</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> SingleObject instance;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">SingleObject</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SingleObject <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(instance == <span class="keyword">null</span>)&#123;</span><br><span class="line">            instance = <span class="keyword">new</span> SingleObject();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="懒汉式，线程安全"><a href="#懒汉式，线程安全" class="headerlink" title="懒汉式，线程安全"></a>懒汉式，线程安全</h2><p>优点：第一次调用才初始化，避免浪费内存。</p>
+<p>缺点：加锁影响效率。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SingleObject</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> SingleObject instance;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">SingleObject</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> SingleObject <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(instance == <span class="keyword">null</span>)&#123;</span><br><span class="line">            instance = <span class="keyword">new</span> SingleObject();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="饿汉式"><a href="#饿汉式" class="headerlink" title="饿汉式"></a>饿汉式</h2><p>优点：没有加锁，执行效率高。</p>
+<p>缺点：类加载时就初始化，浪费内存。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SingleObject</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> SingleObject instance = <span class="keyword">new</span> SingleObject();</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="title">SingleObject</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SingleObject <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="双检锁-双重校验锁"><a href="#双检锁-双重校验锁" class="headerlink" title="双检锁/双重校验锁"></a>双检锁/双重校验锁</h2><p>采用双锁机制，安全且在多线程情况下保持高性能。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SinglObjetc</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">static</span> SingleObject singleObject;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">SingleObject</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SingleObject <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(singleObject == <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (SingleObjecy<span class="class">.<span class="keyword">class</span>)</span>&#123;</span><br><span class="line">                <span class="keyword">if</span>(singleObject == <span class="keyword">null</span>)&#123;</span><br><span class="line">                    singleObject = <span class="keyword">new</span> SingleObject();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> singleObject;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="命令模式"><a href="#命令模式" class="headerlink" title="命令模式"></a>命令模式</h1><p><strong>作用：</strong></p>
+<p><strong>关键代码：</strong></p>
+<p><strong>应用实例：</strong></p>
+<p><strong>实现：</strong></p>
+<p><strong>优点：</strong></p>
+<p><strong>缺点：</strong></p>
+<p><strong>注意事项：</strong></p>
+<h1 id="责任链模式（okhttp）"><a href="#责任链模式（okhttp）" class="headerlink" title="责任链模式（okhttp）"></a>责任链模式（okhttp）</h1><h1 id="主要参考资料"><a href="#主要参考资料" class="headerlink" title="主要参考资料"></a>主要参考资料</h1><p><a href="https://www.runoob.com/design-pattern/design-pattern-intro.html" target="_blank" rel="noopener">https://www.runoob.com/design-pattern/design-pattern-intro.html</a></p>
+]]></content>
+      <categories>
+        <category>JAVA</category>
+      </categories>
+      <tags>
+        <tag>JAVA</tag>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>操作系统——死锁</title>
+    <url>/2020/07/25/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E2%80%94%E2%80%94%E6%AD%BB%E9%94%81/</url>
+    <content><![CDATA[<p>本文总结了死锁的基础知识。</p>
+<a id="more"></a>
+
+<h1 id="死锁的概念"><a href="#死锁的概念" class="headerlink" title="死锁的概念"></a>死锁的概念</h1><p>死锁是指两个或两个以上的进程在执行过程中，由于互相竞争资源而造成的一种阻塞现象，若无外力作用，它们将无法执行下去。</p>
+<h1 id="死锁产生的必要条件"><a href="#死锁产生的必要条件" class="headerlink" title="死锁产生的必要条件"></a>死锁产生的必要条件</h1><ul>
+<li>互斥：每个资源要么以及分配给了一个进程，要么可用。</li>
+<li>占用和等待：已经得到某个资源的进程可以请求新的资源。</li>
+<li>不可抢占：已经分配给一个进程的资源不可被抢占，只能被占用它的进程释放。</li>
+<li>环路等待：有两个或两个以上的进程组成环路，其中每个进程都在等待下一个进程占有的资源。</li>
+</ul>
+<h1 id="死锁产生的原因"><a href="#死锁产生的原因" class="headerlink" title="死锁产生的原因"></a>死锁产生的原因</h1><ul>
+<li>进程执行顺序不当。</li>
+<li>PV操作使用不当。</li>
+<li>同类资源分配不均。</li>
+<li>对某些资源的使用未加限制等。</li>
+</ul>
+<h1 id="死锁解决的方法"><a href="#死锁解决的方法" class="headerlink" title="死锁解决的方法"></a>死锁解决的方法</h1><h2 id="鸵鸟政策"><a href="#鸵鸟政策" class="headerlink" title="鸵鸟政策"></a>鸵鸟政策</h2><p>解决死锁问题的代价很高，一种解决方法是忽略死锁。</p>
+<h2 id="死锁预防"><a href="#死锁预防" class="headerlink" title="死锁预防"></a>死锁预防</h2><p>在进程执行之前防止发生死锁，至少破坏四个必要条件之一。</p>
+<ul>
+<li>破坏互斥条件：只读文件可以采用非互斥访问。</li>
+<li>破坏占有和等待条件：所有进程在开始执行前请求所需要的全部资源。</li>
+<li>破坏不可抢占条件：若进程所需资源不足，则释放该进程的占有资源，进入等待状态。</li>
+<li>破坏环路等待条件：给资源统一编号，进程只能按编号顺序来请求资源。</li>
+</ul>
+<h2 id="死锁避免"><a href="#死锁避免" class="headerlink" title="死锁避免"></a>死锁避免</h2><p>使用银行家算法分析系统剩余资源量，进程占有资源量和进程申请资源量之间的关系，若存在一种调度顺序使得所有进程能够正常执行，则为安全状态，否则不是安全状态，应当拒绝进入这种状态。</p>
+<h2 id="死锁检测与死锁恢复"><a href="#死锁检测与死锁恢复" class="headerlink" title="死锁检测与死锁恢复"></a>死锁检测与死锁恢复</h2><p>不试图阻止死锁，而是当检测到死锁发生时，采取措施进行恢复。</p>
+<ul>
+<li>每种类型一个资源时：检测有向图是否存在环。</li>
+<li>每种类型多个资源时：根据系统剩余资源量，进程占有资源量和进程申请资源量，标记出无法正常执行的死锁进程。</li>
+</ul>
+<p>死锁恢复：</p>
+<ul>
+<li>利用抢占恢复：释放死锁状态的进程占有的资源，但并不杀死进程，直到死锁解除。</li>
+<li>利用回滚恢复：根据系统保存的检查点让所有进程回退，直到死锁解除。</li>
+<li>通过杀死进程恢复：杀死死锁状态的所有进程或逐个杀死死锁状态的进程，直到死锁解除。</li>
+<li>系统重启：结束所有进程并重启操作系统。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>操作系统</category>
+      </categories>
+      <tags>
+        <tag>操作系统</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>计算机网络——网络安全</title>
+    <url>/2020/07/24/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/</url>
+    <content><![CDATA[<p>本文整理计算机网络中网络安全的主要知识点。</p>
+<a id="more"></a>
+
+<h1 id="对称加密"><a href="#对称加密" class="headerlink" title="对称加密"></a>对称加密</h1><p>加密秘钥=解密秘钥，常用加密算法DES等</p>
+<h1 id="非对称加密"><a href="#非对称加密" class="headerlink" title="非对称加密"></a>非对称加密</h1><ul>
+<li>公钥加密，私钥解密。</li>
+<li>公钥是向公众公开的，私钥是保密的。</li>
+<li>无法从公钥推到出私钥。</li>
+</ul>
+<p>常用加密算法RSA等。</p>
+<h1 id="数字签名"><a href="#数字签名" class="headerlink" title="数字签名"></a>数字签名</h1><p>数字签名必须保证实现三个功能：</p>
+<ul>
+<li>报文鉴别：接收者能够确信该报文的确是发送者发送的，其他人无法伪造签名。</li>
+<li>报文完整性：接收者能够确信收到的数据没有被篡改过。</li>
+<li>不可否认：发送者事后无法对报文的签名抵赖。</li>
+</ul>
+<p>A使用非对称加密的<strong>私钥</strong>对报文进行加密，B使用A的<strong>公钥</strong>获得明文核实签名。由于私钥只有A知道，因此若B能从密文中解出可读的明文，则能确定A的身份。</p>
+<p>但是由于A的公钥是公开的，任何人获得私钥加密后的报文都能解出报文的内容，因此上述过程仅对报文进行了签名，而报文本身无法保密。</p>
+<p><img src="/2020/07/24/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/1.png" alt></p>
+<p>使用如上图所示的过程可以同时实现加密通信和数字签名：</p>
+<ol>
+<li>签名：发送方使用A的<strong>私钥</strong>对报文进行加密，实现签名。</li>
+<li>加密：发送方使用B的<strong>公钥</strong>进一步进行加密，实现报文加密。</li>
+<li>解密：接收方使用B的<strong>私钥</strong>进行解密，实现报文解密。</li>
+<li>核实签名：接收方使用A的<strong>公钥</strong>进行解密，实现核实签名。</li>
+</ol>
+<h1 id="鉴别"><a href="#鉴别" class="headerlink" title="鉴别"></a>鉴别</h1><p>鉴别是为了验证通信的对方是自己要通信的对象，并且所传送的报文是完整的，没被他人篡改的。</p>
+<h2 id="报文鉴别"><a href="#报文鉴别" class="headerlink" title="报文鉴别"></a>报文鉴别</h2><p>理论上，数字签名可以实现报文鉴别，但是对较长的报文进行数字签名十分耗时。因此采用一种相对简单的方法来对报文进行鉴别——密码散列函数。</p>
+<p>密码散列函数的特点是要找到一种密码散列函数使得两个不同的报文X$\neq$Y对应的输出H(X)=H(Y)在计算上时不可行的。这就是说，如果我们固定长度的H(X)被他人截获了，那么截获者也无法伪造出另一个明文Y使得H(X)=H(Y)。换言之，散列H(X)可以保护明文的完整性。</p>
+<p><img src="/2020/07/24/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/2.png" alt></p>
+<p>但是密码散列函数是单向函数，只能单向变换，不能逆向变换。因此，发送方需要同时发送明文及其散列(X,H(X))。</p>
+<p><img src="/2020/07/24/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/3.png" alt></p>
+<p>报文鉴别流程：</p>
+<ol>
+<li>A从报文导出散列，使用<strong>私钥</strong>并对散列进行加密，得到报文鉴别码MAC（Message Authentication Code），然后把报文鉴别码拼接在报文后面，发送给B。</li>
+<li>B收到扩展的报文后，先把报文鉴别码与报文分离出来，然后使用<strong>公钥</strong>对报文鉴别码进行解密，得到散列，再把报文进行散列函数运算并与解密得到的散列进行比较。若一致，则可以相信报文确实是A发送，完成报文鉴别。</li>
+</ol>
+<p>可以看出，A使用保密的私钥进行加密，使得这样得到的报文不仅是不可伪造的，也是不可否认的。</p>
+<p>常用的密码散列函数有：</p>
+<ul>
+<li>MD5:128位。</li>
+<li>SHA-1:160位，比MD5更安全，但计算也更慢。</li>
+</ul>
+<h2 id="实体鉴别"><a href="#实体鉴别" class="headerlink" title="实体鉴别"></a>实体鉴别</h2><p>报文鉴别需要对每一个收到的报文鉴别其发送者，而实体鉴别在系统接入的全部持续时间内和自己通信的对方实体只需要验证一次。</p>
+<p>最简单的实体鉴别：</p>
+<ol>
+<li>A向B发送带有自己身份的报文，并用对称密钥进行加密。</li>
+<li>B收到报文后，对其进行解密鉴别A的身份。</li>
+</ol>
+<p>然而这种方法易被<strong>重放攻击</strong>，入侵者可以截获加密的报文并直接发送给B，然后截获A的IP地址冒充为自己的IP地址，B就会向入侵者发送许多本应发给A的报文。</p>
+<p>为了对付重放攻击，可以使用<strong>不重数</strong>，不重数就是一个不重复的大随机数，即“一次一数”。</p>
+<p><img src="/2020/07/24/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/4.png" alt></p>
+<p>不重数实体鉴别：</p>
+<ol>
+<li>A向B发送明文身份信息和一个不重数$R_A$。</li>
+<li>B用对称秘钥（或B的私钥）对$R_A$加密，并附加一个不重数$R_B$，发回给A。</li>
+<li>A用对称秘钥对加密后的$R_A$进行解密并与$R_A$进行比较，鉴别B的身份；A再用对称秘钥（或A的私钥）对$R_B$进行加密后发回给B。</li>
+<li>B用对称密钥（或A的私钥）对加密后的$R_B$进行解密并与$R_B$进行比较，鉴别A的身份。</li>
+</ol>
+<p>但不重数实体鉴别仍有被<strong>中间人攻击</strong>的可能，如图所示：</p>
+<p><img src="/2020/07/24/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/5.png" alt></p>
+<ol>
+<li>A向B发送身份明文，被中间人截获并原封不动发给B。</li>
+<li>B发送一个不重数$R_B$给A，被中间人截获并原封不动发给A。</li>
+<li>A收到$R_B$后，用A的私钥对其进行加密并发送给B，被中间人截获并丢弃，然后中间人使用自己的私钥对$R_B$进行加密并发给B。</li>
+<li>B向A索要A的公钥，被中间人截获并原封不动发给A。</li>
+<li>A向B发送A的公钥，被中间人截获并保留，然后中间人把自己的公钥发给B。</li>
+<li>B收到公钥后发现一切正常，即使用中间人的公钥对数据进行加密并发送给A，被中间人截获，中间人用自己的私钥解密数据并复制一份，然后再用A的公钥对数据进行加密并发送给A。</li>
+</ol>
+<p>这样B发给A的数据已经被中间人截获，而A和B却不知道。</p>
+<p>由此可见，公钥的分配和认证公钥的真实性也是一个重要问题。</p>
+<h1 id="密钥分配"><a href="#密钥分配" class="headerlink" title="密钥分配"></a>密钥分配</h1><p>密钥分配是密钥管理中最大的问题。</p>
+<h2 id="对称密钥的分配"><a href="#对称密钥的分配" class="headerlink" title="对称密钥的分配"></a>对称密钥的分配</h2><p>常用的密钥分配方式是设立密钥分配中心KDC（Key Distribution Center）。</p>
+<h2 id="公钥的分配"><a href="#公钥的分配" class="headerlink" title="公钥的分配"></a>公钥的分配</h2><p>每个实体都有认证中心CA（Certification Authority）发的证书，里面有公钥及其拥有者的标识信息（人名或IP地址），此证书被CA进行了数字签名（即CA使用私钥对其进行了加密），用户可以从可信的地方获得CA的公钥来解密证书验证实体及其公钥。</p>
+<h1 id="运输层安全协议SSL-TLS"><a href="#运输层安全协议SSL-TLS" class="headerlink" title="运输层安全协议SSL/TLS"></a>运输层安全协议SSL/TLS</h1><p>应用层使用SSL最多的是HTTP，但也可用于IMAP邮件存取的鉴别和数据加密等。</p>
+<p>当HTTP调用SSL对网页进行加密时，网址栏原本显示http的地方就变成了https。在发送方，SSL对HTTP报文进行加密然后向下发送给TCP套接字；在接收方，SSL从TCP套接字读取数据并解密。</p>
+<p>SSL提供的安全服务有三种：SSL服务器鉴别、SSL客户鉴别、加密的SSL会话。</p>
+<p><img src="/2020/07/24/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/6.png" alt></p>
+<p>https流程：</p>
+<ol>
+<li>协商加密算法：浏览器向服务器发送其SSL版本号和可用的加密算法；服务器从中选定主机支持的算法并发回给浏览器。</li>
+<li>服务器鉴别：服务器向浏览器发送包含公钥和服务器信息的数字证书；浏览器使用认证中心的公钥对证书进行验证。</li>
+<li>会话密钥计算：浏览器产生一个随机数并使用服务器的公钥加密后发给服务器；服务器使用私钥解密出随机数。浏览器和服务器用随机数产生对称密钥。</li>
+<li>安全数据传输：浏览器和服务器通过对称密钥加密和解密它们之间传送的数据并验证其完整性。</li>
+</ol>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p>《计算机网络 第七版》谢希仁</p>
+]]></content>
+      <categories>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>计算机网络</tag>
+        <tag>网络安全</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>JAVA面试问题</title>
+    <url>/2020/07/26/JAVA%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<h1 id="JAVA基础"><a href="#JAVA基础" class="headerlink" title="JAVA基础"></a>JAVA基础</h1><h2 id="面向对象的三大特性"><a href="#面向对象的三大特性" class="headerlink" title="面向对象的三大特性"></a>面向对象的三大特性</h2><ul>
+<li>封装：将对象的实现细节隐藏起来，通过公共的方法向外暴露该对象的功能。</li>
+<li>继承：子类通过继承可以直接或间接地获得父类的成员。继承破坏了封装，因为父类的实现细节对子类是透明的。</li>
+<li>多态：同一个行为具有多个不同表现形式的能力。条件：继承、重写、向上转型。</li>
+</ul>
+<h2 id="重写和重载"><a href="#重写和重载" class="headerlink" title="重写和重载"></a>重写和重载</h2><ul>
+<li>重写：子类对父类允许访问的方法实现过程并重新编写，返回值和形参不能改变。</li>
+<li>重载：在一个类里面，方法名字相同，参数不同，返回类型可以相同也可以不同。</li>
+</ul>
+<h2 id="抽象类和接口的区别"><a href="#抽象类和接口的区别" class="headerlink" title="抽象类和接口的区别"></a>抽象类和接口的区别</h2><ul>
+<li>抽象类中可以没有抽象方法，接口中的方法必须是抽象方法。</li>
+<li>抽象类中可以有普通成员变量，接口中的变量必须是static final类型，必须初始化，只有常亮，没有变量。</li>
+<li>抽象类只能单继承，接口可以继承多个父接口。</li>
+</ul>
+<h2 id="对象初始化顺序"><a href="#对象初始化顺序" class="headerlink" title="对象初始化顺序"></a>对象初始化顺序</h2><ol>
+<li>调用父类的构造函数。</li>
+<li>按代码顺序执行静态成员变量的初始化。</li>
+<li>调用自身构造函数。</li>
+</ol>
+<h2 id="StringBuffer和StringBuilder"><a href="#StringBuffer和StringBuilder" class="headerlink" title="StringBuffer和StringBuilder"></a>StringBuffer和StringBuilder</h2><ul>
+<li><p>StringBuffer线程安全，StringBuilder线程不安全。</p>
+</li>
+<li><p>String的+实际上是通过StringBuilder实现的。</p>
+</li>
+</ul>
+<h2 id="Exception和Error"><a href="#Exception和Error" class="headerlink" title="Exception和Error"></a>Exception和Error</h2><ul>
+<li>都继承自Throwable</li>
+<li>Exception分为CheckedException和UnCheckedException：CheckedException必须显式捕获，比如IO操作；UnCheckedException不用显式捕获，比如空指针、数组越界等。</li>
+</ul>
+<h1 id="JAVA集合"><a href="#JAVA集合" class="headerlink" title="JAVA集合"></a>JAVA集合</h1><h2 id="常用集合"><a href="#常用集合" class="headerlink" title="常用集合"></a>常用集合</h2><p>Map和Collection是所有集合框架的父接口。</p>
+<ul>
+<li>Map：HashMap、ConcurrentHashMap、HashTable和Properties等。</li>
+<li>Collection：<ul>
+<li>Set：HashSet、TreeSet和LinkedHashSet等，元素有序且可以重复。</li>
+<li>List：ArrayList、LinkedList、Stack和Vector等，元素无序且不可以重复。</li>
+</ul>
+</li>
+</ul>
+<h2 id="HashMap、HashTable和ConcurrentHashMap"><a href="#HashMap、HashTable和ConcurrentHashMap" class="headerlink" title="HashMap、HashTable和ConcurrentHashMap"></a>HashMap、HashTable和ConcurrentHashMap</h2><ul>
+<li>HashMap基于数组（主体）+链表（解决哈希冲突）/红黑树（存储）实现，允许key/value为空值，线程不安全，不能保持插入顺序。</li>
+<li>HashTable不允许key/value为空值，使用了synchronized关键字，线程安全。</li>
+<li>ConcurrentHashMap可以使用空值作为key/value，线程安全，HashTable每次同步执行时要锁住整个结构，ConcurrentHashMap将Hash表分为16个桶，每次操作只锁住需要用到的桶。</li>
+</ul>
+<h2 id="ArrayList和Vector"><a href="#ArrayList和Vector" class="headerlink" title="ArrayList和Vector"></a>ArrayList和Vector</h2><ul>
+<li>ArrayList是线程不安全的，在数据量达到容量一半时，增长0.5倍容量+1的空间。</li>
+<li>Vector加了synchronized关键字，是线程安全的，增长1倍容量的空间。</li>
+</ul>
+<h2 id="ArrayList和LinkedList"><a href="#ArrayList和LinkedList" class="headerlink" title="ArrayList和LinkedList"></a>ArrayList和LinkedList</h2><ul>
+<li>ArrayList基于数组实现，查找快，删减慢。</li>
+<li>LinkedList基于双向链表实现，查找慢，删减快。且封装了队列和栈的调用。</li>
+</ul>
+<h1 id="JAVA线程同步"><a href="#JAVA线程同步" class="headerlink" title="JAVA线程同步"></a>JAVA线程同步</h1><h2 id="volatile关键字"><a href="#volatile关键字" class="headerlink" title="volatile关键字"></a>volatile关键字</h2><ul>
+<li>用于修饰可能被多线程同时访问的变量。</li>
+<li>相当于轻量级synchronized，volatile能保证有序性（禁用指令重排序）、可见性。</li>
+<li>被volatile修饰的变量改变后会立即同步到主线程中，保持变量的可见性。</li>
+</ul>
+<h2 id="单例模式双重校验锁为什么要使用volatile关键字"><a href="#单例模式双重校验锁为什么要使用volatile关键字" class="headerlink" title="单例模式双重校验锁为什么要使用volatile关键字?"></a>单例模式双重校验锁为什么要使用volatile关键字?</h2><p>假设某个线程检测到单例对象为空并开始实例化对象，步骤包括分配内存空间、初始化对象和将对象指向内存空间。编译器可能由于性能的原因将先指向内存空间再进行初始化，在这种情况下，可能会有另外一个线程在单例初始化之前检测到单例不为空（已指向内存），并进行访问，导致程序崩溃。而volatile能够防止指令重排序，避免这一问题。</p>
+<h2 id="wait和sleep"><a href="#wait和sleep" class="headerlink" title="wait和sleep"></a>wait和sleep</h2><ul>
+<li><p>sleep是Thread的静态方法，可以在任何地方调用，不会释放锁。</p>
+</li>
+<li><p>wait是Object的成员方法，只能在synchronized代码块中调用，会释放锁。</p>
+</li>
+</ul>
+<h2 id="锁池和等待池"><a href="#锁池和等待池" class="headerlink" title="锁池和等待池"></a>锁池和等待池</h2><ul>
+<li>某个对象的锁已被一个线程拥有，其他线程要执行该对象的synchronized方法获取锁时就会进入该对象的<strong>锁池</strong>，锁池中的线程会去竞争该对象的锁。</li>
+<li>某个线程调用了某个对象的wait方法，该线程就会释放该对象的锁，进入该对象的<strong>等待池</strong>，等待池中的线程不会去竞争该对象的锁。</li>
+<li>调用notify会随机唤醒等待池中的一个线程进入锁池。</li>
+<li>调用notifyAll会唤醒等待池中的所有线程进入锁池。</li>
+</ul>
+<h2 id="synchronized原理"><a href="#synchronized原理" class="headerlink" title="synchronized原理"></a>synchronized原理</h2><p>进入时，执行monitorenter，将计数器+1，释放锁时，执行monitorexit，计数器-1。计数器为0时表示锁空闲，可以占用，否则等待。</p>
+<h2 id="synchronized和lock"><a href="#synchronized和lock" class="headerlink" title="synchronized和lock"></a>synchronized和lock</h2><ul>
+<li>synchronized是JAVA关键字，会自动释放锁，无法中断等待锁。</li>
+<li>lock是一个接口，通常在finally中手动释放锁，可以中断等待锁。</li>
+</ul>
+<h2 id="可重入锁、公平锁、乐观锁和悲观锁"><a href="#可重入锁、公平锁、乐观锁和悲观锁" class="headerlink" title="可重入锁、公平锁、乐观锁和悲观锁"></a>可重入锁、公平锁、乐观锁和悲观锁</h2><ul>
+<li>可重入锁：已经获得锁后，再次尝试获取锁时不必重新申请锁。ReentrantLock和synchronized都是可重入锁。</li>
+<li>公平锁：等待时间最久的线程会优先获得锁。非公平锁无法保证哪个线程取得锁。ReentrantLock默认为非公平锁，可以设置为公平锁，synchronized为非公平锁。</li>
+<li>乐观锁：假设没有冲突，不加锁，更新时判断该数据是否过期，过期的话不进行数据更新，适用于读操作频繁的场景。乐观锁实现：AtomicInteger、AtomicLong、AtomicBoolean。</li>
+<li>悲观锁：线程一旦获得锁，其他线程就挂起等待，适用于写操作频繁的场景。synchronized是悲观锁。</li>
+</ul>
+<h1 id="主要参考资料"><a href="#主要参考资料" class="headerlink" title="主要参考资料"></a>主要参考资料</h1><p><a href="https://zhuanlan.zhihu.com/p/148453122" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/148453122</a></p>
+]]></content>
+      <categories>
+        <category>面试</category>
+      </categories>
+      <tags>
+        <tag>面试</tag>
+        <tag>JAVA</tag>
       </tags>
   </entry>
 </search>

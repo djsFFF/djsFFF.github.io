@@ -52,7 +52,7 @@
 <meta property="og:description" content="本文搜集整理了网络上关于字节跳动客户端面试题。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-07-16T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-07-17T10:30:09.404Z">
+<meta property="article:modified_time" content="2020-07-25T14:31:29.475Z">
 <meta property="article:author" content="Clover">
 <meta property="article:tag" content="面试">
 <meta property="article:tag" content="字节跳动">
@@ -285,25 +285,148 @@
 <a id="more"></a>
 
 <ul>
-<li><input disabled type="checkbox"> 线程同步的方式</li>
-<li><input disabled type="checkbox"> 死锁产生的条件？如何避免和解决？</li>
-<li><input disabled type="checkbox"> 为什么有了进程还要线程？</li>
-<li><input disabled type="checkbox"> HTTP和HTTPS的区别？HTTPS连接建立的过程？如果服务端也需要客户端传证书，应该是连接建立的哪个阶段？HTTP用的是TCP还是UDP？</li>
-<li><input disabled type="checkbox"> TCP和UDP的区别？应用场景？</li>
-<li><input disabled type="checkbox"> TCP的拥塞控制</li>
-<li><input disabled type="checkbox"> 分段和分页</li>
-<li><input disabled type="checkbox"> 进程调度算法</li>
-<li><input disabled type="checkbox"> 进程线程的区别与联系？进程之间的通信方式？线程之间通信方式？</li>
-<li><input disabled type="checkbox"> 三次握手</li>
-<li><input disabled type="checkbox"> SSL握手过程？第一次握手如何加密？第二次握手如何加密？对称加密？非对称加密？加密过程？</li>
-<li><input disabled type="checkbox"> 信号量与互斥量的区别？</li>
-<li><input disabled type="checkbox"> wait()和sleep()的区别？</li>
-<li><input disabled type="checkbox"> 设计模式？</li>
-<li><input disabled type="checkbox"> JAVA：LinkedList与ArrayList？HashMap扩容？ConcurrentHashMap？创建对象的几种方式？</li>
-<li><input disabled type="checkbox"> JVM内存模型？</li>
-<li><input disabled type="checkbox"> 活动的生命周期？活动的启动模式？Handler源码？</li>
-<li><input disabled type="checkbox"> 在浏览器输入网址敲回车后经历了什么？a)三次握手；b)https的加密流程；c)对称加密与非对称加密原理（RSA、AES）</li>
-<li><input disabled type="checkbox"> DNS原理</li>
+<li><input checked disabled type="checkbox"> <p>线程同步的方式</p>
+<ul>
+<li><p>JAVA</p>
+<ol>
+<li>synchronized关键字修饰方法或代码块。</li>
+<li>域变量volatile，每次使用域变量需要重新计算，而不是使用寄存器中的值。</li>
+<li>使用重入锁ReetrantLock。</li>
+<li>使用局部变量ThreadLocal，在线程中对变量的副本进行操作。</li>
+<li>使用阻塞队列LinkedBlockingQueue。</li>
+<li>使用原子操作java.util.concurrent.atomic，将读、写和保存看做一个整体进行操作，不可分割。</li>
+</ol>
+</li>
+<li><p>操作系统</p>
+<p>临界区、互斥量、信号量、事件</p>
+</li>
+</ul>
+</li>
+<li><input checked disabled type="checkbox"> <p>死锁产生的条件？如何避免和解决？</p>
+<p>死锁条件：互斥、占有和等待、不可抢占、环路等待</p>
+<p>死锁解决方法：</p>
+<ul>
+<li><p>鸵鸟政策：忽略死锁。</p>
+</li>
+<li><p>死锁预防：破坏四个条件至少一个。</p>
+</li>
+<li><p>死锁避免：使用银行家算法判断安全状态。</p>
+</li>
+<li><p>死锁检测和死锁恢复：检测并恢复死锁。</p>
+</li>
+</ul>
+</li>
+<li><input checked disabled type="checkbox"> <p>为什么有了进程还要线程？</p>
+<ol>
+<li>为了在进程中实现并发.</li>
+<li>没有线程的进程遇到阻塞时，整个线程就会挂起，而不依赖输入的线程可以继续工作。</li>
+</ol>
+</li>
+<li><input checked disabled type="checkbox"> <p>HTTP和HTTPS的区别？HTTPS连接建立的过程？如果服务端也需要客户端传证书，应该是连接建立的哪个阶段？HTTP用的是TCP还是UDP？</p>
+</li>
+<li><input checked disabled type="checkbox"> <p>TCP和UDP的区别？应用场景？</p>
+<p>TCP：HTTP，FTP，SMTP，IMAP，POP3，TELNET</p>
+<p>UDP：DNS，TFTP，DHCP，RIP</p>
+</li>
+<li><input checked disabled type="checkbox"> <p>TCP的拥塞控制</p>
+<p>慢开始、拥塞避免、快重传、快恢复</p>
+</li>
+<li><input checked disabled type="checkbox"> <p>分段和分页</p>
+<p>分页：把虚拟内存的地址空间划分为固定大小的页。</p>
+<p>分段：把虚拟内存分成多个独立的地址空间，每个段的长度可以不同，并且可以动态增长。</p>
+</li>
+<li><input checked disabled type="checkbox"> <p>进程调度算法</p>
+<p>分布式操作系统：先来先服务、短作业优先、最短剩余时间优先。</p>
+<p>交互式操作系统：时间片轮转、优先级调度、多级反馈队列。</p>
+</li>
+<li><input checked disabled type="checkbox"> <p>进程线程的区别与联系？进程之间的通信方式？线程之间通信方式？</p>
+<ul>
+<li><p>区别：</p>
+<ol>
+<li>系统中可以同时运行多个进程，进程中可以同时运行多个线程。</li>
+<li>进程是资源分配的基本单位，线程是任务调度和执行的基本单位。</li>
+<li>每个进程有独立的地址空间和资源，进程之间的切换会有较大的开销；同一进程的线程共享所属进程的地址空间和资源，线程之间的切换开销较小。</li>
+</ol>
+</li>
+<li><p>联系：</p>
+<ol>
+<li>一个线程属于某个进程，一个进程拥有至少一个线程。</li>
+<li>线程共享所属进程的地址空间和资源。</li>
+</ol>
+</li>
+<li><p>进程之间通信的方式：</p>
+<p>管道，命名管道，消息队列，信号量，共享存储，套接字。</p>
+</li>
+<li><p>线程之间通信的方式：</p>
+<p>消息机制、共享内存中的变量。</p>
+</li>
+</ul>
+</li>
+<li><input checked disabled type="checkbox"> <p>三次握手</p>
+<ol>
+<li>客户向服务器发送TCP连接请求报文。</li>
+<li>服务器收到连接请求报文，若同意，则向客户返回确认报文。</li>
+<li>客户收到服务器确认报文，并向服务器发送确认报文，且报文可以携带数据。</li>
+<li>服务器收到确认后，建立TCP连接。</li>
+</ol>
+</li>
+<li><input checked disabled type="checkbox"> <p>SSL握手过程？第一次握手如何加密？第二次握手如何加密？对称加密？非对称加密？加密过程？</p>
+<ol>
+<li>客户向服务器发送支持的加密算法列表和一个客户不重数。</li>
+<li>服务器将选择的加密算法、一个服务器不重数和包含公钥的证书发送给客户。</li>
+<li>客户对服务器的证书进行验证，获取服务器的公钥，生成一个随机数，用服务器的公钥加密后发送给服务器。</li>
+<li>服务器使用私钥解密出随机数。客户和服务器独立地利用随机数、客户不重数和服务器不重数计算出报文加密密钥和报文鉴别码生成密钥。至此，客户和服务器之间发送的所有报文均可被加密和鉴别。</li>
+<li>客户发送所有握手报文的一个MAC。</li>
+<li>服务器发送所有握手报文的一个MAC。</li>
+</ol>
+</li>
+<li><input checked disabled type="checkbox"> <p>信号量与互斥量的区别？</p>
+<ul>
+<li>信号量用于线程的同步，互斥量用于线程的互斥。</li>
+<li>信号量可以为非负整数，互斥量只能为0或1.</li>
+<li>信号量可以由一个线程释放，另一个线程得到，互斥量的加锁解锁必须由同一个线程操作。</li>
+</ul>
+</li>
+<li><input checked disabled type="checkbox"> <p>同步与互斥的区别？</p>
+<ul>
+<li>互斥是指某一资源同时只允许一个线程进行访问。</li>
+<li>同步时指在互斥的基础上，实现多个线程对资源的<strong>有序访问</strong>，同步包含了互斥。</li>
+<li>同步是一种复杂的互斥，互斥是一种特殊的同步。</li>
+</ul>
+</li>
+<li><input checked disabled type="checkbox"> <p>wait()和sleep()的区别？</p>
+<p>都是使线程进入阻塞状态，让出CPU时间，执行其他线程。</p>
+<ul>
+<li>sleep()是Thread类的方法，不会释放锁，时间结束后继续执行。</li>
+<li>wait()是Object类的方法，会释放锁，需要等待notify()唤醒。</li>
+</ul>
+</li>
+<li><input disabled type="checkbox"> <p>设计模式？</p>
+</li>
+<li><input disabled type="checkbox"> <p>JAVA：LinkedList与ArrayList？HashMap扩容？ConcurrentHashMap？创建对象的几种方式？</p>
+</li>
+<li><input disabled type="checkbox"> <p>JVM内存模型？</p>
+</li>
+<li><input disabled type="checkbox"> <p>活动的生命周期？活动的启动模式？Handler源码？</p>
+</li>
+<li><input checked disabled type="checkbox"> <p>在浏览器输入网址敲回车后经历了什么？a)三次握手；b)https的加密流程；c)对称加密与非对称加密原理（RSA、AES）</p>
+<p>敲回车后：</p>
+<ol>
+<li>浏览器向本地DNS服务器请求查询URL对应的IP地址。</li>
+<li>浏览器根据获得的IP地址进行TCP连接三次握手，向服务器发送TCP连接请求报文。</li>
+<li>服务器收到连接请求报文后，若同意连接，则向浏览器发送确认报文。</li>
+<li>浏览器收到服务器的确认报文后，将HTTP请求报文封装在TCP报文的数据部分并发送给服务器。</li>
+<li>服务器根据HTTP请求报文，查询浏览器需要的资源并以HTTP响应报文的形式发送给浏览器。</li>
+<li>浏览器接收到响应报文后展示请求资源。</li>
+</ol>
+</li>
+<li><input checked disabled type="checkbox"> <p>DNS原理</p>
+<p>DNS能够将主机名转换为对应的IP地址。</p>
+<ol>
+<li>客户向本地服务器请求解析主机名。</li>
+<li>若本地DNS服务器能够解析该主机名，则直接返回对应的IP地址；否则，本地DNS服务器向其他DNS服务器迭代地查询，直到解析出IP地址，然后返回给客户。</li>
+</ol>
+</li>
 </ul>
 
     </div>
@@ -413,20 +536,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-count">20</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-count">17</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
