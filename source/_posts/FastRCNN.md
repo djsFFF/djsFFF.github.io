@@ -8,12 +8,14 @@ tags:
 categories:
   - 面试
 mathjax: true
+typora-root-url: ..
 ---
 
 本文总结了面试过程中可能问到的关于Fast RCNN模型的一些问题。
 
 [论文地址：Fast R-CNN](https://arxiv.org/abs/1504.08083)
-![Fast RCNN网络结构](1.jpg)
+![1](/images/FastRCNN/1.jpg)
+
 <center><b>图1 Fast RCNN网络结构图</b></center>
 
 <!--more-->

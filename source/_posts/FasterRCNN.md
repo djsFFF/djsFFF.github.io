@@ -8,17 +8,19 @@ tags:
 categories:
     - 面试
 mathjax: true
+typora-root-url: ..
 ---
 
 本文总结了面试过程中可能问到的关于Faster RCNN模型的一些问题。
 
 [论文地址：Faster R-CNN](https://arxiv.org/abs/1506.01497)
-![Faster RCNN网络结构](1.png)
+![1](/images/FasterRCNN/1.png)
+
 <center><b>图1 Faster RCNN网络结构图</b></center>
 
 <!--more-->
 
-# 简述一下Fast RCNN测试时的检测流程？
+# 简述一下Faster RCNN测试时的检测流程？
 1. 调整输入图像尺寸为16的倍数。
 2. 使用CNN（以VGG16为例）提取特征图。
 3. RPN（Region Proposal Network）在特征图上生成一系列anchor box，并通过两个分支分别判断anchor box是否包含物体以及粗略位置修正。
@@ -30,7 +32,7 @@ mathjax: true
 2. RPN网络在生成候选框后会对候选框进行筛选，只保留可能包含物体的候选框（～300个），为后续计算节约计算成本。
 
 # 介绍一下RPN网络？
-![Faster RCNN网络结构](3.png)
+![3](/images/FasterRCNN/3.png)
 <center><b>图2 RPN网络结构图</b></center>
 
 1. 首先通过一个3×3的卷积进一步集中特征信息，然后在特征图上的每个特征点生成9个anchor box（三个尺度，三个比例），把生成的anchor boxes分别送入分类分支和回归分支。

@@ -8,12 +8,14 @@ tags:
 categories:
   - 面试
 mathjax: true
+typora-root-url: ..
 ---
 
 本文总结了面试过程中可能问到的关于RCNN模型的一些问题。
 
 [论文地址：Rich Feature Hierarchies for Accurate Object Detection and Semantic Segmentation](https://arxiv.org/abs/1311.2524)
-![RCNN网络结构](1.png)
+![1](/images/RCNN/1.png)
+
 <center><b>图1 RCNN网络结构图</b></center>
 
 <!--more-->
@@ -34,7 +36,7 @@ mathjax: true
 2. 各项同性先按原图像比例进行缩放，然后在再填充到目标尺寸。
 
 # RCNN的CNN网络是如何训练的？
-![AlexNet网络结构](2.jpg)
+![2](/images/RCNN/2.jpg)
 <center><b>图2 AlexNet网络结构图</b></center>
 
 1. 使用AlexNet(网络结构如**图2**所示)或其他主干网络（如VGG16），先在ILSVRC2012的图像分类数据集上进行预训练，最后一层输出维度为1000。
