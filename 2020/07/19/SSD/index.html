@@ -51,17 +51,17 @@
 <meta property="og:site_name" content="Clover">
 <meta property="og:description" content="本文总结了面试过程中可能问到的关于SSD模型的一些问题。 论文地址：Single Shot MultiBox Detector  图1 SSD与YOLOv1网络结构对比图">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://djsfff.github.io/.io//1.png">
-<meta property="og:image" content="http://djsfff.github.io/.io//2.png">
-<meta property="og:image" content="http://djsfff.github.io/.io//3.png">
+<meta property="og:image" content="http://djsfff.github.io/images/SSD/1.png">
+<meta property="og:image" content="http://djsfff.github.io/images/SSD/2.png">
+<meta property="og:image" content="http://djsfff.github.io/images/SSD/3.png">
 <meta property="article:published_time" content="2020-07-19T06:40:37.000Z">
-<meta property="article:modified_time" content="2020-08-03T11:19:04.550Z">
+<meta property="article:modified_time" content="2020-08-06T13:52:21.045Z">
 <meta property="article:author" content="Clover">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="目标检测">
 <meta property="article:tag" content="经典网络">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://djsfff.github.io/.io//1.png">
+<meta name="twitter:image" content="http://djsfff.github.io/images/SSD/1.png">
 
 <link rel="canonical" href="http://djsfff.github.io/2020/07/19/SSD/">
 
@@ -285,19 +285,18 @@
       
         <p>本文总结了面试过程中可能问到的关于SSD模型的一些问题。</p>
 <p><a href="https://arxiv.org/abs/1512.02325" target="_blank" rel="noopener">论文地址：Single Shot MultiBox Detector</a></p>
-<p><img src="/.io//1.png" alt></p>
+<p><img src="/images/SSD/1.png" alt></p>
 <center><b>图1 SSD与YOLOv1网络结构对比图</b></center>
 
 <a id="more"></a>
-
 <h1 id="SSD有哪些主要特点？"><a href="#SSD有哪些主要特点？" class="headerlink" title="SSD有哪些主要特点？"></a>SSD有哪些主要特点？</h1><ol>
 <li><p>类似YOLO，将检测转化为回归，一次性完成定位与回归。</p>
 </li>
 <li><p>类似Faster RCNN，使用了先验框。</p>
-<p><img src="/.io//2.png" alt></p>
+<p><img src="/images/SSD/2.png" alt="2"></p>
 <center><b>图2 SSD详细网络结构图</b></center>
 </li>
-<li><p>利用了多尺度特征进行检测（300–&gt;38,19,10,5,3,1）。</p>
+<li><p>利用了多尺度特征进行检测（300—&gt;38,19,10,5,3,1）。</p>
 </li>
 </ol>
 <h1 id="SSD网络的输出是什么含义？"><a href="#SSD网络的输出是什么含义？" class="headerlink" title="SSD网络的输出是什么含义？"></a>SSD网络的输出是什么含义？</h1><p>SSD包括6个输出，分别是38×38×4×(4+21)，19×19×4×(4+21)，10×10×6×(4+21)，5×5×6×(4+21)，3×3×6×(4+21)，1×1×4×(4+21)，其中(4,4,6,6,6,4)表示该尺度下，每个格子预测的先验框数量，4表示预测的位置信息，21表示20个类别+背景的置信度。</p>
@@ -321,7 +320,7 @@
 <li><p>采用水平翻转，随机裁剪，颜色扭曲，随机采取区域等数据增强方法。</p>
 </li>
 <li><p>损失函数由位置误差和分类置信度误差组成：</p>
-<p><img src="/.io//3.png" alt></p>
+<p><img src="/images/SSD/3.png" alt="3"></p>
 <p>位置误差采用Smooth L1损失，预测的$(\Delta x, \Delta y,S_w,S_h)$与RCNN系列中的定义一致。分类置信度误差采用softmax损失（交叉熵损失）。</p>
 </li>
 </ol>
@@ -439,20 +438,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-count">30</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">23</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

@@ -51,16 +51,16 @@
 <meta property="og:site_name" content="Clover">
 <meta property="og:description" content="本文总结了面试过程中可能问到的关于Faster RCNN模型的一些问题。 论文地址：Faster R-CNN 图1 Faster RCNN网络结构图">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://djsfff.github.io/.io//1.png">
-<meta property="og:image" content="http://djsfff.github.io/.io//3.png">
+<meta property="og:image" content="http://djsfff.github.io/images/FasterRCNN/1.png">
+<meta property="og:image" content="http://djsfff.github.io/images/FasterRCNN/3.png">
 <meta property="article:published_time" content="2020-07-15T01:03:28.000Z">
-<meta property="article:modified_time" content="2020-08-03T11:19:04.550Z">
+<meta property="article:modified_time" content="2020-08-06T13:36:49.460Z">
 <meta property="article:author" content="Clover">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="目标检测">
 <meta property="article:tag" content="经典网络">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://djsfff.github.io/.io//1.png">
+<meta name="twitter:image" content="http://djsfff.github.io/images/FasterRCNN/1.png">
 
 <link rel="canonical" href="http://djsfff.github.io/2020/07/15/FasterRCNN/">
 
@@ -283,12 +283,11 @@
 
       
         <p>本文总结了面试过程中可能问到的关于Faster RCNN模型的一些问题。</p>
-<p><a href="https://arxiv.org/abs/1506.01497" target="_blank" rel="noopener">论文地址：Faster R-CNN</a><br><img src="/.io//1.png" alt="Faster RCNN网络结构"></p>
+<p><a href="https://arxiv.org/abs/1506.01497" target="_blank" rel="noopener">论文地址：Faster R-CNN</a><br><img src="/images/FasterRCNN/1.png" alt="1"></p>
 <center><b>图1 Faster RCNN网络结构图</b></center>
 
 <a id="more"></a>
-
-<h1 id="简述一下Fast-RCNN测试时的检测流程？"><a href="#简述一下Fast-RCNN测试时的检测流程？" class="headerlink" title="简述一下Fast RCNN测试时的检测流程？"></a>简述一下Fast RCNN测试时的检测流程？</h1><ol>
+<h1 id="简述一下Faster-RCNN测试时的检测流程？"><a href="#简述一下Faster-RCNN测试时的检测流程？" class="headerlink" title="简述一下Faster RCNN测试时的检测流程？"></a>简述一下Faster RCNN测试时的检测流程？</h1><ol>
 <li>调整输入图像尺寸为16的倍数。</li>
 <li>使用CNN（以VGG16为例）提取特征图。</li>
 <li>RPN（Region Proposal Network）在特征图上生成一系列anchor box，并通过两个分支分别判断anchor box是否包含物体以及粗略位置修正。</li>
@@ -299,7 +298,7 @@
 <li>Faster RCNN不再使用Selective Search提取候选区域，而是采用卷积网络（RPN）产生候选框。</li>
 <li>RPN网络在生成候选框后会对候选框进行筛选，只保留可能包含物体的候选框（～300个），为后续计算节约计算成本。</li>
 </ol>
-<h1 id="介绍一下RPN网络？"><a href="#介绍一下RPN网络？" class="headerlink" title="介绍一下RPN网络？"></a>介绍一下RPN网络？</h1><p><img src="/.io//3.png" alt="Faster RCNN网络结构"></p>
+<h1 id="介绍一下RPN网络？"><a href="#介绍一下RPN网络？" class="headerlink" title="介绍一下RPN网络？"></a>介绍一下RPN网络？</h1><p><img src="/images/FasterRCNN/3.png" alt="3"></p>
 <center><b>图2 RPN网络结构图</b></center>
 
 <ol>
@@ -313,7 +312,7 @@
 <li>近似联合训练：将Faster RCNN整体进行训练，包括四个损失函数，RPN二分类损失，RPN回归损失，最后的多分类损失和回归损失。</li>
 </ol>
 <h1 id="Faster-RCNN的损失函数是如何构成的？"><a href="#Faster-RCNN的损失函数是如何构成的？" class="headerlink" title="Faster RCNN的损失函数是如何构成的？"></a>Faster RCNN的损失函数是如何构成的？</h1><ol>
-<li>对于RPN训练，定义IoU最大或者IoU大于0.7的候选框为正样本，IoU小于0.3的候选框为负样本，其余候选框舍弃，每张图片随机采样128个正样本和128个负样本用于训练，若正样本过少，则增加负样本，保持样本总数为256。RPN的多任务损失函数为：<br>$$L({p_i},{t_i})=\frac {1}{N_{cls}}\sum_i L_{cls}(p_i,p_i^*)+\lambda \frac {1}{N_{reg}}\sum_i p_i^*L_{reg}(t_i,t_i^*)$$<br>其中，对于正样本$p_i^*=1$，否则为0。$L({p_i},{t_i})=-logp_i$表示第i个候选框含有物体的概率$p_i$的对数损失。$L_{loc}(t^u,v)$为四个Smooth L1损失的和，分别是两个平移量和两个缩放值（关于Smooth L1损失可参考上一篇关于Fast RCNN的博客）。</li>
+<li>对于RPN训练，定义IoU最大或者IoU大于0.7的候选框为正样本，IoU小于0.3的候选框为负样本，其余候选框舍弃，每张图片随机采样128个正样本和128个负样本用于训练，若正样本过少，则增加负样本，保持样本总数为256。RPN的多任务损失函数为：<script type="math/tex; mode=display">L({p_i},{t_i})=\frac {1}{N_{cls}}\sum_i L_{cls}(p_i,p_i^\*)+\lambda \frac {1}{N_{reg}}\sum_i p_i^\*L_{reg}(t_i,t_i^\*)</script>其中，对于正样本$p_i^*=1$，否则为0。$L({p_i},{t_i})=-logp_i$表示第i个候选框含有物体的概率$p_i$的对数损失。$L_{loc}(t^u,v)$为四个Smooth L1损失的和，分别是两个平移量和两个缩放值（关于Smooth L1损失可参考上一篇关于Fast RCNN的博客）。</li>
 <li>对于网络末端的分类器和回归器的训练，采用与Fast RCNN相同的损失函数。</li>
 <li>实际上RPN的损失函数与Fast RCNN唯一的区别就在于一个是二分类，一个是多分类。此外，两者对于正负样本的划分有所区别。</li>
 </ol>
@@ -412,7 +411,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简述一下Fast-RCNN测试时的检测流程？"><span class="nav-number">1.</span> <span class="nav-text">简述一下Fast RCNN测试时的检测流程？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Faster-RCNN相对于Fast-RCNN的主要改进在什么地方？"><span class="nav-number">2.</span> <span class="nav-text">Faster RCNN相对于Fast RCNN的主要改进在什么地方？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#介绍一下RPN网络？"><span class="nav-number">3.</span> <span class="nav-text">介绍一下RPN网络？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Faster-RCNN是如何训练的？"><span class="nav-number">4.</span> <span class="nav-text">Faster RCNN是如何训练的？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Faster-RCNN的损失函数是如何构成的？"><span class="nav-number">5.</span> <span class="nav-text">Faster RCNN的损失函数是如何构成的？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简述一下Faster-RCNN测试时的检测流程？"><span class="nav-number">1.</span> <span class="nav-text">简述一下Faster RCNN测试时的检测流程？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Faster-RCNN相对于Fast-RCNN的主要改进在什么地方？"><span class="nav-number">2.</span> <span class="nav-text">Faster RCNN相对于Fast RCNN的主要改进在什么地方？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#介绍一下RPN网络？"><span class="nav-number">3.</span> <span class="nav-text">介绍一下RPN网络？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Faster-RCNN是如何训练的？"><span class="nav-number">4.</span> <span class="nav-text">Faster RCNN是如何训练的？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Faster-RCNN的损失函数是如何构成的？"><span class="nav-number">5.</span> <span class="nav-text">Faster RCNN的损失函数是如何构成的？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -428,20 +427,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-count">30</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">23</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

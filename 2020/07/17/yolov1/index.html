@@ -51,16 +51,16 @@
 <meta property="og:site_name" content="Clover">
 <meta property="og:description" content="本文总结了面试过程中可能问到的关于YOLOv1模型的一些问题。 论文地址：You Only Look Once: Unified, Real-Time Object Detection  图1 YOLOv1网络结构图">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://djsfff.github.io/.io//1.png">
-<meta property="og:image" content="http://djsfff.github.io/.io//2.png">
+<meta property="og:image" content="http://djsfff.github.io/images/yolov1/1.png">
+<meta property="og:image" content="http://djsfff.github.io/images/yolov1/2.png">
 <meta property="article:published_time" content="2020-07-17T11:58:54.000Z">
-<meta property="article:modified_time" content="2020-08-03T11:19:04.550Z">
+<meta property="article:modified_time" content="2020-08-06T14:06:14.421Z">
 <meta property="article:author" content="Clover">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="目标检测">
 <meta property="article:tag" content="经典网络">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://djsfff.github.io/.io//1.png">
+<meta name="twitter:image" content="http://djsfff.github.io/images/yolov1/1.png">
 
 <link rel="canonical" href="http://djsfff.github.io/2020/07/17/yolov1/">
 
@@ -284,11 +284,10 @@
       
         <p>本文总结了面试过程中可能问到的关于YOLOv1模型的一些问题。</p>
 <p><a href="https://arxiv.org/abs/1506.02640" target="_blank" rel="noopener">论文地址：You Only Look Once: Unified, Real-Time Object Detection</a></p>
-<p><img src="/.io//1.png" alt></p>
+<p><img src="/images/yolov1/1.png" alt="1"></p>
 <center><b>图1 YOLOv1网络结构图</b></center>
 
 <a id="more"></a>
-
 <h1 id="简述一下YOLOv1测试时的检测流程？"><a href="#简述一下YOLOv1测试时的检测流程？" class="headerlink" title="简述一下YOLOv1测试时的检测流程？"></a>简述一下YOLOv1测试时的检测流程？</h1><ol>
 <li>调整输入图像尺寸为448×448×3。</li>
 <li>经过24层卷积输出7×7×1024特征图（64×下采样），再通过一个全连接层输出4096维特征，最后经过一个全连接层输出S×S×30的特征图。（Fast YOLO包括9个卷积）</li>
@@ -305,7 +304,7 @@
 <li><p>添加4个卷积层和两个全连接层，第一个全连接层后添加一个0.5的dropout层。输入尺寸为448×448，激活函数采用Leaky-ReLU（最后一层使用线性激活函数），优化方法采用0.9的Momentum，数据增强采用随机缩放，随机截取，随机调整曝光度和饱和度。</p>
 </li>
 <li><p>Loss函数由五个平方和误差（L2损失）组成：</p>
-<p><img src="/.io//2.png" alt></p>
+<p><img src="/images/yolov1/2.png" alt="2"></p>
 <p>其中$\lambda_{coord}=5$，$\lambda_{noobj}=0.5$，由于含有物体的格子较少，因此加大含有物体的格子的损失贡献。</p>
 <ul>
 <li>第一行为与ground-truth的IoU较大的预测框的中心点坐标损失；</li>
@@ -426,20 +425,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-count">30</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">23</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

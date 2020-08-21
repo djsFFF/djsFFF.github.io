@@ -52,7 +52,7 @@
 <meta property="og:description" content="记录《Java核心技术卷一》学习过程中的一些笔记。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-07-28T09:48:12.000Z">
-<meta property="article:modified_time" content="2020-08-03T11:19:04.550Z">
+<meta property="article:modified_time" content="2020-08-19T05:16:03.198Z">
 <meta property="article:author" content="Clover">
 <meta property="article:tag" content="JAVA">
 <meta name="twitter:card" content="summary">
@@ -279,75 +279,24 @@
       
         <p>记录《Java核心技术卷一》学习过程中的一些笔记。</p>
 <a id="more"></a>
-
 <h1 id="Java的基本程序设计结构"><a href="#Java的基本程序设计结构" class="headerlink" title="Java的基本程序设计结构"></a>Java的基本程序设计结构</h1><ol>
 <li><p>public访问修饰符。</p>
 </li>
-<li><p>数据类型</p>
-<table>
-<thead>
-<tr>
-<th>类型</th>
-<th></th>
-<th>存储需求</th>
-<th>备注</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>整形</td>
-<td>int</td>
-<td>4字节</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>short</td>
-<td>2字节</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>long</td>
-<td>8字节</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>byte</td>
-<td>1字节</td>
-<td></td>
-</tr>
-<tr>
-<td>浮点类型</td>
-<td>float</td>
-<td>4字节</td>
-<td>6-7位精度</td>
-</tr>
-<tr>
-<td></td>
-<td>double</td>
-<td>8字节</td>
-<td>15-16位精度</td>
-</tr>
-<tr>
-<td>字符</td>
-<td>char</td>
-<td>2字节</td>
-<td></td>
-</tr>
-<tr>
-<td>布尔类型</td>
-<td>boolean</td>
-<td>4字节</td>
-<td></td>
-</tr>
-</tbody></table>
+<li><p>数据类型<br>| 类型     |         | 存储需求 |备注|<br>| ———— | ———- | ———— |—|<br>| 整形     | int     | 4字节    |<br>|          | short   | 2字节    |<br>|          | long    | 8字节    |<br>|          | byte    | 1字节    |<br>| 浮点类型 | float   | 4字节    |6-7位精度|<br>|          | double  | 8字节    |15-16位精度|<br>| 字符     | char    | 2字节    |<br>| 布尔类型 | boolean | 4字节    |</p>
 </li>
 </ol>
 <h1 id="对象与类"><a href="#对象与类" class="headerlink" title="对象与类"></a>对象与类</h1><ol>
 <li><code>final</code>关键字表示变量只能被赋值一次，赋值后无法更改。类中的final字段必须在构造对象时初始化。</li>
 <li>被<code>static</code>修饰的字段为类字段，所有实例共享。非静态字段则每个实例都有自己的一个副本。</li>
 </ol>
+<h1 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h1><ul>
+<li>继承（或实现接口）：必须存在继承关系的子类和父类。</li>
+<li>重写：子类对父类某些方法重新编写，返回值和形参不变，调用这些时调用子类的方法。</li>
+<li>向上转型：向上转型时，引用为子类的父类只能访问子类重写的方法。</li>
+</ul>
+<p>使用多态方式调用方法时，首先检查父类中是否有该方法，如果没有则编译错误，如果有，则优先尝试调用子类的同名方法。</p>
+<p>向下转型的前提是父类对象指向的是子类对象：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Animal animal = <span class="keyword">new</span> Cat();</span><br><span class="line">Cat cat = (Cat) animal;</span><br></pre></td></tr></table></figure>
 <h1 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h1><ol>
 <li><p>包装器、装箱、拆箱</p>
 <ul>
@@ -355,8 +304,6 @@
 </li>
 <li><p>自动装箱、拆箱（编译器的工作）：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; list &#x3D; new ArrayList&lt;&gt;();</span><br><span class="line">list.add(3); # 自动装箱，自动变换为list.add(Integer.valueOf(3));</span><br><span class="line">int n &#x3D; list.get(0); # 自动拆箱，自动变换为list.get(0).intValue();</span><br></pre></td></tr></table></figure>
-
-
 </li>
 </ul>
 </li>
@@ -479,7 +426,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java的基本程序设计结构"><span class="nav-number">1.</span> <span class="nav-text">Java的基本程序设计结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#对象与类"><span class="nav-number">2.</span> <span class="nav-text">对象与类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#继承"><span class="nav-number">3.</span> <span class="nav-text">继承</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#接口"><span class="nav-number">4.</span> <span class="nav-text">接口</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#异常"><span class="nav-number">5.</span> <span class="nav-text">异常</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#线程"><span class="nav-number">6.</span> <span class="nav-text">线程</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java的基本程序设计结构"><span class="nav-number">1.</span> <span class="nav-text">Java的基本程序设计结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#对象与类"><span class="nav-number">2.</span> <span class="nav-text">对象与类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#多态"><span class="nav-number">3.</span> <span class="nav-text">多态</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#继承"><span class="nav-number">4.</span> <span class="nav-text">继承</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#接口"><span class="nav-number">5.</span> <span class="nav-text">接口</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#异常"><span class="nav-number">6.</span> <span class="nav-text">异常</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#线程"><span class="nav-number">7.</span> <span class="nav-text">线程</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -495,20 +442,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-count">30</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">23</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

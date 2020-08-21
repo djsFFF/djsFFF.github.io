@@ -51,15 +51,15 @@
 <meta property="og:site_name" content="Clover">
 <meta property="og:description" content="本文总结了面试过程中可能问到的关于Fast RCNN模型的一些问题。 论文地址：Fast R-CNN 图1 Fast RCNN网络结构图">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://djsfff.github.io/.io//1.jpg">
+<meta property="og:image" content="http://djsfff.github.io/images/FastRCNN/1.jpg">
 <meta property="article:published_time" content="2020-07-01T13:35:34.000Z">
-<meta property="article:modified_time" content="2020-08-03T11:19:04.535Z">
+<meta property="article:modified_time" content="2020-08-06T13:22:48.335Z">
 <meta property="article:author" content="Clover">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="目标检测">
 <meta property="article:tag" content="经典网络">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://djsfff.github.io/.io//1.jpg">
+<meta name="twitter:image" content="http://djsfff.github.io/images/FastRCNN/1.jpg">
 
 <link rel="canonical" href="http://djsfff.github.io/2020/07/01/FastRCNN/">
 
@@ -282,11 +282,10 @@
 
       
         <p>本文总结了面试过程中可能问到的关于Fast RCNN模型的一些问题。</p>
-<p><a href="https://arxiv.org/abs/1504.08083" target="_blank" rel="noopener">论文地址：Fast R-CNN</a><br><img src="/.io//1.jpg" alt="Fast RCNN网络结构"></p>
+<p><a href="https://arxiv.org/abs/1504.08083" target="_blank" rel="noopener">论文地址：Fast R-CNN</a><br><img src="/images/FastRCNN/1.jpg" alt="1"></p>
 <center><b>图1 Fast RCNN网络结构图</b></center>
 
 <a id="more"></a>
-
 <h1 id="简述一下Fast-RCNN测试时的检测流程？"><a href="#简述一下Fast-RCNN测试时的检测流程？" class="headerlink" title="简述一下Fast RCNN测试时的检测流程？"></a>简述一下Fast RCNN测试时的检测流程？</h1><ol>
 <li>使用Selective Search在输入图像上提取约2000个候选区域。</li>
 <li>将原始图像输入卷积网络，获得最后一个池化层之前的特征图（16倍下采样）。</li>
@@ -305,7 +304,9 @@
 <li>采用分类损失和回归损失的联合组成的多任务损失函数进行训练。</li>
 </ol>
 <h1 id="Fast-RCNN的损失函数是如何构成的？"><a href="#Fast-RCNN的损失函数是如何构成的？" class="headerlink" title="Fast RCNN的损失函数是如何构成的？"></a>Fast RCNN的损失函数是如何构成的？</h1><h2 id="简答"><a href="#简答" class="headerlink" title="简答"></a>简答</h2><p>Fast RCNN采用多任务损失函数，由分类损失和回归损失联合组成。分类采用交叉熵损失函数，回归采用Smooth L1损失函数。</p>
-<h2 id="详细"><a href="#详细" class="headerlink" title="详细"></a>详细</h2><p>Fast RCNN的多任务损失函数如下：<br>$$L(p,u,t^u,v)=L_{cls}(p,u)+\lambda [u\geq 1]L_{loc}(t^u,v)$$<br>其中，$L_{cls}(p,u)=-logp_u$表示真实分类u的概率$p_u$的对数损失。$\lambda$用于平衡分类损失和回归损失，通常取1。$[u\geq 1]$为指示函数，$u\geq 1$时取1否则取0，即当p为负样本时忽略回归损失。$L_{loc}(t^u,v)$为四个Smooth L1损失的和，分别是两个平移量和两个缩放值（具体参考上一篇关于RCNN的博客）。Smooth L1损失函数如下所示：<br>$$Smooth_{L1}(x)=\begin{cases} 0.5x^2 &amp; if&#124;x&#124;&lt;1 \\ &#124;x&#124;-0.5 &amp; otherwise \end{cases}$$<br>Smooth L1损失函数在x较大时（训练初期）采取L1损失函数形式，避免了L2损失在训练初期导数大的问题；在x较小（训练后期）时采取L2损失函数形式，避免了L1损失函数在训练后期导数大的问题。</p>
+<h2 id="详细"><a href="#详细" class="headerlink" title="详细"></a>详细</h2><p>Fast RCNN的多任务损失函数如下：</p>
+<script type="math/tex; mode=display">L(p,u,t^u,v)=L_{cls}(p,u)+\lambda [u\geq 1]L_{loc}(t^u,v)</script><p>其中，$L_{cls}(p,u)=-logp_u$表示真实分类u的概率$p_u$的对数损失。$\lambda$用于平衡分类损失和回归损失，通常取1。$[u\geq 1]$为指示函数，$u\geq 1$时取1否则取0，即当p为负样本时忽略回归损失。$L_{loc}(t^u,v)$为四个Smooth L1损失的和，分别是两个平移量和两个缩放值（具体参考上一篇关于RCNN的博客）。Smooth L1损失函数如下所示：</p>
+<script type="math/tex; mode=display">Smooth_{L1}(x)=\begin{cases} 0.5x^2 & if&#124;x&#124;<1 \\\\ &#124;x&#124;-0.5 & otherwise \end{cases}</script><p>Smooth L1损失函数在x较大时（训练初期）采取L1损失函数形式，避免了L2损失在训练初期导数大的问题；在x较小（训练后期）时采取L2损失函数形式，避免了L1损失函数在训练后期导数大的问题。</p>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ol>
 <li>优点：Fast RCNN解决了RCNN的两大问题：①一次性提取特征然后对候选区域进行特征映射，实现特征共享，极大地节约了时间和空间消耗；②将RCNN的三个模型整合为一个模型，一次性进行分类和回归。</li>
 <li>缺点：仍然存在与RCNN一样的问题，即使用Selective Search进行候选框提取。</li>
@@ -417,20 +418,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-count">30</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">23</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

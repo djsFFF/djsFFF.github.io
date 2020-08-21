@@ -53,15 +53,15 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://djsfff.github.io/.io//6.png">
 <meta property="og:image" content="http://djsfff.github.io/.io//2.png">
-<meta property="og:image" content="http://djsfff.github.io/.io//8.png">
-<meta property="og:image" content="http://djsfff.github.io/.io//9.png">
-<meta property="og:image" content="http://djsfff.github.io/.io//3.png">
-<meta property="og:image" content="http://djsfff.github.io/.io//4.png">
-<meta property="og:image" content="http://djsfff.github.io/.io//5.png">
-<meta property="og:image" content="http://djsfff.github.io/.io//7.png">
-<meta property="og:image" content="http://djsfff.github.io/.io//1.png">
+<meta property="og:image" content="http://djsfff.github.io/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E7%BD%91%E7%BB%9C%E5%B1%82/8.png">
+<meta property="og:image" content="http://djsfff.github.io/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E7%BD%91%E7%BB%9C%E5%B1%82/9.png">
+<meta property="og:image" content="http://djsfff.github.io/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E7%BD%91%E7%BB%9C%E5%B1%82/3.png">
+<meta property="og:image" content="http://djsfff.github.io/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E7%BD%91%E7%BB%9C%E5%B1%82/4.png">
+<meta property="og:image" content="http://djsfff.github.io/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E7%BD%91%E7%BB%9C%E5%B1%82/5.png">
+<meta property="og:image" content="http://djsfff.github.io/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E7%BD%91%E7%BB%9C%E5%B1%82/7.png">
+<meta property="og:image" content="http://djsfff.github.io/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E7%BD%91%E7%BB%9C%E5%B1%82/1.png">
 <meta property="article:published_time" content="2020-07-15T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-08-03T11:19:04.566Z">
+<meta property="article:modified_time" content="2020-08-21T04:33:54.532Z">
 <meta property="article:author" content="Clover">
 <meta property="article:tag" content="计算机网络">
 <meta property="article:tag" content="网络层">
@@ -290,38 +290,37 @@
       
         <p>本文整理计算机网络中运输层的主要知识点。</p>
 <a id="more"></a>
-
 <p><img src="/.io//6.png" alt></p>
 <p>网络层向上只提供尽最大努力交付的数据报服务，不提供服务质量的承诺。</p>
 <p>路由器是网络层的中间设备。</p>
 <h1 id="网际协议IP"><a href="#网际协议IP" class="headerlink" title="网际协议IP"></a>网际协议IP</h1><p><img src="/.io//2.png" alt></p>
 <h2 id="地址解析协议ARP"><a href="#地址解析协议ARP" class="headerlink" title="地址解析协议ARP"></a>地址解析协议ARP</h2><p>从网络层使用的IP地址解析出数据链路层使用的硬件地址。每个主机都有一个 ARP 高速缓存，里面有本局域网上的各主机和路由器的 IP 地址到 MAC 地址的映射表。</p>
 <p>若主机 A 知道主机 B 的 IP 地址，但是 ARP 高速缓存中没有该 IP 地址到 MAC 地址的映射，此时主机 A 通过广播的方式发送 ARP 请求分组，主机 B 收到该请求后会发送 ARP 响应分组给主机 A 告知其 MAC 地址，随后主机 A 向其ARP高速缓存中写入主机 B 的 IP 地址到 MAC 地址的映射。</p>
-<h2 id="网际控制报文协议ICMP"><a href="#网际控制报文协议ICMP" class="headerlink" title="网际控制报文协议ICMP"></a>网际控制报文协议ICMP</h2><p><img src="/.io//8.png" alt></p>
+<h2 id="网际控制报文协议ICMP"><a href="#网际控制报文协议ICMP" class="headerlink" title="网际控制报文协议ICMP"></a>网际控制报文协议ICMP</h2><p><img src="/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E7%BD%91%E7%BB%9C%E5%B1%82/8.png" alt="8"></p>
 <p>更有效地转发IP数据报和提高交付成功的机会。ICMP报文封装在IP数据报的数据部分。不是高层协议，而是IP层的协议。ICMP报文分为差错报告报文和询问报文。</p>
-<p><img src="/.io//9.png" alt></p>
+<p><img src="/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E7%BD%91%E7%BB%9C%E5%B1%82/9.png" alt="9"></p>
 <h3 id="PING-Packet-InterNet-Groper"><a href="#PING-Packet-InterNet-Groper" class="headerlink" title="PING(Packet InterNet Groper)"></a>PING(Packet InterNet Groper)</h3><p>PING是 ICMP 的一个重要应用，主要用来测试两台主机之间的连通性。</p>
 <p>原理是向目的主机发送 ICMP回送请求报文，目的主机收到之后会发送回送回答报文。PING会根据时间和成功响应的次数估算出数据包往返时间以及丢包率。</p>
 <h2 id="网际组管理协议IGMP"><a href="#网际组管理协议IGMP" class="headerlink" title="网际组管理协议IGMP"></a>网际组管理协议IGMP</h2><p>用于IP多播。</p>
-<h1 id="IP编址方式"><a href="#IP编址方式" class="headerlink" title="IP编址方式"></a>IP编址方式</h1><h1 id="分类编址"><a href="#分类编址" class="headerlink" title="分类编址"></a>分类编址</h1><p><img src="/.io//3.png" alt></p>
+<h1 id="IP编址方式"><a href="#IP编址方式" class="headerlink" title="IP编址方式"></a>IP编址方式</h1><h1 id="分类编址"><a href="#分类编址" class="headerlink" title="分类编址"></a>分类编址</h1><p><img src="/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E7%BD%91%E7%BB%9C%E5%B1%82/3.png" alt="3"></p>
 <p>将IP地址划分为若干个固定类，每一类地址由留个固定长度的字段组成：</p>
-<p>$$ IP地址::={&lt;网络号&gt;,&lt;主机号&gt;} $$</p>
-<ul>
+<script type="math/tex; mode=display">IP地址::={<网络号>,<主机号>}</script><ul>
 <li>网络号：标志主机（或路由器）所连接到的网络。</li>
 <li>主机号：标志主机（或路由器）。</li>
 </ul>
 <p>A、B、C类地址为单播地址（一对一通信），D类地址为多播地址（一对多通信），E类地址保留。</p>
-<p><img src="/.io//4.png" alt></p>
-<h2 id="划分子网编址"><a href="#划分子网编址" class="headerlink" title="划分子网编址"></a>划分子网编址</h2><p>在主机号字段中拿一部分作为子网号，把两级 IP 地址划分为三级 IP 地址：<br>$$<br>IP地址::={&lt;网络号&gt;,&lt;子网号&gt;,&lt;主机号&gt;}<br>$$<br><img src="/.io//5.png" alt></p>
+<p><img src="/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E7%BD%91%E7%BB%9C%E5%B1%82/4.png" alt="4"></p>
+<h2 id="划分子网编址"><a href="#划分子网编址" class="headerlink" title="划分子网编址"></a>划分子网编址</h2><p>在主机号字段中拿一部分作为子网号，把两级 IP 地址划分为三级 IP 地址：</p>
+<script type="math/tex; mode=display">
+IP地址::={<网络号>,<子网号>,<主机号>}</script><p><img src="/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E7%BD%91%E7%BB%9C%E5%B1%82/5.png" alt="5"></p>
 <p>从IP数据报的首部无法看出源主机或目的主机是否进行了子网划分，因此需要用到子网掩码。B类IP地址的子网掩码是255.255.0.0，假定子网号占8位，则B类IP地址下的子网掩码为255.255.255.0。路由器通过将目的IP地址145.13.3.10和其相连的各网络子网掩码逐相“与”，得到要找的子网的网络地址145.13.3.0。</p>
 <h2 id="无分类编址CIDR（构造超网）"><a href="#无分类编址CIDR（构造超网）" class="headerlink" title="无分类编址CIDR（构造超网）"></a>无分类编址CIDR（构造超网）</h2><p>使用网络前缀号和主机号来对 32位的IP 地址进行编码，网络前缀的长度可以根据需要变化。</p>
-<p>$$IP地址::={&lt;网络前缀号&gt;,&lt;主机号&gt;}$$</p>
-<p>CIDR记法在IP地址后面加上斜线，然后写上网络前缀所占的位数。网络前缀相同的连续IP地址组成一个CIDR地址块。CIDR的地址掩码可以继续称为子网掩码，子网掩码首1长度为网络前缀的长度。</p>
-<p><img src="/.io//7.png" alt></p>
+<script type="math/tex; mode=display">IP地址::={<网络前缀号>,<主机号>}</script><p>CIDR记法在IP地址后面加上斜线，然后写上网络前缀所占的位数。网络前缀相同的连续IP地址组成一个CIDR地址块。CIDR的地址掩码可以继续称为子网掩码，子网掩码首1长度为网络前缀的长度。</p>
+<p><img src="/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E7%BD%91%E7%BB%9C%E5%B1%82/7.png" alt="7"></p>
 <p>如图这种通过使用网络前缀来减少路由表项的方式称为路由聚合，也称为构造超网 。</p>
 <p>在查找时可能会在路由表中得到不止一个网络前缀的匹配结果，应当采用最长前缀匹配来确定应该匹配那一个。</p>
 <p>为了进行更有效的查找，通常把无分类编址的网络前缀路由表存放在二叉搜索树中。</p>
-<h2 id="IP数据报的格式"><a href="#IP数据报的格式" class="headerlink" title="IP数据报的格式"></a>IP数据报的格式</h2><p><img src="/.io//1.png" alt></p>
+<h2 id="IP数据报的格式"><a href="#IP数据报的格式" class="headerlink" title="IP数据报的格式"></a>IP数据报的格式</h2><p><img src="/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E7%BD%91%E7%BB%9C%E5%B1%82/1.png" alt="1"></p>
 <p>20字节固定长度：</p>
 <ul>
 <li>版本：占4位，指IP协议的版本，通信双方版本必须一致。IPv4或IPv6。</li>
@@ -457,20 +456,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-count">30</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">23</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
