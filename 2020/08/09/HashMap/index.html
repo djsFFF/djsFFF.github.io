@@ -52,7 +52,7 @@
 <meta property="og:description" content="HashMap源码解读。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-08-08T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-08-16T15:18:45.885Z">
+<meta property="article:modified_time" content="2020-08-23T11:00:06.501Z">
 <meta property="article:author" content="Clover">
 <meta property="article:tag" content="JAVA">
 <meta property="article:tag" content="后台">
@@ -284,13 +284,13 @@
 <li><p>调用<code>put(key, value)</code>方法，若数组<code>Node&lt;K, V&gt;[] table</code>为空或table长度为0，则进行初始化<code>table = new Node&lt;K, V&gt;[16]</code>，即数组默认初始化容量为16。（惰性加载）</p>
 </li>
 <li><p>调用<code>hash()</code>方法计算key的<code>hash</code>值。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">hash</span><span class="params">(Object key)</span> </span>&#123;    </span><br><span class="line">    <span class="keyword">int</span> h;    </span><br><span class="line">    <span class="keyword">return</span> (key == <span class="keyword">null</span>) ? <span class="number">0</span> : (h = key.hashCode()) ^ (h &gt;&gt;&gt; <span class="number">16</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">hash</span><span class="params">(Object key)</span> </span>&#123;    </span><br><span class="line">    <span class="keyword">int</span> h;    </span><br><span class="line">    <span class="comment">// 使用hash值计算下标时，若n比较小，则hash的高16位无法参与运算</span></span><br><span class="line">    <span class="comment">// 为了减少哈希碰撞，需要使高16位也能参与下标计算</span></span><br><span class="line">    <span class="comment">// h ^ (h &gt;&gt;&gt; 16)相当于高16位不变，低16位变为低16位与高16位的异或结果</span></span><br><span class="line">    <span class="keyword">return</span> (key == <span class="keyword">null</span>) ? <span class="number">0</span> : (h = key.hashCode()) ^ (h &gt;&gt;&gt; <span class="number">16</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>结合<code>hash</code>值和容量<code>n</code>计算索引节点下标<code>index</code>，并获得索引结点<code>p</code>。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">index = (n - <span class="number">1</span>) &amp; hash</span><br><span class="line">p = table[index]</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>若索引结点p为null，则创建新结点<code>p = newNode(hash, key, value, null)</code>存储插入数据。</p>
-<p>否则从p开始遍历以p为头结点的链表：</p>
+<p>否则从p开始遍历以p为头结点的链表（拉链法）：</p>
 <ul>
 <li>若链表中存在结点<code>e</code>使得<code>e.hash == hash &amp;&amp; (e.key == key || key.equals(e.key))</code>，则使用value更新e的value，即<code>e.value = value</code>。<strong>存储结束。</strong></li>
 <li>否则在链表尾部创建一个新的结点存储插入数据。</li>
@@ -313,12 +313,12 @@
 <h2 id="为什么桶的数量要大于64"><a href="#为什么桶的数量要大于64" class="headerlink" title="为什么桶的数量要大于64"></a>为什么桶的数量要大于64</h2><p>源码中解释，如果存在链表结点数大于8且桶的数量小于等于64，说明桶中的结点过多，应调用<code>resize()</code>方法进行扩容：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (tab == <span class="keyword">null</span> || (n = tab.length) &lt; MIN_TREEIFY_CAPACITY) &#123;</span><br><span class="line">    resize();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>避免扩容和树型化选择的冲突。</p>
-<h1 id="指定初始化容量cap必须为2的次幂"><a href="#指定初始化容量cap必须为2的次幂" class="headerlink" title="指定初始化容量cap必须为2的次幂"></a>指定初始化容量cap必须为2的次幂</h1><h2 id="为什么？"><a href="#为什么？" class="headerlink" title="为什么？"></a>为什么？</h2><p>为了减少hash碰撞，使数据均匀分配。</p>
-<p>HashMap计算索引的方式为<code>index = (cap - 1) &amp; hash</code>，当cap为2的次幂时这种索引计算方式与取余的结果一致，即<code>(cap - 1) &amp; hash == hash % cap</code>。</p>
-<p>cap - 1的形式为若干个连续的0和若干个连续的1如<code>16 - 1 = 15 = 00000000 00000000 00000000 00001111</code>。</p>
-<h2 id="若cap不是2的次幂会怎么样？"><a href="#若cap不是2的次幂会怎么样？" class="headerlink" title="若cap不是2的次幂会怎么样？"></a>若cap不是2的次幂会怎么样？</h2><p>会向上扩展为2的次幂，如cap=10变为16。</p>
+<h1 id="指定初始化容量n必须为2的次幂"><a href="#指定初始化容量n必须为2的次幂" class="headerlink" title="指定初始化容量n必须为2的次幂"></a>指定初始化容量n必须为2的次幂</h1><h2 id="为什么？"><a href="#为什么？" class="headerlink" title="为什么？"></a>为什么？</h2><p>为了减少hash碰撞，使数据均匀分配。</p>
+<p>HashMap计算索引的方式为<code>index = (n - 1) &amp; hash</code>，当n为2的次幂时这种索引计算方式与取余的结果一致，即<code>(n - 1) &amp; hash == hash % n</code>。</p>
+<p>n- 1的形式为若干个连续的0和若干个连续的1如<code>16 - 1 = 15 = 00000000 00000000 00000000 00001111</code>。</p>
+<h2 id="若n不是2的次幂会怎么样？"><a href="#若n不是2的次幂会怎么样？" class="headerlink" title="若n不是2的次幂会怎么样？"></a>若n不是2的次幂会怎么样？</h2><p>会向上扩展为2的次幂，如n=10变为16。</p>
 <p>具体实现代码：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 若不执行减一操作，输入cap刚好为2的次幂时，会将容量扩大为2*cap。</span></span><br><span class="line"><span class="keyword">int</span> n = cap - <span class="number">1</span>;<span class="comment">// 以cap = 10为例,此时n = 9</span></span><br><span class="line">n |= n &gt;&gt;&gt; <span class="number">1</span>;   <span class="comment">// 9 | 4 = 13</span></span><br><span class="line">n |= n &gt;&gt;&gt; <span class="number">2</span>;	<span class="comment">// 13 | 3 = 15</span></span><br><span class="line">n |= n &gt;&gt;&gt; <span class="number">4</span>;	<span class="comment">// 15 | 0 = 15</span></span><br><span class="line">n |= n &gt;&gt;&gt; <span class="number">8</span>;	<span class="comment">// 15 | 0 = 15</span></span><br><span class="line">n |= n &gt;&gt;&gt; <span class="number">16</span>;	<span class="comment">// 15 | 0 = 15</span></span><br><span class="line"><span class="keyword">return</span> (n &lt; <span class="number">0</span>) ? <span class="number">1</span> : (n &gt;= MAXIMUM_CAPACITY) ? MAXIMUM_CAPACITY : n + <span class="number">1</span>; <span class="comment">// n + 1 = 16</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 若不执行减一操作，输入cap刚好为2的次幂时，会将容量扩大为2*cap。</span></span><br><span class="line"><span class="keyword">int</span> n = n - <span class="number">1</span>;<span class="comment">// n = 10为例,此时n = 9</span></span><br><span class="line">n |= n &gt;&gt;&gt; <span class="number">1</span>;   <span class="comment">// 9 | 4 = 13</span></span><br><span class="line">n |= n &gt;&gt;&gt; <span class="number">2</span>;	<span class="comment">// 13 | 3 = 15</span></span><br><span class="line">n |= n &gt;&gt;&gt; <span class="number">4</span>;	<span class="comment">// 15 | 0 = 15</span></span><br><span class="line">n |= n &gt;&gt;&gt; <span class="number">8</span>;	<span class="comment">// 15 | 0 = 15</span></span><br><span class="line">n |= n &gt;&gt;&gt; <span class="number">16</span>;	<span class="comment">// 15 | 0 = 15</span></span><br><span class="line"><span class="keyword">return</span> (n &lt; <span class="number">0</span>) ? <span class="number">1</span> : (n &gt;= MAXIMUM_CAPACITY) ? MAXIMUM_CAPACITY : n + <span class="number">1</span>; <span class="comment">// n + 1 = 16</span></span><br></pre></td></tr></table></figure>
 <h1 id="加载因子（loadFactor）"><a href="#加载因子（loadFactor）" class="headerlink" title="加载因子（loadFactor）"></a>加载因子（loadFactor）</h1><p>加载因子 = 容量 / 桶的数量，可以衡量HashMap的稀疏程度，官方设定为加载因子0.75时，HashMap足够拥挤了，需要进行扩容。</p>
 <h1 id="初始容量设置"><a href="#初始容量设置" class="headerlink" title="初始容量设置"></a>初始容量设置</h1><p>若已知需要插入的数据个数为n，则应该设置<code>初始容量 = (n / 0.75) + 1</code>。</p>
 
@@ -340,12 +340,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/08/09/JAVA%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95%E6%A6%82%E8%BF%B0/" rel="prev" title="JAVA后端面试概述">
-      <i class="fa fa-chevron-left"></i> JAVA后端面试概述
+    <a href="/2020/08/03/Java%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0/" rel="prev" title="JAVA后台开发项目学习">
+      <i class="fa fa-chevron-left"></i> JAVA后台开发项目学习
     </a></div>
       <div class="post-nav-item">
-    <a href="/2020/08/10/MySQL%E5%AD%A6%E4%B9%A0/" rel="next" title="MySQL学习">
-      MySQL学习 <i class="fa fa-chevron-right"></i>
+    <a href="/2020/08/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F/" rel="next" title="计算机系统">
+      计算机系统 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -411,7 +411,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#put-方法存储过程（JDK8）"><span class="nav-number">1.</span> <span class="nav-text">put()方法存储过程（JDK8）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#扩容"><span class="nav-number">2.</span> <span class="nav-text">扩容</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#红黑树与链表转换"><span class="nav-number">3.</span> <span class="nav-text">红黑树与链表转换</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么转换的阈值分别为8和6？"><span class="nav-number">3.1.</span> <span class="nav-text">为什么转换的阈值分别为8和6？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么桶的数量要大于64"><span class="nav-number">3.2.</span> <span class="nav-text">为什么桶的数量要大于64</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#指定初始化容量cap必须为2的次幂"><span class="nav-number">4.</span> <span class="nav-text">指定初始化容量cap必须为2的次幂</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么？"><span class="nav-number">4.1.</span> <span class="nav-text">为什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#若cap不是2的次幂会怎么样？"><span class="nav-number">4.2.</span> <span class="nav-text">若cap不是2的次幂会怎么样？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#加载因子（loadFactor）"><span class="nav-number">5.</span> <span class="nav-text">加载因子（loadFactor）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#初始容量设置"><span class="nav-number">6.</span> <span class="nav-text">初始容量设置</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#put-方法存储过程（JDK8）"><span class="nav-number">1.</span> <span class="nav-text">put()方法存储过程（JDK8）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#扩容"><span class="nav-number">2.</span> <span class="nav-text">扩容</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#红黑树与链表转换"><span class="nav-number">3.</span> <span class="nav-text">红黑树与链表转换</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么转换的阈值分别为8和6？"><span class="nav-number">3.1.</span> <span class="nav-text">为什么转换的阈值分别为8和6？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么桶的数量要大于64"><span class="nav-number">3.2.</span> <span class="nav-text">为什么桶的数量要大于64</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#指定初始化容量n必须为2的次幂"><span class="nav-number">4.</span> <span class="nav-text">指定初始化容量n必须为2的次幂</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么？"><span class="nav-number">4.1.</span> <span class="nav-text">为什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#若n不是2的次幂会怎么样？"><span class="nav-number">4.2.</span> <span class="nav-text">若n不是2的次幂会怎么样？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#加载因子（loadFactor）"><span class="nav-number">5.</span> <span class="nav-text">加载因子（loadFactor）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#初始容量设置"><span class="nav-number">6.</span> <span class="nav-text">初始容量设置</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -427,20 +427,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-count">31</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-count">24</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

@@ -51,13 +51,13 @@
 <meta property="og:site_name" content="Clover">
 <meta property="og:description" content="本文总结了Linux系统中对文件属性和权限进行操作的常用命令。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://djsfff.github.io/.io//1.png">
+<meta property="og:image" content="http://djsfff.github.io/images/Linux-File/1.png">
 <meta property="article:published_time" content="2020-07-15T13:37:04.000Z">
-<meta property="article:modified_time" content="2020-08-03T11:19:04.550Z">
+<meta property="article:modified_time" content="2020-08-30T14:59:37.139Z">
 <meta property="article:author" content="Clover">
 <meta property="article:tag" content="Linux">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://djsfff.github.io/.io//1.png">
+<meta name="twitter:image" content="http://djsfff.github.io/images/Linux-File/1.png">
 
 <link rel="canonical" href="http://djsfff.github.io/2020/07/15/Linux-File/">
 
@@ -279,13 +279,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>本文总结了Linux系统中对文件属性和权限进行操作的常用命令。</p>
-<a id="more"></a>
-
+        <p>本文总结了Linux系统中对文件属性和权限进行操作的常用命令。<br><a id="more"></a></p>
 <h1 id="ls-l用于查看文件属性"><a href="#ls-l用于查看文件属性" class="headerlink" title="ls -l用于查看文件属性"></a><code>ls -l</code>用于查看文件属性</h1><pre><code>➜  ~ ls -l 
 total 21776
 drwxr-xr-x 26 dong dong     4096 11月 29  2019  anaconda3
-drwxr-xr-x  8 dong dong     4096 7月  13 23:46  Clover</code></pre><p>每一个文件开头10个字符含义如下图：<br><img src="/.io//1.png" alt><br>第0位文件类型包括：<code>d</code>目录、<code>-</code>文件及其他（<code>l</code>、<code>b</code>、<code>c</code>），第1-3位表示该文件所有者的权限，第4-6位表示所有者同组用户的权限，第7-9位表示其他用户的权限。<code>r</code>读、<code>w</code>写、<code>x</code>执行（execute）表示拥有对应权限，<code>-</code>表示没有该权限。</p>
+drwxr-xr-x  8 dong dong     4096 7月  13 23:46  Clover
+</code></pre><p>每一个文件开头10个字符含义如下图：<br><img src="/images/Linux-File/1.png" alt="1"><br>第0位文件类型包括：<code>d</code>目录、<code>-</code>文件及其他（<code>l</code>、<code>b</code>、<code>c</code>），第1-3位表示该文件所有者的权限，第4-6位表示所有者同组用户的权限，第7-9位表示其他用户的权限。<code>r</code>读、<code>w</code>写、<code>x</code>执行（execute）表示拥有对应权限，<code>-</code>表示没有该权限。</p>
 <h1 id="chown-R-属主名-文件或目录用于更改文件属主"><a href="#chown-R-属主名-文件或目录用于更改文件属主" class="headerlink" title="chown [-R] 属主名 文件或目录用于更改文件属主"></a><code>chown [-R] 属主名 文件或目录</code>用于更改文件属主</h1><p>加上参数<code>-R</code>表示递归更改文件属主。</p>
 <h1 id="chgrp-R-属组名-文件或目录用于更改文件属组"><a href="#chgrp-R-属组名-文件或目录用于更改文件属组" class="headerlink" title="chgrp [-R] 属组名 文件或目录用于更改文件属组"></a><code>chgrp [-R] 属组名 文件或目录</code>用于更改文件属组</h1><p>加上参数<code>-R</code>表示递归更改文件属组。</p>
 <h1 id="chmod-R-xyz-文件或目录用于更改文件的9个权限"><a href="#chmod-R-xyz-文件或目录用于更改文件的9个权限" class="headerlink" title="chmod [-R] xyz 文件或目录用于更改文件的9个权限"></a><code>chmod [-R] xyz 文件或目录</code>用于更改文件的9个权限</h1><p>加上参数<code>-R</code>表示递归更改文件权限。<br><code>xyz</code>表示要设置的权限数字，每个权限数字为3个权限分数之和，各权限分数对照如下：</p>
@@ -296,6 +295,7 @@ drwxr-xr-x  8 dong dong     4096 7月  13 23:46  Clover</code></pre><p>每一个
 </ul>
 <p>例如<code>7=rwx</code>，<code>0=---</code>，<code>drwxr-xr-x</code>的权限数字为<code>755</code>。</p>
 <p>或者可以使用<code>chmod u=rwx,g=rx,o=r 文件名</code>的命令来设定文件的权限，具体如下表所示：</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -306,7 +306,8 @@ drwxr-xr-x  8 dong dong     4096 7月  13 23:46  Clover</code></pre><p>每一个
 <th>文件或目录</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td></td>
 <td>g</td>
 <td>-（除去）</td>
@@ -327,7 +328,9 @@ drwxr-xr-x  8 dong dong     4096 7月  13 23:46  Clover</code></pre><p>每一个
 <td></td>
 <td></td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 
     </div>
 
@@ -350,8 +353,8 @@ drwxr-xr-x  8 dong dong     4096 7月  13 23:46  Clover</code></pre><p>每一个
       <i class="fa fa-chevron-left"></i> 模拟面试问答之经典网络模型三：Faster RCNN
     </a></div>
       <div class="post-nav-item">
-    <a href="/2020/07/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E7%BD%91%E7%BB%9C%E5%B1%82/" rel="next" title="计算机网络——网络层">
-      计算机网络——网络层 <i class="fa fa-chevron-right"></i>
+    <a href="/2020/07/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C1%EF%BC%9A%E7%BD%91%E7%BB%9C%E5%B1%82/" rel="next" title="计算机网络一：网络层">
+      计算机网络一：网络层 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -433,20 +436,20 @@ drwxr-xr-x  8 dong dong     4096 7月  13 23:46  Clover</code></pre><p>每一个
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-count">31</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-count">24</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

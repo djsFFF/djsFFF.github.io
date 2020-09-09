@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://djsFFF.github.io').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.7.1',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="Redis相关知识点。 Redis是一个开源的高性能键值对的内存数据库，可以用作数据库、缓存、消息中间件等，是一种NoSQL数据库（Not-only SQL，非关系型数据库）。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis">
+<meta property="og:url" content="http://djsfff.github.io/2020/08/30/Redis/index.html">
+<meta property="og:site_name" content="Clover">
+<meta property="og:description" content="Redis相关知识点。 Redis是一个开源的高性能键值对的内存数据库，可以用作数据库、缓存、消息中间件等，是一种NoSQL数据库（Not-only SQL，非关系型数据库）。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://djsfff.github.io/images/Redis/image-20200904164234280.png">
+<meta property="article:published_time" content="2020-08-30T12:15:00.000Z">
+<meta property="article:modified_time" content="2020-09-07T00:45:06.195Z">
+<meta property="article:author" content="Clover">
+<meta property="article:tag" content="数据库">
+<meta property="article:tag" content="Redis">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://djsfff.github.io/images/Redis/image-20200904164234280.png">
+
+<link rel="canonical" href="http://djsfff.github.io/2020/08/30/Redis/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>Redis | Clover</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?b759ac2a7fa45129e3ef060bf68259f0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Clover</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <h1 class="site-subtitle" itemprop="description">学无止境</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/djsFFF" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://djsfff.github.io/2020/08/30/Redis/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Clover">
+      <meta itemprop="description" content="汝心安处即吾乡">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clover">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          Redis
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-30 20:15:00" itemprop="dateCreated datePublished" datetime="2020-08-30T20:15:00+08:00">2020-08-30</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index">
+                    <span itemprop="name">数据库</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>Redis相关知识点。</p>
+<p>Redis是一个开源的高性能键值对的内存数据库，可以用作数据库、缓存、消息中间件等，是一种NoSQL数据库（Not-only SQL，非关系型数据库）。</p>
+<a id="more"></a>
+<h1 id="Redis为什么快"><a href="#Redis为什么快" class="headerlink" title="Redis为什么快"></a>Redis为什么快</h1><ol>
+<li>基于内存操作。</li>
+<li>单线程模型，避免了上下文切换。</li>
+<li>多路复用IO模型，非阻塞IO。</li>
+</ol>
+<h1 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h1><ul>
+<li>String：值可以是string，也可以是数字、二进制数据等，最大存储512m。</li>
+<li>Hash：存储键值对，适合存储Java对象。</li>
+<li>List：双向链表，按插入顺序排序。</li>
+<li>Set：String类型的无序去重集合，通过Hashtable实现。</li>
+<li>Zset（Sorted Set）：在Set的基础上增加了一个score，使得集合中的元素可以按score有序排列。</li>
+</ul>
+<h1 id="过期策略"><a href="#过期策略" class="headerlink" title="过期策略"></a>过期策略</h1><p>定期删除+惰性删除。</p>
+<ul>
+<li>定期删除：每100ms随机抽取一些设置了过期时间的key，检查其是否过期，如果过期就删除。</li>
+<li>惰性删除：尝试访问一个已过期但还没被删除的key时，redis会把该数据删除掉。</li>
+</ul>
+<h1 id="内存淘汰策略"><a href="#内存淘汰策略" class="headerlink" title="内存淘汰策略"></a>内存淘汰策略</h1><ul>
+<li>volatile-lru：从已设置过期时间的数据中挑选<strong>最近最少使用</strong>的数据淘汰。</li>
+<li>volatile-lfu：从已设置过期时间的数据中挑选<strong>使用频率最低</strong>的数据淘汰。</li>
+<li>volatile-ttl：从已设置过期时间的数据中挑选<strong>将要过期</strong>的数据淘汰。</li>
+<li>volatile-random：从已设置过期时间的数据中<strong>随机选择</strong>数据淘汰。</li>
+<li>allkeys-lru：从所有数据中选择<strong>最近最少使用</strong>的数据淘汰。</li>
+<li>allkeys-lfu：当所有数据中选择<strong>使用频率最低</strong>的数据淘汰。</li>
+<li>allkeys-random：从所有数据中<strong>随机选择</strong>数据淘汰。</li>
+<li>no-eviction：<strong>不淘汰数据</strong>，内存不足以容纳新写入数据时报错。</li>
+</ul>
+<h1 id="持久化机制"><a href="#持久化机制" class="headerlink" title="持久化机制"></a>持久化机制</h1><h2 id="快照持久化RDB"><a href="#快照持久化RDB" class="headerlink" title="快照持久化RDB"></a>快照持久化RDB</h2><p>在某个时间点创建内存数据的快照，保存在原地或者其他服务器结点上。</p>
+<p>每次进行快照持久化时，开启一个子进程进行全量备份，备份期间的数据变化不会被保存，可能丢失数据。</p>
+<p>适合于定时文件备份和灾难恢复，恢复大数据集时比AOF快。</p>
+<ul>
+<li>save 900 1：在15分钟后，至少1个key发生变化，创建快照。</li>
+<li>save 300 10：在5分钟后，至少10个key发生变化，创建快照。</li>
+<li>save 60 10000：在1分钟后，至少10000个key发生变化，创建快照。</li>
+</ul>
+<h2 id="只追加文件AOF"><a href="#只追加文件AOF" class="headerlink" title="只追加文件AOF"></a>只追加文件AOF</h2><p>每执行一条写命令时，Redis将该命令写入硬盘中的AOF文件。</p>
+<p>恢复速度比RDB慢，通常比快照文件大。</p>
+<p>丢失数据较少，比如设置每秒钟记录一次时，最多丢失一秒钟的数据。备份速度比较快。</p>
+<ul>
+<li>appendfsync always：每次有数据修改时都会写入AOF文件，会严重降低Redis的速度。</li>
+<li>appendfsync everysec：每秒钟同步一次。</li>
+<li>appendfsync no：让操作系统决定何时进行同步。</li>
+</ul>
+<h1 id="缓存问题"><a href="#缓存问题" class="headerlink" title="缓存问题"></a>缓存问题</h1><h2 id="缓存和数据库一致性问题"><a href="#缓存和数据库一致性问题" class="headerlink" title="缓存和数据库一致性问题"></a>缓存和数据库一致性问题</h2><p>使用缓存只能通过合适的策略来降低缓存和数据库之间不一致的概率，无法保证两者间的强一致性。</p>
+<p><a href="https://github.com/doocs/advanced-java/blob/master/docs/high-concurrency/redis-consistence.md" target="_blank" rel="noopener">https://github.com/doocs/advanced-java/blob/master/docs/high-concurrency/redis-consistence.md</a></p>
+<h2 id="缓存击穿"><a href="#缓存击穿" class="headerlink" title="缓存击穿"></a>缓存击穿</h2><p>指对于会被高并发访问的若干个热点数据，在这个数据失效的瞬间，这些高并发访问直接落到了数据库上。</p>
+<p>解决方法：</p>
+<ul>
+<li>设置热点数据用不过期，需要时再进行更新。</li>
+<li>对热点数据加互斥锁，同时只能有一个线程访问数据库的数据，一个线程访问后重建缓存。</li>
+</ul>
+<h2 id="缓存雪崩"><a href="#缓存雪崩" class="headerlink" title="缓存雪崩"></a>缓存雪崩</h2><p>指某个时间点缓存数据大规模失效，此时请求就会直接到达数据库，造成数据库短时间内承受大量请求而崩掉。</p>
+<p>解决方法：</p>
+<ul>
+<li><p>设置热点数据用不过期，需要时再进行更新。</p>
+</li>
+<li><p>对数据的过期时间额外加上一个随机值，避免同时失效。</p>
+</li>
+<li>构建多级缓存。</li>
+<li>对于集群Redis，可以将热点数据均匀分布在不同的Redis库中。</li>
+</ul>
+<h2 id="缓存穿透"><a href="#缓存穿透" class="headerlink" title="缓存穿透"></a>缓存穿透</h2><p>指大量请求的key根本不存在于缓存中，导致请求直接到达数据库。</p>
+<p>解决方法：</p>
+<ul>
+<li><p>在接口层过滤掉不合法的查询，如负数id。</p>
+</li>
+<li><p>布隆过滤器：把所有有效请求的值都存放在布隆过滤器中，通过布隆过滤器判断请求是否有效。</p>
+<p><img src="/images/Redis/image-20200904164234280.png" alt="image-20200904164234280"></p>
+<p>布隆过滤器由一个二进制数组和一系列Hash函数组成，当一个元素加入过滤器时，通过K个Hash函数将这个元素映射为K个下标，然后把二进制中对应位置置为1。</p>
+</li>
+<li><p>缓存无效key：查询数据库中也没用的数据时，返回一个key-null缓存到Redis中，并设置一个较短过期时间。</p>
+</li>
+</ul>
+<h1 id="主从复制"><a href="#主从复制" class="headerlink" title="主从复制"></a>主从复制</h1><p>通常Redis主节点负责写操作，若干个从节点负责读操作。</p>
+<p>全量复制：</p>
+<ol>
+<li>主节点发送RDB文件给从节点。RDB文件传输期间，新的写命令放入缓冲区。</li>
+<li>从节点清理自己的数据库数据，接受RDB文件并保存在数据库中。</li>
+<li>通过部分复制将缓冲区的数据发送给从节点。</li>
+</ol>
+<p>部分复制：</p>
+<p>在从节点复制主节点时，如果发生异常情况，主节点会将期间产生的新的写命令存入缓冲区等待恢复连接后进行部分复制。但如果恢复连接时缓冲区已经溢出，则进行全量复制。</p>
+<h1 id="哨兵模式"><a href="#哨兵模式" class="headerlink" title="哨兵模式"></a>哨兵模式</h1><p>哨兵模式是Redis集群的高可用性的解决方案：由一个或多个哨兵实例组成的哨兵系统可以监视主服务器及其所有从服务器，并在监视到主服务器进入下线状态时，自动地将某个从服务器升级为新的主服务器。</p>
+<p>哨兵会定期获取服务器的状态信息。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag"># 数据库</a>
+              <a href="/tags/Redis/" rel="tag"># Redis</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/08/29/Java%E9%A1%B9%E7%9B%AE%E9%97%AE%E9%A2%98/" rel="prev" title="Java项目问题">
+      <i class="fa fa-chevron-left"></i> Java项目问题
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="lv-container" data-id="city" data-uid="MTAyMC8zODU3Mi8xNTEwMA=="></div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis为什么快"><span class="nav-number">1.</span> <span class="nav-text">Redis为什么快</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据类型"><span class="nav-number">2.</span> <span class="nav-text">数据类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#过期策略"><span class="nav-number">3.</span> <span class="nav-text">过期策略</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#内存淘汰策略"><span class="nav-number">4.</span> <span class="nav-text">内存淘汰策略</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#持久化机制"><span class="nav-number">5.</span> <span class="nav-text">持久化机制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#快照持久化RDB"><span class="nav-number">5.1.</span> <span class="nav-text">快照持久化RDB</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#只追加文件AOF"><span class="nav-number">5.2.</span> <span class="nav-text">只追加文件AOF</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#缓存问题"><span class="nav-number">6.</span> <span class="nav-text">缓存问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存和数据库一致性问题"><span class="nav-number">6.1.</span> <span class="nav-text">缓存和数据库一致性问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存击穿"><span class="nav-number">6.2.</span> <span class="nav-text">缓存击穿</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存雪崩"><span class="nav-number">6.3.</span> <span class="nav-text">缓存雪崩</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存穿透"><span class="nav-number">6.4.</span> <span class="nav-text">缓存穿透</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#主从复制"><span class="nav-number">7.</span> <span class="nav-text">主从复制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#哨兵模式"><span class="nav-number">8.</span> <span class="nav-text">哨兵模式</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Clover"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Clover</p>
+  <div class="site-description" itemprop="description">汝心安处即吾乡</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">31</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="mailto:1210090743@qq.com" title="E-Mail → mailto:1210090743@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/djsFFF" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;djsFFF" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Clover</span>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+  </div>
+
+  
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "topRight";
+      
+          flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+<script>
+NexT.utils.loadComments(document.querySelector('#lv-container'), () => {
+  // window.livereOptions = {
+  //   refer: location.pathname.replace(CONFIG.root, '').replace('index.html', '')
+  // };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+});
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</body>
+</html>
