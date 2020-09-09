@@ -9,6 +9,8 @@ categories:
 typora-root-url: ..
 ---
 
+InnoDB存储引擎。
+
 <!--more-->
 
 # 三范式
