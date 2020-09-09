@@ -44,15 +44,15 @@
   };
 </script>
 
-  <meta name="description" content="三范式 第一范式（1NF）：字段是单一属性，不可再分的。 第二范式（2NF）：在第一范式的基础上，所有非主键字段都完全依赖于任意一个主键或联合主键，即不能存在非主键字段对联合主键的部分依赖。 第三范式（3NF）：在第二范式的基础上，所有非主键字段都直接依赖于主键不能存在传递依赖。  MyISAM与InnoDB的区别 锁粒度：MyISAM只支持表级锁，InnoDB支持行级锁和表级锁。 事务：MyI">
+  <meta name="description" content="InnoDB存储引擎。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MySQL学习2：InnoDB存储引擎">
 <meta property="og:url" content="http://djsfff.github.io/2020/08/14/MySQL%E5%AD%A6%E4%B9%A02%EF%BC%9AInnoDB%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/index.html">
 <meta property="og:site_name" content="Clover">
-<meta property="og:description" content="三范式 第一范式（1NF）：字段是单一属性，不可再分的。 第二范式（2NF）：在第一范式的基础上，所有非主键字段都完全依赖于任意一个主键或联合主键，即不能存在非主键字段对联合主键的部分依赖。 第三范式（3NF）：在第二范式的基础上，所有非主键字段都直接依赖于主键不能存在传递依赖。  MyISAM与InnoDB的区别 锁粒度：MyISAM只支持表级锁，InnoDB支持行级锁和表级锁。 事务：MyI">
+<meta property="og:description" content="InnoDB存储引擎。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-08-14T12:15:00.000Z">
-<meta property="article:modified_time" content="2020-09-07T01:54:28.813Z">
+<meta property="article:modified_time" content="2020-09-09T01:59:49.404Z">
 <meta property="article:author" content="Clover">
 <meta property="article:tag" content="MySQL">
 <meta property="article:tag" content="数据库">
@@ -278,7 +278,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <a id="more"></a>
+        <p>InnoDB存储引擎。</p>
+<a id="more"></a>
 <h1 id="三范式"><a href="#三范式" class="headerlink" title="三范式"></a>三范式</h1><ul>
 <li>第一范式（1NF）：字段是单一属性，不可再分的。</li>
 <li>第二范式（2NF）：在第一范式的基础上，所有非主键字段都完全依赖于任意一个主键或联合主键，即不能存在非主键字段对联合主键的部分依赖。</li>

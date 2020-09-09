@@ -44,16 +44,16 @@
   };
 </script>
 
-  <meta name="description" content="论坛后台基于拦截器检查登录状态和权限 对于一些需要登录才能访问或者需要一定权限的路径如个人信息，需要使用拦截器检查登录状态。 在用户浏览网页时，需要检查用户登陆状态，通过拦截器实现：  实现HandlerInterceptor接口中的三个方法：  preHandler()：在Controller之前执行。获取Cookie中的凭证id，然后在数据库中查询凭证有效状态并根据凭证获取到User对象并保存">
+  <meta name="description" content="Java项目问题。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java项目问题">
 <meta property="og:url" content="http://djsfff.github.io/2020/08/29/Java%E9%A1%B9%E7%9B%AE%E9%97%AE%E9%A2%98/index.html">
 <meta property="og:site_name" content="Clover">
-<meta property="og:description" content="论坛后台基于拦截器检查登录状态和权限 对于一些需要登录才能访问或者需要一定权限的路径如个人信息，需要使用拦截器检查登录状态。 在用户浏览网页时，需要检查用户登陆状态，通过拦截器实现：  实现HandlerInterceptor接口中的三个方法：  preHandler()：在Controller之前执行。获取Cookie中的凭证id，然后在数据库中查询凭证有效状态并根据凭证获取到User对象并保存">
+<meta property="og:description" content="Java项目问题。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://djsfff.github.io/images/Java%E9%A1%B9%E7%9B%AE%E9%97%AE%E9%A2%98/image-20200902164036093.png">
 <meta property="article:published_time" content="2020-08-29T12:15:00.000Z">
-<meta property="article:modified_time" content="2020-09-07T01:02:06.948Z">
+<meta property="article:modified_time" content="2020-09-09T01:59:29.154Z">
 <meta property="article:author" content="Clover">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="后台开发">
@@ -280,7 +280,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="论坛后台"><a href="#论坛后台" class="headerlink" title="论坛后台"></a>论坛后台</h1><h2 id="基于拦截器检查登录状态和权限"><a href="#基于拦截器检查登录状态和权限" class="headerlink" title="基于拦截器检查登录状态和权限"></a>基于拦截器检查登录状态和权限</h2><p><img src="/images/Java%E9%A1%B9%E7%9B%AE%E9%97%AE%E9%A2%98/image-20200902164036093.png" alt="image-20200902164036093"></p>
+        <p>Java项目问题。</p>
+<a id="more"></a>
+<h1 id="论坛后台"><a href="#论坛后台" class="headerlink" title="论坛后台"></a>论坛后台</h1><h2 id="基于拦截器检查登录状态和权限"><a href="#基于拦截器检查登录状态和权限" class="headerlink" title="基于拦截器检查登录状态和权限"></a>基于拦截器检查登录状态和权限</h2><p><img src="/images/Java%E9%A1%B9%E7%9B%AE%E9%97%AE%E9%A2%98/image-20200902164036093.png" alt="image-20200902164036093"></p>
 <p>对于一些需要登录才能访问或者需要一定权限的路径如个人信息，需要使用拦截器检查登录状态。</p>
 <p>在用户浏览网页时，需要检查用户登陆状态，通过拦截器实现：</p>
 <ol>

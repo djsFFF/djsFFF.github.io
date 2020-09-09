@@ -44,12 +44,12 @@
   };
 </script>
 
-  <meta name="description" content="线程基础线程创建的方式 Thread：继承Thread类并重写run方法，直接使用this可以获取当前线程。 Runnable：实现Runnable接口并传递给Thread。可以继承其他类，多个线程可以共用一个代码逻辑。 FutureTask：实现Callable接口传递给FutureTask，然后把FutureTask传递给Thread。可获取返回结果。  线程通知与等待Object类中的通知">
+  <meta name="description" content="Java并发编程。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java并发编程">
 <meta property="og:url" content="http://djsfff.github.io/2020/08/15/Java%E5%B9%B6%E5%8F%91/index.html">
 <meta property="og:site_name" content="Clover">
-<meta property="og:description" content="线程基础线程创建的方式 Thread：继承Thread类并重写run方法，直接使用this可以获取当前线程。 Runnable：实现Runnable接口并传递给Thread。可以继承其他类，多个线程可以共用一个代码逻辑。 FutureTask：实现Callable接口传递给FutureTask，然后把FutureTask传递给Thread。可获取返回结果。  线程通知与等待Object类中的通知">
+<meta property="og:description" content="Java并发编程。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://djsfff.github.io/images/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/image-20200903224211947.png">
 <meta property="og:image" content="http://djsfff.github.io/images/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/image-20200819100243950.png">
@@ -65,7 +65,7 @@
 <meta property="og:image" content="http://djsfff.github.io/images/Java%E5%B9%B6%E5%8F%91/image-20200904231439695.png">
 <meta property="og:image" content="http://djsfff.github.io/images/Java%E5%B9%B6%E5%8F%91/image-20200904233842705.png">
 <meta property="article:published_time" content="2020-08-15T12:15:00.000Z">
-<meta property="article:modified_time" content="2020-09-06T15:53:59.087Z">
+<meta property="article:modified_time" content="2020-09-09T01:59:08.947Z">
 <meta property="article:author" content="Clover">
 <meta property="article:tag" content="JAVA">
 <meta property="article:tag" content="并发">
@@ -292,7 +292,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <a id="more"></a>
+        <p>Java并发编程。</p>
+<a id="more"></a>
 <h1 id="线程基础"><a href="#线程基础" class="headerlink" title="线程基础"></a>线程基础</h1><h2 id="线程创建的方式"><a href="#线程创建的方式" class="headerlink" title="线程创建的方式"></a>线程创建的方式</h2><ul>
 <li>Thread：继承<strong>Thread</strong>类并重写run方法，直接使用this可以获取当前线程。</li>
 <li>Runnable：实现<strong>Runnable</strong>接口并传递给<strong>Thread</strong>。可以继承其他类，多个线程可以共用一个代码逻辑。</li>

@@ -345,31 +345,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="论坛后台"><a href="#论坛后台" class="headerlink" title="论坛后台"></a>论坛后台</h1><h2 id="基于拦截器检查登录状态和权限"><a href="#基于拦截器检查登录状态和权限" class="headerlink" title="基于拦截器检查登录状态和权限"></a>基于拦截器检查登录状态和权限</h2><p><img src="/images/Java%E9%A1%B9%E7%9B%AE%E9%97%AE%E9%A2%98/image-20200902164036093.png" alt="image-20200902164036093"></p>
-<p>对于一些需要登录才能访问或者需要一定权限的路径如个人信息，需要使用拦截器检查登录状态。</p>
-<p>在用户浏览网页时，需要检查用户登陆状态，通过拦截器实现：</p>
-<ol>
-<li><p>实现HandlerInterceptor接口中的三个方法：</p>
-<ul>
-<li><p>preHandler()：在Controller之前执行。获取Cookie中的凭证id，然后在数据库中查询凭证有效状态并根据凭证获取到User对象并保存到ThreadLocal变量hostHolder中。</p>
-</li>
-<li><p>postHandler()：在Controller之后，模板引擎之前执行。从hostHolder获取到User并传给模板引擎。</p>
-</li>
-<li><p>afterCompletion()：在模板引擎之后执行。清除hostHolder。</p>
-</li>
-</ul>
-</li>
-<li><p>在实现WebMvcConfigurer接口的类中addInterceptors()配置拦截器：拦截哪些路径，不拦截哪些路径。</p>
-</li>
-</ol>
-<h2 id="基于Kafka实现消息队列"><a href="#基于Kafka实现消息队列" class="headerlink" title="基于Kafka实现消息队列"></a>基于Kafka实现消息队列</h2><p>私信通知，评论点赞通知等。</p>
-<h3 id="为什么要用消息队列"><a href="#为什么要用消息队列" class="headerlink" title="为什么要用消息队列"></a>为什么要用消息队列</h3><ol>
-<li>不使用消息队列时，用户的请求会直接到达服务器并通过数据库或者缓存响应，而在高并发情况下，可能会超过数据库的承受能力，造成响应速度缓慢甚至宕机。而使用消息队列后，用户的请求数据存入消息队列后就可以立即返回，<strong>减少了响应时间</strong>，消息队列的消费者进程可以异步地处理消息队列中的消息，<strong>降低数据库在高峰期的压力</strong>。</li>
-<li>使用消息队列还可以<strong>降低系统的耦合性</strong>，生产者和消费者之间不需要直接通信，而是通过共享消息队列进行交互。</li>
-</ol>
-<h2 id="Redis缓存"><a href="#Redis缓存" class="headerlink" title="Redis缓存"></a>Redis缓存</h2><h2 id="网站数据统计"><a href="#网站数据统计" class="headerlink" title="网站数据统计"></a>网站数据统计</h2><h3 id="UV（Unique-Visitor）"><a href="#UV（Unique-Visitor）" class="headerlink" title="UV（Unique Visitor）"></a>UV（Unique Visitor）</h3><p>统计不重复IP的访问次数。</p>
-<h3 id="DAU（Daily-Active-User）"><a href="#DAU（Daily-Active-User）" class="headerlink" title="DAU（Daily Active User）"></a>DAU（Daily Active User）</h3><p>日活跃用户，使用Bitmap，以用户ID作为下标。</p>
-
+          <p>Java项目问题。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/08/29/Java%E9%A1%B9%E7%9B%AE%E9%97%AE%E9%A2%98/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -437,70 +421,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <a id="more"></a>
-<h1 id="IoC"><a href="#IoC" class="headerlink" title="IoC"></a>IoC</h1><p>IoC（Inverse of Control，反转控制）是一种设计思想，将原本手动创建对象的控制权交给Spring框架来管理。</p>
-<h1 id="AOP"><a href="#AOP" class="headerlink" title="AOP"></a>AOP</h1><p>AOP能够将那些与业务无关，却为业务模块所共同调用的逻辑或责任封装起来，减少系统的重复代码，降低模块的耦合度，有利于提高系统的可扩展性和可维护性。</p>
-<p><img src="/images/Spring%E5%AD%A6%E4%B9%A01/image-20200830194807094.png" alt="image-20200830194807094"></p>
-<p>AOP基于动态代理，如果代理的对象实现了某个接口，那么Spring AOP会使用JDK Proxy去创建代理对象，而对于没有实现接口的对象，使用Cglib生成一个被代理对象的子类来作为代理。</p>
-<h2 id="Spring-AOP与Aspect-AOP"><a href="#Spring-AOP与Aspect-AOP" class="headerlink" title="Spring AOP与Aspect AOP"></a>Spring AOP与Aspect AOP</h2><ul>
-<li>Spring AOP：运行时增强，基于动态代理，简单。</li>
-<li>Aspect AOP：编译时增强，基于字节码操作，强大，更快。</li>
-</ul>
-<h1 id="Bean的作用域"><a href="#Bean的作用域" class="headerlink" title="Bean的作用域"></a>Bean的作用域</h1><ul>
-<li><strong>singleton</strong>：在Spring IoC容器中只存在一个Bean实例，即以单例方式存在，默认值。</li>
-<li><strong>prototype</strong>：每次从容器中调用Bean时，都返回一个新的实例。</li>
-<li>request：每次HTTP请求都会创建一个新的Bean，仅适用于WebApplicationContext环境。</li>
-<li>session：同一个HTTP Session共享一个Bean，仅适用于WebApplicationContext环境。</li>
-<li>global-session：全局session，一般用于Portlet应用环境，仅适用于WebApplicationContext环境。</li>
-</ul>
-<h1 id="Bean的生命周期"><a href="#Bean的生命周期" class="headerlink" title="Bean的生命周期"></a>Bean的生命周期</h1><p><img src="/images/Spring%E5%AD%A6%E4%B9%A01/880f402c83a0e04f2b4ccfcec3239dc8_r.jpg" alt="preview"></p>
-<ol>
-<li><p>实例化Bean：new操作，调用构造方法。</p>
-</li>
-<li><p>设置对象属性：利用依赖注入调用setter设置属性值。</p>
-</li>
-<li><p>BeanNameAware接口，Spring将Bean的id传给setBeanName()。</p>
-</li>
-<li><p>BeanFactoryAware接口，Spring调用setBeanFactory()，将BeanFactory容器实例传入。</p>
-</li>
-<li><p>ApplicationContextAware接口，Spring调用setApplicationContext()，将bean所在应用的上下文引用传入。</p>
-</li>
-<li><p>BeanPostProcessor接口，Spring调用他们的postProcess<strong>Before</strong>Initialization()。</p>
-</li>
-<li><p>InitializingBean接口，Spring调用他们的afterPropertiesSet()。</p>
-</li>
-<li><p>调用配置文件中包含init-method属性的方法</p>
-</li>
-<li><p>BeanPostProcessor接口，Spring调用他们的postProcess<strong>After</strong>Initialization()。</p>
-</li>
-<li><p>Bean已经准备就绪，可以被使用。</p>
-</li>
-<li><p>DisposableBean接口，Spring将调用destory()。</p>
-</li>
-<li><p>调用配置文件中包含destroy-method属性的方法。</p>
-</li>
-</ol>
-<h1 id="Spring-MVC"><a href="#Spring-MVC" class="headerlink" title="Spring MVC"></a>Spring MVC</h1><p>Spring MVC是一个基于MVC设计模式的框架，通过把Model，View，Controller分离，将表现层（其他两层：业务层，数据访问层）进行解耦，简化开发，减少出错，方便组内人员之间的配合。</p>
-<h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><ol>
-<li>用户发送请求到前端控制器DispatcherServlet。</li>
-<li>DispatcherServlet根据请求调用HandlerMapping，获取到对应的Handler。</li>
-<li>DispatcherServlet调用HandlerAdapter来执行Handler，并返回一个ModelAndView对象。</li>
-<li>DispatcherServlet调用ViewResolver对视图进行解析，并将Model数据填充到视图中。</li>
-<li>最后DispatcherServlet将View返回给用户。</li>
-</ol>
-<h1 id="相关设计模式"><a href="#相关设计模式" class="headerlink" title="相关设计模式"></a>相关设计模式</h1><ol>
-<li>工厂模式：BeanFactory、ApplicationContext创建Bean对象。</li>
-<li>代理模式：Spring AOP的实现。</li>
-<li>单例模式：Bean的默认作用域。</li>
-<li>装饰器模式：不同的客户在每次访问中会根据需求去访问不同的数据库。</li>
-<li>观察者模式：Spring事件驱动模型。</li>
-<li>适配器模式：Spring AOP的增强或通知、Spring MVC使用适配器模式适配Controller。</li>
-</ol>
-<h1 id="Spring事务"><a href="#Spring事务" class="headerlink" title="Spring事务"></a>Spring事务</h1><h2 id="管理事务的方式"><a href="#管理事务的方式" class="headerlink" title="管理事务的方式"></a>管理事务的方式</h2><ul>
-<li>编程式事务：代码中硬编码。</li>
-<li>声明式事务：在配置文件中配置。基于XML或基于注解。</li>
-</ul>
-<h2 id="事务传播行为"><a href="#事务传播行为" class="headerlink" title="事务传播行为"></a>事务传播行为</h2>
+          <p>Spring学习。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/08/29/Spring%E5%AD%A6%E4%B9%A01/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -568,265 +497,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <a id="more"></a>
-<h1 id="线程基础"><a href="#线程基础" class="headerlink" title="线程基础"></a>线程基础</h1><h2 id="线程创建的方式"><a href="#线程创建的方式" class="headerlink" title="线程创建的方式"></a>线程创建的方式</h2><ul>
-<li>Thread：继承<strong>Thread</strong>类并重写run方法，直接使用this可以获取当前线程。</li>
-<li>Runnable：实现<strong>Runnable</strong>接口并传递给<strong>Thread</strong>。可以继承其他类，多个线程可以共用一个代码逻辑。</li>
-<li>FutureTask：实现<strong>Callable</strong>接口传递给<strong>FutureTask</strong>，然后把FutureTask传递给<strong>Thread</strong>。可获取返回结果。</li>
-</ul>
-<h2 id="线程通知与等待"><a href="#线程通知与等待" class="headerlink" title="线程通知与等待"></a>线程通知与等待</h2><p><strong>Object</strong>类中的通知与等待系列函数，这些方法<strong>获得该对象的锁后才能调用</strong>：</p>
-<ul>
-<li>wait()：线程阻塞并释放当前对象的锁。返回情况：<ul>
-<li>其他线程调用<strong>锁对象</strong>的notify()或notifyAll()。</li>
-<li>其他线程调用<strong>该线程</strong>的interrupt()，该线程抛出InterruptedException异常返回。</li>
-</ul>
-</li>
-<li>notify()：随机唤醒一个被挂起的线程来竞争锁。</li>
-<li>notifyAll()：唤醒所有被挂起的线程来竞争锁。</li>
-</ul>
-<p><strong>Thread</strong>类中的通知与等待系列函数：</p>
-<ul>
-<li>join()：阻塞当前线程，等待目标线程执行完毕。</li>
-<li>sleep()：当前线程让出CPU使用权，被阻塞挂起，但是不会释放锁。</li>
-<li>yield()：当前线程让出CPU使用权，不会被阻塞，处于就绪状态。</li>
-</ul>
-<h2 id="守护线程"><a href="#守护线程" class="headerlink" title="守护线程"></a>守护线程</h2><p>JVM会等待所有用户线程结束后才退出，而守护线程（Daemon Thread）是否结束不影响JVM的退出。</p>
-<h2 id="线程本地变量"><a href="#线程本地变量" class="headerlink" title="线程本地变量"></a>线程本地变量</h2><h3 id="ThreadLocal"><a href="#ThreadLocal" class="headerlink" title="ThreadLocal"></a>ThreadLocal</h3><p>访问ThreadLocal变量的线程会在线程中有一个本地副本，操作这个变量不需要与主内存同步。</p>
-<p>实现原理：每个<strong>Thread实例</strong>中有一个ThreadLocalMap类型的threadLocals变量，threadLocals以当前ThreadLocal的实例对象引用（this）为key对数据进行存储与读取。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ThreadLocal&lt;String&gt; <span class="keyword">var</span> = <span class="keyword">new</span> ThreadLocal&lt;&gt;();</span><br><span class="line"><span class="keyword">var</span>.set(<span class="string">"test"</span>);</span><br><span class="line">System.out.println(<span class="keyword">var</span>.get());</span><br></pre></td></tr></table></figure>
-<p>内存泄漏问题：ThreadLocalMap的key是对ThreadLocal对象的弱引用，当其他地方没有对ThreadLocal对象的引用时，ThreadLocal对象会被回收，但是对应的value没有被回收，这时候就存在key为null但是value不为null的项。解决方法是使用完毕后调用remove()。</p>
-<h3 id="InheritableThreadLocal"><a href="#InheritableThreadLocal" class="headerlink" title="InheritableThreadLocal"></a>InheritableThreadLocal</h3><p>InheritableThreadLocal继承自ThreadLocal，可以让子线程访问父线程中设置的本地变量。</p>
-<p>实现原理：每个Thread实例中保存了类似threadLocals的inheritableThreadLocals变量，在当前线程创建新线程时，把当前线程的inheritableThreadLocals变量赋给新线程。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Thread parent = currentThread(); <span class="comment">// parent为当前线程</span></span><br><span class="line">...</span><br><span class="line"><span class="keyword">if</span> (parent.inheritableThreadLocals != <span class="keyword">null</span>) &#123;</span><br><span class="line">	<span class="keyword">this</span>.inheritableThreadLocals = <span class="comment">// this为当前线程正在初始化的新线程</span></span><br><span class="line">        ThreadLocal.createInheritedMap(parent.inheritableThreadLocals);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="ThreadLocalRandom"><a href="#ThreadLocalRandom" class="headerlink" title="ThreadLocalRandom"></a>ThreadLocalRandom</h3><p>每个Thread实例维护一个线程级别的种子变量threadLocalRandomSeed，避免了竞争。</p>
-<h2 id="内存语义"><a href="#内存语义" class="headerlink" title="内存语义"></a>内存语义</h2><p>多线程情况下，可能会出现<strong>缓存一致性</strong>问题（其他线程修改了变量的值并刷新到了主内存中，但是当前线程的工作内存没有及时刷新，与主内存的值不一致）。</p>
-<p>锁的可见性就是通过缓存无效化解决这一问题。</p>
-<h3 id="synchronized"><a href="#synchronized" class="headerlink" title="synchronized"></a>synchronized</h3><ul>
-<li><p>加锁时，先清除工作内存变量值，然后从主内存读取。</p>
-</li>
-<li><p>释放锁时，把代码块里的共享变量修改刷新到主内存。</p>
-</li>
-</ul>
-<h3 id="volatile"><a href="#volatile" class="headerlink" title="volatile"></a>volatile</h3><p>内存语义</p>
-<ul>
-<li><p>读volatile变量时，先清除工作内存变量值，然后从主内存读取。</p>
-</li>
-<li><p>写volatile变量时，把共享变量刷新到主内存。</p>
-</li>
-</ul>
-<p>禁止重排序</p>
-<ul>
-<li>读volatile变量时，确保读之后的操作不会被重排序到读之前。</li>
-<li>写volatile变量时，确保写之前的操作不会被重排序到写之后。</li>
-</ul>
-<h2 id="锁的类别"><a href="#锁的类别" class="headerlink" title="锁的类别"></a>锁的类别</h2><ul>
-<li>悲观锁：认为共享变量很容易发生竞争，因此对共享变量进行操作时会加锁。</li>
-<li>乐观锁：任务共享变量一般情况下不会发生竞争，所以在操作前不会加锁，而是在更新时才进行冲突检测。</li>
-<li>公平锁：线程获取锁的顺序是按照现场请求锁的时间决定的，会带来性能开销。</li>
-<li>非公平锁：线程获取锁的顺序不确定。</li>
-<li>独占锁：保证任何时候只能有一个线程获得锁。是一种悲观锁。</li>
-<li>共享锁：允许多个线程同时进行读操作。是一种乐观锁。</li>
-<li>可重入锁：线程再次获取当前已有的锁不会被阻塞。通过在锁内部维护一个线程标志和计数器实现。</li>
-<li>自旋锁：执行忙循环检测是否可以获得锁。</li>
-</ul>
-<h1 id="JUC并发包（java-util-concurrent）"><a href="#JUC并发包（java-util-concurrent）" class="headerlink" title="JUC并发包（java.util.concurrent）"></a>JUC并发包（java.util.concurrent）</h1><h2 id="原子操作类"><a href="#原子操作类" class="headerlink" title="原子操作类"></a>原子操作类</h2><h3 id="AtomicInteger、AtomicLong、AtomicBoolean"><a href="#AtomicInteger、AtomicLong、AtomicBoolean" class="headerlink" title="AtomicInteger、AtomicLong、AtomicBoolean"></a>AtomicInteger、AtomicLong、AtomicBoolean</h3><p>属于java.util.concurrent.atomic包</p>
-<ul>
-<li>基于Unsafe的<strong>CAS</strong>保证数据操作的<strong>原子性</strong>。</li>
-<li>通过对value加<strong>volatile关键字</strong>保证<strong>可见性</strong>和<strong>有序性</strong>。</li>
-</ul>
-<h3 id="LongAdder、DoubleAdder"><a href="#LongAdder、DoubleAdder" class="headerlink" title="LongAdder、DoubleAdder"></a>LongAdder、DoubleAdder</h3><p>AtomicLong等类在有大量线程竞争时，会不断自旋尝试CAS操作，造成了CPU资源浪费，LongAdder类在内部维护多个Cell变量（一个Cell数组），每个Cell有一个<strong>volatile修饰</strong>的long型变量。当线程在当前Cell变量CAS失败后，可以在其他Cell上进行CAS尝试，最后把<strong>所有Cell的值累加后再加上base</strong>返回。</p>
-<p>使用<code>@sun.misc.Contended</code>注解修饰Cell类<strong>避免伪共享</strong>。</p>
-<p>调用sum()返回当前的值，但是没有加锁，所以返回的值不一定准确。</p>
-<h2 id="并发List"><a href="#并发List" class="headerlink" title="并发List"></a>并发List</h2><h3 id="CopyOnWriteArrayList"><a href="#CopyOnWriteArrayList" class="headerlink" title="CopyOnWriteArrayList"></a>CopyOnWriteArrayList</h3><p>是一个线程安全的ArrayList，使用了写时复制策略，对其进行的修改操作都是在一个复制的数组上进行的。</p>
-<p>内部使用一个<strong>volatile修饰</strong>的数组来存放具体元素。</p>
-<p>get()不加锁。add()、set()、remove()时加<strong>ReentrantLock</strong>锁，对数组的一个快照进行操作，不影响其他线程读取原数组，然后更新原数组的引用。</p>
-<p>迭代器的弱一致性：返回迭代器后，其他线程对list的增删改对迭代器是不可见的。</p>
-<p>CopyOnWriteArraySet底层是使用CopyOnWriteArrayList实现的。</p>
-<h2 id="锁原理"><a href="#锁原理" class="headerlink" title="锁原理"></a>锁原理</h2><h3 id="LockSupport工具类"><a href="#LockSupport工具类" class="headerlink" title="LockSupport工具类"></a>LockSupport工具类</h3><p>主要作用是挂起和唤醒线程，是创建锁和其他同步类的基础。基于Unsafe类的park()和unpark()实现。</p>
-<p>LockSupport类与每个使用它的线程会关联一个许可证，默认情况下调用LockSupport类方法的线程是不持有许可证的。</p>
-<ul>
-<li>park()：调用线程如果已经获得许可证，则调用时会马上返回，否则会被阻塞挂起。</li>
-<li>unpark(Thread thread)：如果线程没有持有许可证，则让线程持有，如果线程因调用park()挂起，则唤醒线程。</li>
-</ul>
-<h3 id="抽象同步队列AQS（AbstractQueueSynchronizer）"><a href="#抽象同步队列AQS（AbstractQueueSynchronizer）" class="headerlink" title="抽象同步队列AQS（AbstractQueueSynchronizer）"></a>抽象同步队列AQS（AbstractQueueSynchronizer）</h3><p><img src="/images/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/image-20200903224211947.png" alt="image-20200903224211947"></p>
-<p>是实现同步器的基础组件，JUC中锁的底层就是使用AQS实现的。</p>
-<p>AQS是一个双向队列，head和tail记录队首和队尾结点。</p>
-<h4 id="静态内部类Node"><a href="#静态内部类Node" class="headerlink" title="静态内部类Node"></a>静态内部类Node</h4><ul>
-<li>Thread thread：<strong>volatile</strong>修饰，存放进入AQS的线程。</li>
-<li>Node SHARED：标记该线程是获取<strong>共享资源</strong>时被阻塞后放入AQS的。</li>
-<li>Node EXCLUSIVE：标记该线程是获取<strong>独占资源</strong>时被阻塞后加入AQS的。</li>
-<li>Node pre, next：<strong>volatile</strong>修饰，记录前驱和后继结点。</li>
-</ul>
-<h4 id="AQS维护了一个volatile修饰的状态信息state"><a href="#AQS维护了一个volatile修饰的状态信息state" class="headerlink" title="AQS维护了一个volatile修饰的状态信息state"></a>AQS维护了一个volatile修饰的状态信息state</h4><ul>
-<li>在ReentrantLock中：state表示当前线程获取锁的可重入次数。</li>
-<li>在ReentrantReadWriteLock中：state高16位表示读锁的次数，低16位表示获取到写锁的线程可重入次数。</li>
-<li>在Semaphore中：state用于表示当前可用信号的个数。</li>
-<li>在CountDownLatch中：state表示计数器的值。</li>
-</ul>
-<h4 id="内部类ConditionObject"><a href="#内部类ConditionObject" class="headerlink" title="内部类ConditionObject"></a>内部类ConditionObject</h4><p><img src="/images/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/image-20200819100243950.png" alt="image-20200819100243950"></p>
-<p>实现了Condition接口，每个条件变量对应一个条件队列，用于存放条件变量的await()后被阻塞的线程。</p>
-<p>Node firstWaiter, lastWaiter分别记录了条件队列的头、尾结点。</p>
-<p><strong>Condition</strong>类中的通知与等待系列函数，这些方法<strong>在调用锁的lock()方法获取锁后才能调用</strong>：</p>
-<ul>
-<li>await()：将当前线程封装成一个Node结点插入到条件队列的尾部，释放当前线程获取的锁，并调用LockSupport.park(this)挂起当前线程。</li>
-<li>signal()：把队头线程结点从条件队列中移除并放入AQS的阻塞队列里面，然后激活这个线程。</li>
-<li>signalAll()：移除条件队列中所有节点并放入AQS的阻塞队列里面。</li>
-</ul>
-<h4 id="其他锁在基于AQS实现时，关键是定义state的操作方法"><a href="#其他锁在基于AQS实现时，关键是定义state的操作方法" class="headerlink" title="其他锁在基于AQS实现时，关键是定义state的操作方法"></a>其他锁在基于AQS实现时，关键是定义state的操作方法</h4><ul>
-<li><p>独占方式：acquire()，acquireInterruptibly()，release()。</p>
-<p>获取与释放资源：</p>
-<ul>
-<li><p>线程调用acquire()获取资源：方法内部调用<strong>tryAcquire()</strong>尝试设置state的值，成功则直接返回，失败则将当前线程封装为一个Node结点插入到AQS队列的尾部，并调用LockSupport.park(this)挂起自己。</p>
-</li>
-<li><p>线程调用release()释放资源：方法内部调用<strong>tryRelease()</strong>尝试设置state的值，然后调用LockSupport.unpark(thread)激活AQS队列中的一个线程，被激活的线程调用<strong>tryAcquire()</strong>尝试获取锁。</p>
-</li>
-</ul>
-<p>acquireInterruptibly()：忽略中断，不对中断进行响应。</p>
-</li>
-<li><p>tryAcquire()和tryRelease()需要由具体的子类根据需求来实现。</p>
-</li>
-<li><p>共享方式：acquireShared()，acquireSharedInterruptibly()，releaseShared()。获取、释放资源流程与独占方式类似。</p>
-</li>
-</ul>
-<h3 id="ReentrantLock"><a href="#ReentrantLock" class="headerlink" title="ReentrantLock"></a>ReentrantLock</h3><p><img src="/images/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/image-20200903223938171.png" alt="image-20200903223938171"></p>
-<p>基于AQS实现，state表示该线程获取该锁的可重入次数，可以设置为公平锁或非公平锁。</p>
-<ul>
-<li>非公平锁：当一个线程第一次获取该锁时会尝试使用CAS设置state的值为1，如果成功则设置锁持有者为当前线程，否则检查锁的持有线程是不是当前线程，是的话更新state加一，否则将当前线程放入AQS队列。</li>
-<li>公平锁：线程获取锁时，首先检查锁是否已被占有：如果没有被占有，再检查AQS队列中是否有其他线程在等待，如果没有则尝试获取锁，如果有则将当前线程加入到AQS队列尾部。如果已被占用，则检查持有锁的线程是不是当前线程，是的话则更新state加一，否则将当前线程加入到AQS队列尾部。</li>
-</ul>
-<p>释放锁时将state值减一，若state为0则表示释放锁。</p>
-<h3 id="ReentrantReadWriteLock"><a href="#ReentrantReadWriteLock" class="headerlink" title="ReentrantReadWriteLock"></a>ReentrantReadWriteLock</h3><p><img src="/images/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/image-20200903224043298.png" alt="image-20200903224043298"></p>
-<p>读写分离策略，内部维护了两个锁：ReadLock和WriteLock。</p>
-<p>使用AQS实现，state的高16位表示获取到读锁的次数，低16位表示获取到写锁的线程可重入次数。</p>
-<ul>
-<li>写锁WriteLock：独占可重入锁，如果当前已有其他线程持有读锁或写锁，则当前线程会被阻塞挂起。</li>
-<li>读锁ReadLock：如果当前没有其他线程持有写锁，则可以获取读锁，state的高16加1。如果有其他线程持有写锁，则当前线程会被阻塞。</li>
-</ul>
-<h3 id="StampedLock"><a href="#StampedLock" class="headerlink" title="StampedLock"></a>StampedLock</h3><p>提供了三种模式的读写控制，调用获取锁的函数时，会返回一个long型stamp表示锁的状态，当调用释放锁和转换锁的方法时需要传入这个stamp值。</p>
-<p>StampedLock提供三种读写模式的锁：</p>
-<ul>
-<li>写锁writeLock：独占锁，不可重入。当目前没有其他线程持有读锁或者写锁时才能获取到该锁。</li>
-<li>悲观读锁readLock：共享锁，不可重入。其他线程可以加读锁，不能加写锁。</li>
-<li>乐观读锁tryOptimisticRead：没有显式的加锁释放锁，在具体操作数据前根据stamp验证期间是否有其他线程持有了写锁。</li>
-</ul>
-<h2 id="非阻塞队列"><a href="#非阻塞队列" class="headerlink" title="非阻塞队列"></a>非阻塞队列</h2><h3 id="ConcurrentLinkedQueue"><a href="#ConcurrentLinkedQueue" class="headerlink" title="ConcurrentLinkedQueue"></a>ConcurrentLinkedQueue</h3><p>继承自AbstractQueue，使用单向链表实现，无界队列，入队和出队操作使用<strong>CAS</strong>来实现线程安全。</p>
-<ul>
-<li><p>队列中保存了<strong>volatile</strong>关键字修饰的head和tail结点。</p>
-</li>
-<li><p>每个Node包括<strong>volatile</strong>修饰的元素和next结点。</p>
-</li>
-</ul>
-<p>添加元素时通过CAS操作来保证只有一个线程可以成功追加元素到队列尾部，失败的线程会循环尝试添加元素。</p>
-<p>通过无线循环的CAS尝试来代替阻塞，<strong>使用CPU资源换阻塞带来的用户态与内核态切换、线程切换等开销</strong>。</p>
-<h2 id="阻塞队列"><a href="#阻塞队列" class="headerlink" title="阻塞队列"></a>阻塞队列</h2><p><img src="/images/Java%E5%B9%B6%E5%8F%91/image-20200901234217695.png" alt="image-20200901234217695"></p>
-<p>都继承自AbstractQueue类，除LinkedTransferQueue外都实现了<strong>BlockingQueue</strong>接口。</p>
-<h3 id="LinkedBlockingQueue"><a href="#LinkedBlockingQueue" class="headerlink" title="LinkedBlockingQueue"></a>LinkedBlockingQueue</h3><p><img src="/images/Java%E5%B9%B6%E5%8F%91/image-20200904192818763.png" alt="image-20200904192818763"></p>
-<p>使用单向链表实现，无界队列。</p>
-<ul>
-<li>两个ReentrantLock实例保证操作的原子性：<ul>
-<li>putLock：调用put()、offer()等操作时在内部会尝试获取该锁，保证同时<strong>只有一个线程可以操作尾结点</strong>。</li>
-<li>takeLock：调用take()、poll()等操作时在内部会尝试获取该锁，保证同时<strong>只有一个线程可以操作头结点</strong>。</li>
-</ul>
-</li>
-<li>notEmpty为takeLock的条件变量，notFull为putLock的条件变量，是生产者-消费者模型。</li>
-</ul>
-<h3 id="ArrayBlockingQueue"><a href="#ArrayBlockingQueue" class="headerlink" title="ArrayBlockingQueue"></a>ArrayBlockingQueue</h3><p><img src="/images/Java%E5%B9%B6%E5%8F%91/image-20200904192834599.png" alt="image-20200904192834599"></p>
-<p>使用数组实现，有界队列，构造时必须传入队列大小。与LinkedBlockingQueue不同的是，ArrayBlockingQueue采用一个全局锁，加锁粒度更大。</p>
-<ul>
-<li>数组items用于存放队列元素。</li>
-<li>一个<strong>ReentrantLock</strong>实例lock用于保证同时只有一个线程可以进行出队入队操作。</li>
-<li>两个lock的条件变量：<ul>
-<li>notEmpty：队列空时，出队线程被阻塞挂起放入该条件队列。</li>
-<li>notFull：队列满时，入队线程被阻塞挂起放入该条件队列。</li>
-</ul>
-</li>
-</ul>
-<h3 id="PriorityBlockingQueue"><a href="#PriorityBlockingQueue" class="headerlink" title="PriorityBlockingQueue"></a>PriorityBlockingQueue</h3><p><img src="/images/Java%E5%B9%B6%E5%8F%91/image-20200904200910774.png" alt="image-20200904200910774"></p>
-<p>使用平衡二叉树堆（数组实现）实现，带优先级的无界队列。</p>
-<ul>
-<li>数组queue用于存放队列元素。</li>
-<li>一个<strong>volatile</strong>修饰的int类型自旋锁allocationSpinLock保证同时只有一个线程可以扩容队列：<ul>
-<li>0表示当前没有进行扩容。</li>
-<li>1表示当前正在扩容。</li>
-</ul>
-</li>
-<li>一个全局锁<strong>ReentrantLock</strong>实例lock用于保障同时只有一个线程可以进行出队入队操作。</li>
-<li>一个lock的条件变量notEmpty用于实现出队的阻塞模式，由于是无界队列，入队时是非阻塞的。</li>
-</ul>
-<p>使用数组存放队列元素，一个自旋锁通过CAS操作来保证同时只有一个线程可以扩容队列，一个ReentrantLock控制只有一个线程可以进行入队、出队操作。notEmpty条件变量控制出队同步。</p>
-<h2 id="线程池ThreadPoolExecutor"><a href="#线程池ThreadPoolExecutor" class="headerlink" title="线程池ThreadPoolExecutor"></a>线程池ThreadPoolExecutor</h2><p>在执行大量异步任务时线程池能够提供较好的性能，线程池里面的线程是可复用的，不需要每次执行异步任务时都重新创建和销毁线程。</p>
-<ul>
-<li>参数ctl是一个AtomicInteger变量，高3位表示线程池状态，低29位记录线程个数。</li>
-<li>内部类Worker继承AQS和Runnable接口，一个Worker封装了一个线程，并实现了简单不可重入独占锁，state为0时表示锁未被获取，state为1时表示锁已被获取。</li>
-<li>HashSet\<Worker\>类型的workers用于存储线程。</Worker\></li>
-</ul>
-<p>使用完线程池需要调用shutdown()关闭线程池，否则会导致主线程已经退出，但是JVM仍然存在。</p>
-<h3 id="线程池状态"><a href="#线程池状态" class="headerlink" title="线程池状态"></a>线程池状态</h3><ul>
-<li><strong>RUNNING</strong>：接受新任务并处理阻塞队列里的任务。</li>
-<li><strong>SHUTDOWN</strong>：拒绝新任务但是<strong>处理阻塞队列里的任务</strong>。</li>
-<li><strong>STOP</strong>：拒绝新任务并<strong>抛弃阻塞队列里的任务，同时中断正在处理的任务</strong>。</li>
-<li><strong>TIDYING</strong>：所有任务执行完毕后线程数为0，即将调用terminated方法。</li>
-<li><strong>TERMINATED</strong>：终止状态。</li>
-</ul>
-<h3 id="线程池构造参数"><a href="#线程池构造参数" class="headerlink" title="线程池构造参数"></a>线程池构造参数</h3><ul>
-<li>corePoolSize：线程池核心线程个数。</li>
-<li>maximumPoolSize：线程池最大线程数量。</li>
-<li>workQueue：保存等待执行的任务的阻塞队列：<ul>
-<li>基于数组的有界阻塞队列ArrayBlockingQueue。</li>
-<li>基于链表的无界阻塞队列LinkedBlockingQueue。</li>
-<li>最多只有一个元素的阻塞队列SynchronousQueue。</li>
-<li>优先级阻塞队列PriorityBlockingQueue。</li>
-</ul>
-</li>
-<li>ThreadFactory：创建线程的工厂。</li>
-<li>RejectedExecutionHandler：队列满并且线程个数达到最大后采取的策略。<ul>
-<li>AbortPolicy：抛出异常。</li>
-<li>CallerRunsPolicy：使用调用者所在的线程来运行任务。</li>
-<li>DiscardOldestPolicy：调用poll()丢弃一个任务，执行当前任务。</li>
-<li>DiscardPolicy：丢弃任务，不抛出异常。</li>
-</ul>
-</li>
-<li>keepAliveTime：线程数量比核心线程数量多且闲置时，表示闲置线程的最大存活时间。</li>
-<li>TimeUnit：存活时间的单位。</li>
-</ul>
-<h3 id="创建线程池"><a href="#创建线程池" class="headerlink" title="创建线程池"></a>创建线程池</h3><ul>
-<li><strong>newFixedThreadPool</strong>：核心和最大线程数都为参数nThread，阻塞队列长度为整型最大值，可以设置存活时间和阻塞队列类型。</li>
-<li><strong>newSingleThreadExecutor</strong>：<strong>核心和最大线程数都为1</strong>，阻塞队列长度为整型最大值，可以设置存活时间和阻塞队列类型。</li>
-<li><strong>newCachedThreadPool</strong>：按任务创建线程，初始线程个数为0，最多为整型最大值，阻塞队列为同步队列且加入同步队列的任务会被马上执行，<strong>同步队列中对多只有一个任务</strong>。</li>
-</ul>
-<h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><ul>
-<li><p>execute(Runnable command)：提交任务command到线程池执行。如果当前线程池的线程数量小于核心线程数量，则通过CAS操作向workers里面新增一个核心线程执行该任务。</p>
-<p><img src="/images/Java%E5%B9%B6%E5%8F%91/image-20200904225713537.png" alt="image-20200904225713537"></p>
-</li>
-</ul>
-<h2 id="ScheduledThreadPoolExecutor"><a href="#ScheduledThreadPoolExecutor" class="headerlink" title="ScheduledThreadPoolExecutor"></a>ScheduledThreadPoolExecutor</h2><p>可以在指定一定延迟时间后或者定时进行任务调度执行的线程池。</p>
-<p>使用DelayQueue来存放任务，任务分为三种：</p>
-<ul>
-<li>一次性执行任务：执行完毕就结束了。</li>
-<li>fixed-delay任务：同一任务在多次执行之间间隔固定时间。</li>
-<li>fixed-rate任务：保证按照固定的频率执行。</li>
-</ul>
-<h2 id="线程同步器"><a href="#线程同步器" class="headerlink" title="线程同步器"></a>线程同步器</h2><h3 id="CountDownLatch"><a href="#CountDownLatch" class="headerlink" title="CountDownLatch"></a>CountDownLatch</h3><p><img src="/images/Java%E5%B9%B6%E5%8F%91/image-20200904230700998.png" alt="image-20200904230700998"></p>
-<p>使用AQS实现，把计数器的值赋给AQS的状态变量state，多个线程调用countDown()实际是原子性递减state。当线程调用await()方法后会被放入AQS的阻塞队列等待计数器为0再返回。</p>
-<p>以线程数量为参数创建一个CountDownLatch实例，主线程调用countDownLatch.await()后会被阻塞，子线程执行完毕后调用countDownLatch.countDown()使countDownLatch内部的计数器减1，计数器为0时主线程的await()方法返回，表示所有子线程已执行完毕。</p>
-<p>使用线程池管理线程时一般是直接添加Runnable到线程池，这时候就无法调用线程的join()，而CountDownLatch使我们对线程同步有更灵活的控制。</p>
-<h3 id="回环屏障CyclicBarrier"><a href="#回环屏障CyclicBarrier" class="headerlink" title="回环屏障CyclicBarrier"></a>回环屏障CyclicBarrier</h3><p><img src="/images/Java%E5%B9%B6%E5%8F%91/image-20200904231215070.png" alt="image-20200904231215070"></p>
-<p>CyclicBarrier可以让一组线程全部达到一个状态后再全部同时执行。</p>
-<p>线程调用await()后会被阻塞，这个阻塞点称为屏障点，等所有线程都调用了await()后，线程们就会冲破屏障，继续向下执行。</p>
-<p>基于ReentrantLock实现，本质底层还是基于AQS，parties记录线程数量，count记录还有多少个线程没有到达屏障点。使用ReentrantLock保证count更新的原子性。</p>
-<h3 id="信号量Semaphore"><a href="#信号量Semaphore" class="headerlink" title="信号量Semaphore"></a>信号量Semaphore</h3><p><img src="/images/Java%E5%B9%B6%E5%8F%91/image-20200904231439695.png" alt="image-20200904231439695"></p>
-<p>也是一个同步器，计数器是递增的并且可以指定一个初始值，在需要同步的地方调用acquire()指定需要达到的计时器值，在线程内部调用release()使计数器加1。</p>
-<p>也是使用AQS实现的，获取信号量时有公平和非公平策略。</p>
-<h1 id="NIO模型——Tomcat的NioEndPoint"><a href="#NIO模型——Tomcat的NioEndPoint" class="headerlink" title="NIO模型——Tomcat的NioEndPoint"></a>NIO模型——Tomcat的NioEndPoint</h1><p><img src="/images/Java%E5%B9%B6%E5%8F%91/image-20200904233842705.png" alt="image-20200904233842705"></p>
-<p>使用队列把接受请求与处理请求操作进行解耦，实现异步处理。实际Poller中维护一个ConcurrentLinkedQueue用于缓存任务，其本身也是一个多生产者-单消费者模型。</p>
-<ul>
-<li>Acceptor：套接字接受线程，用于接受用户的请求，并把请求封装为事件放入Poller的队列。只有一个。</li>
-<li>Poller：套接字处理线程，每个Poller内部都有一个独有的队列，Poller线程从自己的队列中获取事件任务交给Worker进行处理。Poller线程的个数与处理器的核数有关。</li>
-<li>Worker：实际处理请求的线程。</li>
-</ul>
-<h2 id="生产者——Acceptor线程"><a href="#生产者——Acceptor线程" class="headerlink" title="生产者——Acceptor线程"></a>生产者——Acceptor线程</h2><p>Acceptor线程中一直循环接收客户端连接请求，当成功获取到一个连接套接字后，将其封装为一个Channel对象并注册为事件存放到Poller对象的队列中。</p>
-<h2 id="消费者——Poller线程"><a href="#消费者——Poller线程" class="headerlink" title="消费者——Poller线程"></a>消费者——Poller线程</h2><p>Poller线程中从事件队列中获取一个事件，遍历所有注册的Channel并对感兴趣的事件进行处理。</p>
-
+          <p>Java并发编程。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/08/15/Java%E5%B9%B6%E5%8F%91/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1046,112 +725,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <a id="more"></a>
-<h1 id="三范式"><a href="#三范式" class="headerlink" title="三范式"></a>三范式</h1><ul>
-<li>第一范式（1NF）：字段是单一属性，不可再分的。</li>
-<li>第二范式（2NF）：在第一范式的基础上，所有非主键字段都完全依赖于任意一个主键或联合主键，即不能存在非主键字段对联合主键的部分依赖。</li>
-<li>第三范式（3NF）：在第二范式的基础上，所有非主键字段都直接依赖于主键不能存在传递依赖。</li>
-</ul>
-<h1 id="MyISAM与InnoDB的区别"><a href="#MyISAM与InnoDB的区别" class="headerlink" title="MyISAM与InnoDB的区别"></a>MyISAM与InnoDB的区别</h1><ol>
-<li>锁粒度：MyISAM只支持表级锁，InnoDB支持行级锁和表级锁。</li>
-<li>事务：MyISAM不支持事务，InnoDB支持事务。</li>
-<li>外键：MyISAM不支持外键，InnoDB支持外键。</li>
-<li>索引：MyISAM为非聚簇索引，InnoDB为聚簇索引，叶结点中存储所有行数据。</li>
-</ol>
-<h1 id="一条SQL语句在MySQL中的执行过程"><a href="#一条SQL语句在MySQL中的执行过程" class="headerlink" title="一条SQL语句在MySQL中的执行过程"></a>一条SQL语句在MySQL中的执行过程</h1><ol>
-<li>连接器：验证身份和权限。</li>
-<li>分析器：对SQL语句进行词法分析和语法分析。</li>
-<li>优化器：选择最优的执行方案，如索引选择。</li>
-<li>执行器：验证执行权限，调用存储引擎接口，返回引擎的执行结果。</li>
-</ol>
-<h1 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h1><h2 id="聚簇索引与非聚簇索引"><a href="#聚簇索引与非聚簇索引" class="headerlink" title="聚簇索引与非聚簇索引"></a>聚簇索引与非聚簇索引</h2><p>聚簇索引在叶结点存储了所有的行数据。根据辅助索引查找时，需要先查出主键值，然后根据得到的主键值在主键索引中查询出行数据（回表查询）。</p>
-<p>非聚簇索引在叶结点存储的是行数据的地址。根据辅助索引查找时，可以直接得到数据的地址。</p>
-<h2 id="索引覆盖"><a href="#索引覆盖" class="headerlink" title="索引覆盖"></a>索引覆盖</h2><p>指构建索引的字段包含了SELECT的数据列。</p>
-<h1 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h1><h2 id="什么是事务"><a href="#什么是事务" class="headerlink" title="什么是事务"></a>什么是事务</h2><p>事务是逻辑上的一组数据库操作，要么全部执行，要么都不执行。</p>
-<h2 id="四大特性——ACID"><a href="#四大特性——ACID" class="headerlink" title="四大特性——ACID"></a>四大特性——ACID</h2><ul>
-<li><strong>原子性</strong>（Atomic）：事务是最小执行单位，不允许分割，要么全部执行，要么都不执行。</li>
-<li><strong>一致性</strong>（Consistent）：事务执行前后，数据库的完整性约束没有被破坏。</li>
-<li><strong>隔离性</strong>（Isolation）：并发访问数据库时，事务之间互不影响。</li>
-<li><strong>持久性</strong>（Durability）：事务提交后对数据库中数据的改变是永久的，不会被回滚。</li>
-</ul>
-<h2 id="并发问题"><a href="#并发问题" class="headerlink" title="并发问题"></a>并发问题</h2><ul>
-<li><strong>脏读</strong>：一个事务正在访问并修改某个数据，但是修改后还没提交，如果此时另一个事务也访问了该数据，那么另一个事务读到的是未提交的数据，称为脏读。</li>
-<li><strong>丢失修改</strong>：一个事务正在访问并修改某个数据，但是修改后还没提交，如果此时另一个事务也对该数据进行了修改，那么第一个事务的修改就被覆盖了，称为丢失修改。</li>
-<li><strong>不可重复读</strong>：在一个事务两次访问同一个数据之间，另一个事务对该数据进行了<strong>修改</strong>，导致第一个事务两次访问的结果不一致。</li>
-<li><strong>幻读</strong>：在一个事务两次进行相同查询之间，另一个事务进行了<strong>插入</strong>操作，导致第一个事务两次查询到的数据行数不一致。</li>
-</ul>
-<h2 id="隔离级别"><a href="#隔离级别" class="headerlink" title="隔离级别"></a>隔离级别</h2><ul>
-<li><strong>读未提交</strong>（READ UNCOMMITED）：事务中允许读取其他事务未提交的数据变更，可能导致<strong>脏读、不可重复读、幻读</strong>。</li>
-<li><strong>读已提交</strong>（READ COMMITED）：事务中允许读取其他事务已提交的数据，可能导致<strong>幻读、不可重复读</strong>。</li>
-<li><strong>可重复读</strong>（REPEATABLE READ）：事务中对同一字段的多次读取结果一样，就算期间被其他事务修改过，可能存在<strong>幻读</strong>。</li>
-<li><strong>串行化</strong>（SERIALIZABLE）：所有事务依次逐个执行，事务之间互不干扰。</li>
-</ul>
-<p>InnoDB默认的隔离级别是可重复读，使用Next-Key Lock算法，也可以避免<strong>幻读</strong>。</p>
-<h2 id="锁"><a href="#锁" class="headerlink" title="锁"></a>锁</h2><h3 id="从粒度划分"><a href="#从粒度划分" class="headerlink" title="从粒度划分"></a>从粒度划分</h3><ul>
-<li><p>表级锁：对当前操作的整张表加锁，资源消耗少，加锁快，不会出现死锁，但是并发度最低。</p>
-</li>
-<li><p>行级锁：对当前操作行加锁，并发度高。</p>
-</li>
-</ul>
-<h3 id="从操作类型分"><a href="#从操作类型分" class="headerlink" title="从操作类型分"></a>从操作类型分</h3><ul>
-<li>共享锁（S）：多个读锁可以共存。</li>
-<li>排他锁（X）：不能和其他写锁和读锁共存。</li>
-<li>意向共享锁（IS）：加S锁之前要先加IS锁，从粗粒度到细粒度依次加锁。</li>
-<li>意向排他锁（IX）：加X锁之前要先加IX锁，从粗粒度到细粒度依次加锁。</li>
-</ul>
-<h3 id="InnoDB锁算法"><a href="#InnoDB锁算法" class="headerlink" title="InnoDB锁算法"></a>InnoDB锁算法</h3><ul>
-<li><strong>Record Lock</strong>：锁定符合条件的行，其他事务不能修改和删除加锁行。</li>
-<li><strong>Gap Lock</strong>：间隙锁，对第一条记录前的间隙或最后一条记录后的间隙加锁，不包括自身，其他事务不能加锁范围内插入数据。</li>
-<li><strong>Next-key Lock</strong>：Record Lock + Gap Lock，可避免幻读。当查询的索引含有唯一属性时，自动降级为Record Lock。</li>
-</ul>
-<h2 id="大表优化"><a href="#大表优化" class="headerlink" title="大表优化"></a>大表优化</h2><p>当MySQL单表数据量过大时，数据库的CRUD性能会明显下降，一些常见优化措施如下：</p>
-<ul>
-<li><p>限定数据范围：禁止不带任何数据范围条件的查询语句。</p>
-</li>
-<li><p>读写分离：主库负责写，从库负责读。</p>
-</li>
-<li><p>垂直分区：按列拆成多张表。可以使列数据变小，简化表结构，但是会出现冗余，会让事务变得复杂。</p>
-</li>
-<li><p>水平分区：按行拆成多张表，逻辑上还是一个表，物理上拆分为多个文件，可以避免单个表数据量过大对性能造成影响，但会带来逻辑、部署、运维的各种复杂的。</p>
-</li>
-</ul>
-<h2 id="数据库连接池"><a href="#数据库连接池" class="headerlink" title="数据库连接池"></a>数据库连接池</h2><p>可以实现对数据库连接的复用，不用每次都进行创建销毁操作，减少了用户等待建立数据库连接的时间。</p>
-<p>可以通过连接池最大值等属性动态控制数据库连接数量。</p>
-<h1 id="分区"><a href="#分区" class="headerlink" title="分区"></a>分区</h1><ul>
-<li>RANGE分区：基于某个字段按多个连续区间进行分区。如按年月存放数据。</li>
-<li>LIST分区：基于某个字段按给定的多个LIST进行分区，LIST中指定了分区的值。</li>
-<li>HASH分区：基于某个字段利用自定义hash算法进行分区，如取余。</li>
-<li>KEY分区：与HASH分区类似，但是使用MySQL数据库提供的函数进行分区。</li>
-</ul>
-<h1 id="MVCC"><a href="#MVCC" class="headerlink" title="MVCC"></a>MVCC</h1><p>MVCC通过版本控制在undolog中找回数据的历史版本，可以并发读与读，读与写操作，只有写与写之间会相互阻塞，提高了并发度。只在READ COMMITED和REPEATABLE READ两个隔离级别下工作。</p>
-<h2 id="隐藏字段"><a href="#隐藏字段" class="headerlink" title="隐藏字段"></a>隐藏字段</h2><ul>
-<li>DB_TRX_ID（6字节）：记录最近一次对本行数据进行修改（插入，更新，删除）的事务ID。</li>
-<li>DB_ROLL_PTR（7字节）：回滚指针。</li>
-<li>DB_ROW_ID（6字节）：InnoDB默认递增ID（与MVCC无关）。</li>
-</ul>
-<h2 id="快照（read-view）关键参数"><a href="#快照（read-view）关键参数" class="headerlink" title="快照（read view）关键参数"></a>快照（read view）关键参数</h2><ul>
-<li>low_limit_id：当前最大事务ID+1，即下一个将分配的事务ID。</li>
-<li>up_limit_id：trx_ids中最小的事务ID，若trx_ids为空，则等于low_limit_id</li>
-<li>trx_ids：快照创建时其他未提交的活跃事务ID列表。</li>
-<li>create_trx_id：当前创建事务的ID，是一个递增ID。</li>
-</ul>
-<h2 id="可见性比较算法"><a href="#可见性比较算法" class="headerlink" title="可见性比较算法"></a>可见性比较算法</h2><p>判断数据行中记录的事务ID是否存在于活跃事务ID之中：</p>
-<ol>
-<li>若数据行记录的事务ID<strong>小于</strong>活跃事务ID列表中的最小ID，则当前事务可以直接读取该行数据。</li>
-<li>若数据行记录的事务ID大于活跃事务ID列表的最小ID且小于活跃事务ID列表的最大ID，则表示当前行记录的ID可能处于活跃状态，需要遍历活跃事务ID列表进行判断可见性。</li>
-</ol>
-<p>若数据行记录的事务ID大于生成快照时系统的最大事务ID，则数据行对当前事务不可见。</p>
-<p>通过回滚指针回滚直到找到对当前事务可见的数据版本。</p>
-<h2 id="快照读和当前读"><a href="#快照读和当前读" class="headerlink" title="快照读和当前读"></a>快照读和当前读</h2><ul>
-<li>快照读：普通的SELECT语句，不会产生幻读。</li>
-<li>当前读：SELECT…LOCK IN SHARE MODE、SELECT…FOR UPDATE、INSERT、UPDATE、DELETE等都是获取最新数据。通过next-key lock避免幻读。</li>
-</ul>
-<p>InnoDB在快照读的情况下并没有真正避免幻读，但是在当前读的情况下可以避免不可重复读和幻读。</p>
-<h2 id="REPEATABLE-READ和READ-COMMETED时生成快照的区别"><a href="#REPEATABLE-READ和READ-COMMETED时生成快照的区别" class="headerlink" title="REPEATABLE READ和READ COMMETED时生成快照的区别"></a>REPEATABLE READ和READ COMMETED时生成快照的区别</h2><ol>
-<li>RR级别下，事务只有执行第一条SELECT语句时会生成一个快照。</li>
-<li>RC级别下，事务每次执行SELECT语句时都会重新生成快照。</li>
-</ol>
-
+          <p>InnoDB存储引擎。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/08/14/MySQL%E5%AD%A6%E4%B9%A02%EF%BC%9AInnoDB%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
