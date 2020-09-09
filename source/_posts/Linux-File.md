@@ -6,7 +6,7 @@ tags:
 categories:
     - Linux基础
 mathjax: true
-
+typora-root-url: ..
 ---
 
 本文总结了Linux系统中对文件属性和权限进行操作的常用命令。
@@ -20,7 +20,7 @@ mathjax: true
     drwxr-xr-x  8 dong dong     4096 7月  13 23:46  Clover
 
 每一个文件开头10个字符含义如下图：
-![](1.png)
+![1](/images/Linux-File/1.png)
 第0位文件类型包括：`d`目录、`-`文件及其他（`l`、`b`、`c`），第1-3位表示该文件所有者的权限，第4-6位表示所有者同组用户的权限，第7-9位表示其他用户的权限。`r`读、`w`写、`x`执行（execute）表示拥有对应权限，`-`表示没有该权限。
 
 # `chown [-R] 属主名 文件或目录`用于更改文件属主

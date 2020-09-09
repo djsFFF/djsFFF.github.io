@@ -67,13 +67,25 @@ Spring IoC、Spring AOP、Spring MVC
 
 # 拦截器
 
-# 敏感词敏感词过滤
+对于一些需要登录才能访问或者需要一定权限的路径如个人信息，需要使用拦截器检查登录状态。
+
+在用户浏览网页时，需要检查用户登陆状态，通过拦截器实现。
+
+1. 实现HandlerInterceptor接口中的三个方法：
+
+   - preHandler()：在Controller之前执行。获取Cookie中的凭证id，然后在数据库中查询凭证有效状态并根据凭证获取到User对象并保存到ThreadLocal变量hostHolder中。
+
+   - postHandler()：在Controller之后，模板引擎之前执行。从hostHolder获取到User并传给模板引擎。
+
+   - afterCompletion()：在模板引擎之后执行。清除hostHolder。
+
+2. 在实现WebMvcConfigurer接口的类中addInterceptors()配置拦截器：拦截哪些路径，不拦截哪些路径。
+
+# 敏感词过滤
 
 ## 前缀树
 
 查找效率高，消耗内存大
-
-![image-20200803204742999](JAVA后台开发项目学习/image-20200803204742999.png)
 
 ## 敏感词过滤器
 
