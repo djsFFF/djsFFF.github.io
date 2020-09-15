@@ -4,12 +4,12 @@ date: 2020-07-15 21:37:04
 tags:
     - Linux
 categories:
-    - Linux基础
+    - Linux
 mathjax: true
 typora-root-url: ..
 ---
 
-本文总结了Linux系统中对文件属性和权限进行操作的常用命令。
+本文总结了Linux系统中对的常用命令。
 <!--more-->
 
 # `ls -l`用于查看文件属性

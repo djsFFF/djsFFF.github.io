@@ -41,11 +41,11 @@ typora-root-url: ..
 4. 最后Proposal层根据分类和回归分支结果筛选候选框。首先根据回归结果修正候选框位置，然后根据分类结果筛选出前k（6000）个存在物体概率最高的候选框，并去除尺寸较小的和超出边界的候选框，再使用NMS剔除重叠候选框（0.7阈值），最后将筛选结果（约300个）送入RoI pooling层。
 
 # Faster RCNN是如何训练的？
-1. 交替训练（论文采用）：Faster RCNN可以看做时Fast RCNN + RPN，可以将Fast RCNN和RPN单独进行训练，但这两部分共享VGG16部分。  
-① 首先在ImageNet上面预训练VGG16；  
-② 使用①中的VGG16参数结合RPN进行训练；  
+1. 交替训练（论文采用）：Faster RCNN可以看做时Fast RCNN + RPN，可以将Fast RCNN和RPN单独进行训练，但这两部分共享VGG16部分。 
+① 首先在ImageNet上面预训练VGG16； 
+② 使用①中的VGG16参数结合RPN进行训练； 
 ③ 使用①中的VGG16参数组成Fast RCNN，并利用训练后的RPN网络生成候选框来训练Fast RCNN；
-④ 使用③中的VGG16参数并结合RPN进行训练，VGG16参数不更新。  
+④ 使用③中的VGG16参数并结合RPN进行训练，VGG16参数不更新。 
 ⑤ 使用③中的VGG16参数Fast RCNN，并利用④中的RPN网络生成候选框来训练Fast RCNN，VGG16参数不更新。
 2. 近似联合训练：将Faster RCNN整体进行训练，包括四个损失函数，RPN二分类损失，RPN回归损失，最后的多分类损失和回归损失。
 
