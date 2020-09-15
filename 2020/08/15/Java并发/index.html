@@ -65,7 +65,7 @@
 <meta property="og:image" content="http://djsfff.github.io/images/Java%E5%B9%B6%E5%8F%91/image-20200904231439695.png">
 <meta property="og:image" content="http://djsfff.github.io/images/Java%E5%B9%B6%E5%8F%91/image-20200904233842705.png">
 <meta property="article:published_time" content="2020-08-15T12:15:00.000Z">
-<meta property="article:modified_time" content="2020-09-09T01:59:08.947Z">
+<meta property="article:modified_time" content="2020-09-15T01:39:29.715Z">
 <meta property="article:author" content="Clover">
 <meta property="article:tag" content="JAVA">
 <meta property="article:tag" content="并发">
@@ -416,7 +416,7 @@
 <h3 id="ReentrantLock"><a href="#ReentrantLock" class="headerlink" title="ReentrantLock"></a>ReentrantLock</h3><p><img src="/images/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/image-20200903223938171.png" alt="image-20200903223938171"></p>
 <p>基于AQS实现，state表示该线程获取该锁的可重入次数，可以设置为公平锁或非公平锁。</p>
 <ul>
-<li>非公平锁：当一个线程第一次获取该锁时会尝试使用CAS设置state的值为1，如果成功则设置锁持有者为当前线程，否则检查锁的持有线程是不是当前线程，是的话更新state加一，否则将当前线程放入AQS队列。</li>
+<li>非公平锁：当一个线程第一次获取该锁时会尝试使用<strong>CAS</strong>设置state的值为1，如果成功则设置锁持有者为当前线程，否则检查锁的持有线程是不是当前线程，是的话更新state加一，否则将当前线程放入AQS队列。</li>
 <li>公平锁：线程获取锁时，首先检查锁是否已被占有：如果没有被占有，再检查AQS队列中是否有其他线程在等待，如果没有则尝试获取锁，如果有则将当前线程加入到AQS队列尾部。如果已被占用，则检查持有锁的线程是不是当前线程，是的话则更新state加一，否则将当前线程加入到AQS队列尾部。</li>
 </ul>
 <p>释放锁时将state值减一，若state为0则表示释放锁。</p>
@@ -574,8 +574,8 @@
       <i class="fa fa-chevron-left"></i> JVM学习系列三：高效并发
     </a></div>
       <div class="post-nav-item">
-    <a href="/2020/08/29/Spring%E5%AD%A6%E4%B9%A01/" rel="next" title="Spring学习1">
-      Spring学习1 <i class="fa fa-chevron-right"></i>
+    <a href="/2020/08/29/Java%E9%A1%B9%E7%9B%AE%E8%AE%BE%E8%AE%A1/" rel="next" title="Java项目设计">
+      Java项目设计 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -657,20 +657,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">31</span>
+          <span class="site-state-item-count">37</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-count">13</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">26</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

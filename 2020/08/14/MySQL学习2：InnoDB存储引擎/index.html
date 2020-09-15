@@ -52,7 +52,7 @@
 <meta property="og:description" content="InnoDB存储引擎。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-08-14T12:15:00.000Z">
-<meta property="article:modified_time" content="2020-09-09T01:59:49.404Z">
+<meta property="article:modified_time" content="2020-09-14T12:36:41.981Z">
 <meta property="article:author" content="Clover">
 <meta property="article:tag" content="MySQL">
 <meta property="article:tag" content="数据库">
@@ -297,9 +297,37 @@
 <li>优化器：选择最优的执行方案，如索引选择。</li>
 <li>执行器：验证执行权限，调用存储引擎接口，返回引擎的执行结果。</li>
 </ol>
-<h1 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h1><h2 id="聚簇索引与非聚簇索引"><a href="#聚簇索引与非聚簇索引" class="headerlink" title="聚簇索引与非聚簇索引"></a>聚簇索引与非聚簇索引</h2><p>聚簇索引在叶结点存储了所有的行数据。根据辅助索引查找时，需要先查出主键值，然后根据得到的主键值在主键索引中查询出行数据（回表查询）。</p>
+<h1 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h1><h2 id="索引类型"><a href="#索引类型" class="headerlink" title="索引类型"></a>索引类型</h2><ul>
+<li>普通索引：加速查询。</li>
+<li>唯一索引：加速查询，列值唯一。</li>
+<li>主键索引：加速查询，列值唯一，每个表只有一个。</li>
+<li>联合索引：多列值组合成一个索引。</li>
+<li>全文索引：对文本内容进行分词，进行搜索。</li>
+</ul>
+<h2 id="聚簇索引与非聚簇索引"><a href="#聚簇索引与非聚簇索引" class="headerlink" title="聚簇索引与非聚簇索引"></a>聚簇索引与非聚簇索引</h2><p>聚簇索引在叶结点存储了所有的行数据。根据辅助索引查找时，需要先查出主键值，然后根据得到的主键值在主键索引中查询出行数据（回表查询）。</p>
 <p>非聚簇索引在叶结点存储的是行数据的地址。根据辅助索引查找时，可以直接得到数据的地址。</p>
 <h2 id="索引覆盖"><a href="#索引覆盖" class="headerlink" title="索引覆盖"></a>索引覆盖</h2><p>指构建索引的字段包含了SELECT的数据列。</p>
+<h2 id="索引在什么情况下会失效"><a href="#索引在什么情况下会失效" class="headerlink" title="索引在什么情况下会失效"></a>索引在什么情况下会失效</h2><ol>
+<li>多列查询没有按最左原则进行查询。</li>
+<li>使用like查询时%在前面。</li>
+<li>查询条件为字符串时没有使用引号。</li>
+<li>使用or时，存在条件没有使用索引。</li>
+<li>当MySQL认为全表扫描更快时。</li>
+</ol>
+<h2 id="哪些字段需要建立索引"><a href="#哪些字段需要建立索引" class="headerlink" title="哪些字段需要建立索引"></a>哪些字段需要建立索引</h2><ol>
+<li><p>主键自动建立唯一索引。</p>
+</li>
+<li><p>频繁作为where条件查询的字段。</p>
+</li>
+<li><p>外键字段。</p>
+</li>
+<li>总是成对出现在where中的建立联合索引。</li>
+</ol>
+<h2 id="哪些字段不适合建立索引"><a href="#哪些字段不适合建立索引" class="headerlink" title="哪些字段不适合建立索引"></a>哪些字段不适合建立索引</h2><ol>
+<li>频繁更新的字段。</li>
+<li>where条件中用不到的字段。</li>
+<li>表数据比较少时。</li>
+</ol>
 <h1 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h1><h2 id="什么是事务"><a href="#什么是事务" class="headerlink" title="什么是事务"></a>什么是事务</h2><p>事务是逻辑上的一组数据库操作，要么全部执行，要么都不执行。</p>
 <h2 id="四大特性——ACID"><a href="#四大特性——ACID" class="headerlink" title="四大特性——ACID"></a>四大特性——ACID</h2><ul>
 <li><strong>原子性</strong>（Atomic）：事务是最小执行单位，不允许分割，要么全部执行，要么都不执行。</li>
@@ -383,6 +411,42 @@
 <h2 id="REPEATABLE-READ和READ-COMMETED时生成快照的区别"><a href="#REPEATABLE-READ和READ-COMMETED时生成快照的区别" class="headerlink" title="REPEATABLE READ和READ COMMETED时生成快照的区别"></a>REPEATABLE READ和READ COMMETED时生成快照的区别</h2><ol>
 <li>RR级别下，事务只有执行第一条SELECT语句时会生成一个快照。</li>
 <li>RC级别下，事务每次执行SELECT语句时都会重新生成快照。</li>
+</ol>
+<h1 id="主从同步"><a href="#主从同步" class="headerlink" title="主从同步"></a>主从同步</h1><p>在master结点中，可选择以下三种模式将数据变化写到binary-log文件中：</p>
+<ul>
+<li>statement：将数据库操作的<strong>sql语句</strong>写入binlog，实时性更好。</li>
+<li>row：将<strong>每一条数据的变化</strong>写入binary-log，会消耗更大的磁盘空间和磁盘IO。</li>
+<li>mixed：statement和row的混合。由MySQL决定什么时候写statement格式，什么时候写row格式。</li>
+</ul>
+<p><strong>master结点：</strong>当slave结点连接到master结点时，master结点会为slave结点开启binlog dump线程，当master结点的binlog发生变化时，binlog dump线程会通知slave，并将对应的binlog内容发送给slave。</p>
+<p><strong>slave结点：</strong>当主从同步开启时，slave结点上会创建2个线程。</p>
+<ul>
+<li>IO线程：该线程负责接收master结点发送的binlog内容，并写入到本地的relay log。</li>
+<li>SQL线程：该线程负责读取relay log并根据内容进行相应的操作。</li>
+</ul>
+<h1 id="分布式事务"><a href="#分布式事务" class="headerlink" title="分布式事务"></a>分布式事务</h1><p><a href="https://zhuanlan.zhihu.com/p/25933039" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/25933039</a></p>
+<p>分布式事务是指事务的操作位于不同的结点上，需要保证事务的ACID特性。</p>
+<p>如下单时，库存和订单的数据库不在同一个结点。</p>
+<h2 id="两阶段提交（2PC）"><a href="#两阶段提交（2PC）" class="headerlink" title="两阶段提交（2PC）"></a>两阶段提交（2PC）</h2><ol>
+<li>协调者询问事务参与者是否执行成功，参与者发回事务执行结果。</li>
+<li>若事务在每个参与者上都执行成功，协调者通知所有参与者提交事务，否则通知回滚事务。</li>
+</ol>
+<p><strong>存在的问题：</strong></p>
+<ul>
+<li>同步阻塞：已完成事务的参与者需要阻塞等待其他参与者完成事务。</li>
+<li>单点问题：当协调者发送故障时，可能导致参与者一直处于等待状态。</li>
+<li>数据不一致：在第二阶段，可能由于网络问题，只有部分参与者收到了commit通知。</li>
+<li>任意一个结点的失败会导致整个事务的失败。</li>
+</ul>
+<h2 id="补偿事务（TCC：try-confirm-cancel）"><a href="#补偿事务（TCC：try-confirm-cancel）" class="headerlink" title="补偿事务（TCC：try-confirm-cancel）"></a>补偿事务（TCC：try-confirm-cancel）</h2><ol>
+<li>try阶段对业务系统做检测及资源预留。</li>
+<li>confirm阶段对业务系统做提交确认。</li>
+<li>cancel阶段在业务执行错误时，取消业务，释放预留资源。</li>
+</ol>
+<h2 id="本地消息表"><a href="#本地消息表" class="headerlink" title="本地消息表"></a>本地消息表</h2><ol>
+<li>消息生产方需要额外建立一个消息表，并记录消息发送状态。消息表和业务数据需要在一个事务里提交。</li>
+<li>消息消费方需要处理这个消息，并完成自己的业务逻辑。如果本地事务执行成功，则回复给生产方一个confirm消息，否则将该消息放回消息队列。</li>
+<li>消息生产方需要定时扫描本地消息表，把没有处理完成的消息继续重新发送。</li>
 </ol>
 
     </div>
@@ -474,7 +538,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#三范式"><span class="nav-number">1.</span> <span class="nav-text">三范式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MyISAM与InnoDB的区别"><span class="nav-number">2.</span> <span class="nav-text">MyISAM与InnoDB的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一条SQL语句在MySQL中的执行过程"><span class="nav-number">3.</span> <span class="nav-text">一条SQL语句在MySQL中的执行过程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#索引"><span class="nav-number">4.</span> <span class="nav-text">索引</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#聚簇索引与非聚簇索引"><span class="nav-number">4.1.</span> <span class="nav-text">聚簇索引与非聚簇索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#索引覆盖"><span class="nav-number">4.2.</span> <span class="nav-text">索引覆盖</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#事务"><span class="nav-number">5.</span> <span class="nav-text">事务</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是事务"><span class="nav-number">5.1.</span> <span class="nav-text">什么是事务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四大特性——ACID"><span class="nav-number">5.2.</span> <span class="nav-text">四大特性——ACID</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#并发问题"><span class="nav-number">5.3.</span> <span class="nav-text">并发问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#隔离级别"><span class="nav-number">5.4.</span> <span class="nav-text">隔离级别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#锁"><span class="nav-number">5.5.</span> <span class="nav-text">锁</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#从粒度划分"><span class="nav-number">5.5.1.</span> <span class="nav-text">从粒度划分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从操作类型分"><span class="nav-number">5.5.2.</span> <span class="nav-text">从操作类型分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#InnoDB锁算法"><span class="nav-number">5.5.3.</span> <span class="nav-text">InnoDB锁算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#大表优化"><span class="nav-number">5.6.</span> <span class="nav-text">大表优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据库连接池"><span class="nav-number">5.7.</span> <span class="nav-text">数据库连接池</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分区"><span class="nav-number">6.</span> <span class="nav-text">分区</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MVCC"><span class="nav-number">7.</span> <span class="nav-text">MVCC</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#隐藏字段"><span class="nav-number">7.1.</span> <span class="nav-text">隐藏字段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#快照（read-view）关键参数"><span class="nav-number">7.2.</span> <span class="nav-text">快照（read view）关键参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可见性比较算法"><span class="nav-number">7.3.</span> <span class="nav-text">可见性比较算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#快照读和当前读"><span class="nav-number">7.4.</span> <span class="nav-text">快照读和当前读</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#REPEATABLE-READ和READ-COMMETED时生成快照的区别"><span class="nav-number">7.5.</span> <span class="nav-text">REPEATABLE READ和READ COMMETED时生成快照的区别</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#三范式"><span class="nav-number">1.</span> <span class="nav-text">三范式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MyISAM与InnoDB的区别"><span class="nav-number">2.</span> <span class="nav-text">MyISAM与InnoDB的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一条SQL语句在MySQL中的执行过程"><span class="nav-number">3.</span> <span class="nav-text">一条SQL语句在MySQL中的执行过程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#索引"><span class="nav-number">4.</span> <span class="nav-text">索引</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#索引类型"><span class="nav-number">4.1.</span> <span class="nav-text">索引类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#聚簇索引与非聚簇索引"><span class="nav-number">4.2.</span> <span class="nav-text">聚簇索引与非聚簇索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#索引覆盖"><span class="nav-number">4.3.</span> <span class="nav-text">索引覆盖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#索引在什么情况下会失效"><span class="nav-number">4.4.</span> <span class="nav-text">索引在什么情况下会失效</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#哪些字段需要建立索引"><span class="nav-number">4.5.</span> <span class="nav-text">哪些字段需要建立索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#哪些字段不适合建立索引"><span class="nav-number">4.6.</span> <span class="nav-text">哪些字段不适合建立索引</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#事务"><span class="nav-number">5.</span> <span class="nav-text">事务</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是事务"><span class="nav-number">5.1.</span> <span class="nav-text">什么是事务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四大特性——ACID"><span class="nav-number">5.2.</span> <span class="nav-text">四大特性——ACID</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#并发问题"><span class="nav-number">5.3.</span> <span class="nav-text">并发问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#隔离级别"><span class="nav-number">5.4.</span> <span class="nav-text">隔离级别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#锁"><span class="nav-number">5.5.</span> <span class="nav-text">锁</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#从粒度划分"><span class="nav-number">5.5.1.</span> <span class="nav-text">从粒度划分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从操作类型分"><span class="nav-number">5.5.2.</span> <span class="nav-text">从操作类型分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#InnoDB锁算法"><span class="nav-number">5.5.3.</span> <span class="nav-text">InnoDB锁算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#大表优化"><span class="nav-number">5.6.</span> <span class="nav-text">大表优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据库连接池"><span class="nav-number">5.7.</span> <span class="nav-text">数据库连接池</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分区"><span class="nav-number">6.</span> <span class="nav-text">分区</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MVCC"><span class="nav-number">7.</span> <span class="nav-text">MVCC</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#隐藏字段"><span class="nav-number">7.1.</span> <span class="nav-text">隐藏字段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#快照（read-view）关键参数"><span class="nav-number">7.2.</span> <span class="nav-text">快照（read view）关键参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可见性比较算法"><span class="nav-number">7.3.</span> <span class="nav-text">可见性比较算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#快照读和当前读"><span class="nav-number">7.4.</span> <span class="nav-text">快照读和当前读</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#REPEATABLE-READ和READ-COMMETED时生成快照的区别"><span class="nav-number">7.5.</span> <span class="nav-text">REPEATABLE READ和READ COMMETED时生成快照的区别</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#主从同步"><span class="nav-number">8.</span> <span class="nav-text">主从同步</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分布式事务"><span class="nav-number">9.</span> <span class="nav-text">分布式事务</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#两阶段提交（2PC）"><span class="nav-number">9.1.</span> <span class="nav-text">两阶段提交（2PC）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#补偿事务（TCC：try-confirm-cancel）"><span class="nav-number">9.2.</span> <span class="nav-text">补偿事务（TCC：try-confirm-cancel）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本地消息表"><span class="nav-number">9.3.</span> <span class="nav-text">本地消息表</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -490,20 +554,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">31</span>
+          <span class="site-state-item-count">37</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-count">13</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">26</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

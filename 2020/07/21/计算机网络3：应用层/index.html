@@ -59,7 +59,7 @@
 <meta property="og:image" content="http://djsfff.github.io/2020/07/21/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/5.png">
 <meta property="og:image" content="http://djsfff.github.io/2020/07/21/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/7.png">
 <meta property="article:published_time" content="2020-07-21T11:20:20.000Z">
-<meta property="article:modified_time" content="2020-09-06T10:57:28.042Z">
+<meta property="article:modified_time" content="2020-09-14T08:29:05.335Z">
 <meta property="article:author" content="Clover">
 <meta property="article:tag" content="计算机网络">
 <meta property="article:tag" content="应用层">
@@ -403,6 +403,17 @@
 </ul>
 </li>
 </ul>
+<h2 id="Get和Post的区别"><a href="#Get和Post的区别" class="headerlink" title="Get和Post的区别"></a>Get和Post的区别</h2><ol>
+<li><p>Get将参数放在URL中，POST将参数放在RequestBody，所以Get的参数是直接暴露的。</p>
+</li>
+<li><p>Post在浏览器回退时会重新请求，Get不会。</p>
+</li>
+<li><p>Get可传递的参数有长度限制，Post没有。</p>
+</li>
+<li><p>Get会将header和data一起发送出去，服务器响应状态码200；</p>
+<p>而Post先发送header，服务器响应状态码100，然后再发送data，服务器响应状态码200。</p>
+</li>
+</ol>
 <h2 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h2><p>当浏览器首次访问使用Cookie的网站时，服务器为浏览器生成一个唯一识别码通过Set-cookie字段返回给浏览器，然后浏览器将Cookie保存在本地，此后浏览器再次访问该网站时，都会将该Cookie放在HTTP请求报文的Cookie字段中。</p>
 <p>Cookie可携带的信息有限（4k），并且是存在本地浏览器，任何人都可以查看。</p>
 <h2 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h2><p>Session通过Cookie传递SessionID，服务器可以通过SessionID找到对应的浏览器信息。</p>
@@ -505,7 +516,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#DNS——域名系统"><span class="nav-number">1.</span> <span class="nav-text">DNS——域名系统</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#FTP——文件传送协议"><span class="nav-number">2.</span> <span class="nav-text">FTP——文件传送协议</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TELNET——远程终端协议"><span class="nav-number">3.</span> <span class="nav-text">TELNET——远程终端协议</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#电子邮件协议"><span class="nav-number">4.</span> <span class="nav-text">电子邮件协议</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SMTP——简单邮件传送协议"><span class="nav-number">4.1.</span> <span class="nav-text">SMTP——简单邮件传送协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#POP3——邮局协议"><span class="nav-number">4.2.</span> <span class="nav-text">POP3——邮局协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IMAP——网际报文存取协议"><span class="nav-number">4.3.</span> <span class="nav-text">IMAP——网际报文存取协议</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DHCP——动态主机配置协议"><span class="nav-number">5.</span> <span class="nav-text">DHCP——动态主机配置协议</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTP——超文本传送协议"><span class="nav-number">6.</span> <span class="nav-text">HTTP——超文本传送协议</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP报文结构"><span class="nav-number">6.1.</span> <span class="nav-text">HTTP报文结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cookie"><span class="nav-number">6.2.</span> <span class="nav-text">Cookie</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Session"><span class="nav-number">6.3.</span> <span class="nav-text">Session</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cookie被禁用了怎么办"><span class="nav-number">6.4.</span> <span class="nav-text">Cookie被禁用了怎么办</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP-2-0的主要新特性"><span class="nav-number">6.5.</span> <span class="nav-text">HTTP 2.0的主要新特性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">7.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#DNS——域名系统"><span class="nav-number">1.</span> <span class="nav-text">DNS——域名系统</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#FTP——文件传送协议"><span class="nav-number">2.</span> <span class="nav-text">FTP——文件传送协议</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TELNET——远程终端协议"><span class="nav-number">3.</span> <span class="nav-text">TELNET——远程终端协议</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#电子邮件协议"><span class="nav-number">4.</span> <span class="nav-text">电子邮件协议</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SMTP——简单邮件传送协议"><span class="nav-number">4.1.</span> <span class="nav-text">SMTP——简单邮件传送协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#POP3——邮局协议"><span class="nav-number">4.2.</span> <span class="nav-text">POP3——邮局协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IMAP——网际报文存取协议"><span class="nav-number">4.3.</span> <span class="nav-text">IMAP——网际报文存取协议</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DHCP——动态主机配置协议"><span class="nav-number">5.</span> <span class="nav-text">DHCP——动态主机配置协议</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTP——超文本传送协议"><span class="nav-number">6.</span> <span class="nav-text">HTTP——超文本传送协议</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP报文结构"><span class="nav-number">6.1.</span> <span class="nav-text">HTTP报文结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Get和Post的区别"><span class="nav-number">6.2.</span> <span class="nav-text">Get和Post的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cookie"><span class="nav-number">6.3.</span> <span class="nav-text">Cookie</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Session"><span class="nav-number">6.4.</span> <span class="nav-text">Session</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cookie被禁用了怎么办"><span class="nav-number">6.5.</span> <span class="nav-text">Cookie被禁用了怎么办</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP-2-0的主要新特性"><span class="nav-number">6.6.</span> <span class="nav-text">HTTP 2.0的主要新特性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">7.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -521,20 +532,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">31</span>
+          <span class="site-state-item-count">37</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-count">13</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">26</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
