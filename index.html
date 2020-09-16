@@ -880,31 +880,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <a id="more"></a>
-<h1 id="秒杀系统"><a href="#秒杀系统" class="headerlink" title="秒杀系统"></a>秒杀系统</h1><h2 id="关键问题"><a href="#关键问题" class="headerlink" title="关键问题"></a>关键问题</h2><ul>
-<li>高并发：时间极短，瞬间用户量大。</li>
-<li>超卖：实际下单数量超出了限购的数量。</li>
-<li>恶意请求：</li>
-<li>链接暴露：</li>
-<li>数据库：</li>
-</ul>
-<h2 id="关键技术"><a href="#关键技术" class="headerlink" title="关键技术"></a>关键技术</h2><p><img src="/images/Java%E9%A1%B9%E7%9B%AE%E8%AE%BE%E8%AE%A1/v2-8aade443815c569af8599b0683e04b69_r.jpg" alt="preview"></p>
-<ul>
-<li>服务单一职责：单独建立秒杀数据库。</li>
-<li>秒杀链接加盐：url动态化，通过MD5等加密算法加密随机的字符串做url。</li>
-<li>Redis集群：主从同步、读写分离、哨兵。</li>
-<li>Nginx：负载均衡。</li>
-<li>资源静态化</li>
-<li>限流<ul>
-<li>前端限流：点击一次后置灰一定时间防止连续点击。</li>
-<li>后端限流：只有秒杀成功的用户进行后续订单生成和支付等操作。</li>
-</ul>
-</li>
-<li>库存预热：提前把商品的库存加载到Redis中，让整个流程都在Redis中进行，秒杀结束后再写回数据库。分布式锁。</li>
-<li>限流、降级、熔断、隔离：</li>
-<li>削峰填谷：消息队列。</li>
-</ul>
-
+          <p>记录常问的项目设计思路。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/08/29/Java%E9%A1%B9%E7%9B%AE%E8%AE%BE%E8%AE%A1/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 

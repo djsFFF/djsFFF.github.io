@@ -44,16 +44,16 @@
   };
 </script>
 
-  <meta name="description" content="秒杀系统关键问题 高并发：时间极短，瞬间用户量大。 超卖：实际下单数量超出了限购的数量。 恶意请求： 链接暴露： 数据库：  关键技术  服务单一职责：单独建立秒杀数据库。 秒杀链接加盐：url动态化，通过MD5等加密算法加密随机的字符串做url。 Redis集群：主从同步、读写分离、哨兵。 Nginx：负载均衡。 资源静态化 限流 前端限流：点击一次后置灰一定时间防止连续点击。 后端限流：只有">
+  <meta name="description" content="记录常问的项目设计思路。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java项目设计">
 <meta property="og:url" content="http://djsfff.github.io/2020/08/29/Java%E9%A1%B9%E7%9B%AE%E8%AE%BE%E8%AE%A1/index.html">
 <meta property="og:site_name" content="Clover">
-<meta property="og:description" content="秒杀系统关键问题 高并发：时间极短，瞬间用户量大。 超卖：实际下单数量超出了限购的数量。 恶意请求： 链接暴露： 数据库：  关键技术  服务单一职责：单独建立秒杀数据库。 秒杀链接加盐：url动态化，通过MD5等加密算法加密随机的字符串做url。 Redis集群：主从同步、读写分离、哨兵。 Nginx：负载均衡。 资源静态化 限流 前端限流：点击一次后置灰一定时间防止连续点击。 后端限流：只有">
+<meta property="og:description" content="记录常问的项目设计思路。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://djsfff.github.io/images/Java%E9%A1%B9%E7%9B%AE%E8%AE%BE%E8%AE%A1/v2-8aade443815c569af8599b0683e04b69_r.jpg">
 <meta property="article:published_time" content="2020-08-29T12:15:00.000Z">
-<meta property="article:modified_time" content="2020-09-11T02:13:09.145Z">
+<meta property="article:modified_time" content="2020-09-15T13:45:36.963Z">
 <meta property="article:author" content="Clover">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="后台开发">
@@ -280,7 +280,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <a id="more"></a>
+        <p>记录常问的项目设计思路。</p>
+<a id="more"></a>
 <h1 id="秒杀系统"><a href="#秒杀系统" class="headerlink" title="秒杀系统"></a>秒杀系统</h1><h2 id="关键问题"><a href="#关键问题" class="headerlink" title="关键问题"></a>关键问题</h2><ul>
 <li>高并发：时间极短，瞬间用户量大。</li>
 <li>超卖：实际下单数量超出了限购的数量。</li>
