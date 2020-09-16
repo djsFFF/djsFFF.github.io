@@ -9,7 +9,7 @@ categories:
 typora-root-url: ..
 ---
 
-
+记录常问的项目设计思路。
 
 <!--more-->
 
