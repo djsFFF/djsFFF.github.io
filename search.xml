@@ -1142,10 +1142,15 @@ drwxr-xr-x  8 dong dong     4096 7月  13 23:46  Clover
 <li>final修饰的方法无法被重写（private方法也会被隐式地指定为final方法）。</li>
 <li>final修饰的类无法被继承。</li>
 </ol>
-<h2 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h2><p><img src="../images/JAVA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94JAVA%E5%9F%BA%E7%A1%80/image-20200823112219462.png" alt="image-20200823112219462"></p>
-<ul>
+<h2 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h2><ul>
 <li>Error：程序无法处理的错误，通常是JVM出现的问题。</li>
 <li>Exception：程序本身能够处理的错误，</li>
+</ul>
+<h2 id="finally块不会执行的情况"><a href="#finally块不会执行的情况" class="headerlink" title="finally块不会执行的情况"></a>finally块不会执行的情况</h2><ul>
+<li>finally语句块第一行发生了异常。</li>
+<li>在前面的代码中执行<code>System.exit(int)</code>退出了程序。</li>
+<li>程序所在的线程死亡。</li>
+<li>关闭CPU。</li>
 </ul>
 <h1 id="Java集合"><a href="#Java集合" class="headerlink" title="Java集合"></a>Java集合</h1><h2 id="常用集合"><a href="#常用集合" class="headerlink" title="常用集合"></a>常用集合</h2><ul>
 <li>Collection<ul>
@@ -1247,28 +1252,23 @@ drwxr-xr-x  8 dong dong     4096 7月  13 23:46  Clover
     <url>/2020/08/03/Java%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0/</url>
     <content><![CDATA[<p><img src="/images/JAVA%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0/image-20200809192659015.png" alt="image-20200809192659015"></p>
 <a id="more"></a>
-<h1 id="常见面试题"><a href="#常见面试题" class="headerlink" title="常见面试题"></a>常见面试题</h1><h2 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h2><p>存储引擎、事务、锁、索引</p>
-<p><img src="/images/JAVA%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0/image-20200809213043517.png" alt="image-20200809213043517"></p>
-<p><img src="/images/JAVA%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0/image-20200809213320099.png" alt="image-20200809213320099"></p>
-<p><img src="/images/JAVA%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0/image-20200809213504488.png" alt="image-20200809213504488"></p>
-<p><img src="/images/JAVA%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0/image-20200809213808121.png" alt="image-20200809213808121"></p>
-<p><img src="/images/JAVA%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0/image-20200809215949478.png" alt="image-20200809215949478"></p>
-<h2 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h2><p>数据类型、过期策略、淘汰策略、缓存穿透、缓存击穿、缓存雪崩、分布式锁</p>
-<p><img src="/images/JAVA%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0/image-20200809220403384.png" alt="image-20200809220403384"></p>
-<p><img src="/images/JAVA%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0/image-20200809221108002.png" alt="image-20200809221108002"></p>
-<p><img src="/images/JAVA%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0/image-20200809221233840.png" alt="image-20200809221233840"></p>
-<p><img src="/images/JAVA%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0/image-20200809221928733.png" alt="image-20200809221928733"></p>
-<p><img src="/images/JAVA%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0/image-20200809224716221.png" alt="image-20200809224716221"></p>
-<p><img src="/images/JAVA%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0/image-20200809225055699.png" alt="image-20200809225055699"></p>
-<p><img src="/images/JAVA%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0/image-20200809225404680.png" alt="image-20200809225404680"></p>
-<p><img src="/images/JAVA%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0/image-20200809225612734.png" alt="image-20200809225612734"></p>
-<p><img src="/images/JAVA%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0/image-20200809230020652.png" alt="image-20200809230020652"></p>
-<p><img src="/images/JAVA%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0/image-20200809230153491.png" alt="image-20200809230153491"></p>
-<p><img src="/images/JAVA%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0/image-20200809230505197.png" alt="image-20200809230505197"></p>
-<h2 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h2><p>Spring IoC、Spring AOP、Spring MVC</p>
-<p><img src="/images/JAVA%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0/image-20200809230723732.png" alt="image-20200809230723732"></p>
-<p><img src="/images/JAVA%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0/image-20200809230911953.png" alt="image-20200809230911953"></p>
-<p><img src="/images/JAVA%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0/image-20200809230939929.png" alt="image-20200809230939929"></p>
+<p>dao=data access object</p>
+<h1 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h1><h2 id="user表"><a href="#user表" class="headerlink" title="user表"></a>user表</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CREATE TABLE &#96;user&#96; (</span><br><span class="line">  &#96;id&#96; int NOT NULL AUTO_INCREMENT,</span><br><span class="line">  &#96;username&#96; varchar(50) DEFAULT NULL,</span><br><span class="line">  &#96;password&#96; varchar(50) DEFAULT NULL,</span><br><span class="line">  &#96;salt&#96; varchar(50) DEFAULT NULL,</span><br><span class="line">  &#96;email&#96; varchar(100) DEFAULT NULL,</span><br><span class="line">  &#96;type&#96; int DEFAULT NULL COMMENT &#39;0-普通用户; 1-超级管理员; 2-版主;&#39;,</span><br><span class="line">  &#96;status&#96; int DEFAULT NULL COMMENT &#39;0-未激活; 1-已激活;&#39;,</span><br><span class="line">  &#96;activation_code&#96; varchar(100) DEFAULT NULL,</span><br><span class="line">  &#96;header_url&#96; varchar(200) DEFAULT NULL,</span><br><span class="line">  &#96;create_time&#96; timestamp NULL DEFAULT NULL,</span><br><span class="line">  PRIMARY KEY (&#96;id&#96;),</span><br><span class="line">  KEY &#96;index_username&#96; (&#96;username&#96;(20)),</span><br><span class="line">  KEY &#96;index_email&#96; (&#96;email&#96;(20))</span><br><span class="line">) ENGINE&#x3D;InnoDB AUTO_INCREMENT&#x3D;158 DEFAULT CHARSET&#x3D;utf8</span><br></pre></td></tr></table></figure>
+<h2 id="login-ticket表"><a href="#login-ticket表" class="headerlink" title="login_ticket表"></a>login_ticket表</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CREATE TABLE &#96;login_ticket&#96; (</span><br><span class="line">  &#96;id&#96; int NOT NULL AUTO_INCREMENT,</span><br><span class="line">  &#96;user_id&#96; int NOT NULL,</span><br><span class="line">  &#96;ticket&#96; varchar(45) NOT NULL,</span><br><span class="line">  &#96;status&#96; int DEFAULT &#39;0&#39; COMMENT &#39;0-有效; 1-无效;&#39;,</span><br><span class="line">  &#96;expired&#96; timestamp NOT NULL,</span><br><span class="line">  PRIMARY KEY (&#96;id&#96;),</span><br><span class="line">  KEY &#96;index_ticket&#96; (&#96;ticket&#96;(20))</span><br><span class="line">) ENGINE&#x3D;InnoDB AUTO_INCREMENT&#x3D;24 DEFAULT CHARSET&#x3D;utf8</span><br></pre></td></tr></table></figure>
+<h2 id="discuss-post表"><a href="#discuss-post表" class="headerlink" title="discuss_post表"></a>discuss_post表</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CREATE TABLE &#96;discuss_post&#96; (</span><br><span class="line">  &#96;id&#96; int NOT NULL AUTO_INCREMENT,</span><br><span class="line">  &#96;user_id&#96; varchar(45) DEFAULT NULL,</span><br><span class="line">  &#96;title&#96; varchar(100) DEFAULT NULL,</span><br><span class="line">  &#96;content&#96; text,</span><br><span class="line">  &#96;type&#96; int DEFAULT NULL COMMENT &#39;0-普通; 1-置顶;&#39;,</span><br><span class="line">  &#96;status&#96; int DEFAULT NULL COMMENT &#39;0-正常; 1-精华; 2-拉黑;&#39;,</span><br><span class="line">  &#96;create_time&#96; timestamp NULL DEFAULT NULL,</span><br><span class="line">  &#96;comment_count&#96; int DEFAULT NULL,</span><br><span class="line">  &#96;score&#96; double DEFAULT NULL,</span><br><span class="line">  PRIMARY KEY (&#96;id&#96;),</span><br><span class="line">  KEY &#96;index_user_id&#96; (&#96;user_id&#96;)</span><br><span class="line">) ENGINE&#x3D;InnoDB AUTO_INCREMENT&#x3D;289 DEFAULT CHARSET&#x3D;utf8</span><br></pre></td></tr></table></figure>
+<h2 id="comment表"><a href="#comment表" class="headerlink" title="comment表"></a>comment表</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CREATE TABLE &#96;comment&#96; (</span><br><span class="line">  &#96;id&#96; int NOT NULL AUTO_INCREMENT,</span><br><span class="line">  &#96;user_id&#96; int DEFAULT NULL,</span><br><span class="line">  &#96;entity_type&#96; int DEFAULT NULL,</span><br><span class="line">  &#96;entity_id&#96; int DEFAULT NULL,</span><br><span class="line">  &#96;target_id&#96; int DEFAULT NULL,</span><br><span class="line">  &#96;content&#96; text,</span><br><span class="line">  &#96;status&#96; int DEFAULT NULL,</span><br><span class="line">  &#96;create_time&#96; timestamp NULL DEFAULT NULL,</span><br><span class="line">  PRIMARY KEY (&#96;id&#96;),</span><br><span class="line">  KEY &#96;index_user_id&#96; (&#96;user_id&#96;) &#x2F;*!80000 INVISIBLE *&#x2F;,</span><br><span class="line">  KEY &#96;index_entity_id&#96; (&#96;entity_id&#96;)</span><br><span class="line">) ENGINE&#x3D;InnoDB AUTO_INCREMENT&#x3D;249 DEFAULT CHARSET&#x3D;utf8</span><br></pre></td></tr></table></figure>
+<h2 id="message表"><a href="#message表" class="headerlink" title="message表"></a>message表</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CREATE TABLE &#96;message&#96; (</span><br><span class="line">  &#96;id&#96; int NOT NULL AUTO_INCREMENT,</span><br><span class="line">  &#96;from_id&#96; int DEFAULT NULL,</span><br><span class="line">  &#96;to_id&#96; int DEFAULT NULL,</span><br><span class="line">  &#96;conversation_id&#96; varchar(45) NOT NULL,</span><br><span class="line">  &#96;content&#96; text,</span><br><span class="line">  &#96;status&#96; int DEFAULT NULL COMMENT &#39;0-未读;1-已读;2-删除;&#39;,</span><br><span class="line">  &#96;create_time&#96; timestamp NULL DEFAULT NULL,</span><br><span class="line">  PRIMARY KEY (&#96;id&#96;),</span><br><span class="line">  KEY &#96;index_from_id&#96; (&#96;from_id&#96;),</span><br><span class="line">  KEY &#96;index_to_id&#96; (&#96;to_id&#96;),</span><br><span class="line">  KEY &#96;index_conversation_id&#96; (&#96;conversation_id&#96;)</span><br><span class="line">) ENGINE&#x3D;InnoDB AUTO_INCREMENT&#x3D;368 DEFAULT CHARSET&#x3D;utf8</span><br></pre></td></tr></table></figure>
+<h1 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h1><p>@Bean：修饰方法，该方法返回的对象会被装配到Bean容器中。</p>
+<h2 id="Bean的管理"><a href="#Bean的管理" class="headerlink" title="Bean的管理"></a>Bean的管理</h2><ul>
+<li>@PostConstruct：修饰方法，在Bean的构造函数之后调用。</li>
+<li>@PreDestroy：修饰方法，在Bean销毁之前调用。</li>
+</ul>
+<h1 id="HTTP请求"><a href="#HTTP请求" class="headerlink" title="HTTP请求"></a>HTTP请求</h1><p>第14节 SpringMVC入门</p>
+<h2 id="Get传递参数的方式"><a href="#Get传递参数的方式" class="headerlink" title="Get传递参数的方式"></a>Get传递参数的方式</h2><ul>
+<li>在Url中通过?后接参数信息，如/student?id=1。这种方式可以通过<code>@RequestParam(name = &quot;id&quot;, required = false, defaultValue = &quot;1&quot;)</code>在服务器中对应的方法参数中获取。</li>
+<li>在url中传递参数，如/student/1，同时<code>@RequestMapping(path = &quot;/student/{id}&quot;)</code>。这种方式可以通过<code>@PathVariable(&quot;id&quot;)</code>在服务器中对应的方法参数中获取。</li>
+</ul>
+<h2 id="Post传递参数的方式"><a href="#Post传递参数的方式" class="headerlink" title="Post传递参数的方式"></a>Post传递参数的方式</h2><p>前端表单中的参数名与后台对应方法的参数名一致即可。</p>
 <h1 id="拦截器"><a href="#拦截器" class="headerlink" title="拦截器"></a>拦截器</h1><p>对于一些需要登录才能访问或者需要一定权限的路径如个人信息，需要使用拦截器检查登录状态。</p>
 <p>在用户浏览网页时，需要检查用户登陆状态，通过拦截器实现。</p>
 <ol>
@@ -1362,7 +1362,7 @@ drwxr-xr-x  8 dong dong     4096 7月  13 23:46  Clover
 <p>Spring AOP：使用纯Java实现，在运行时通过代理方式织入代码，<strong>只支持方法类型</strong>的连接点，支持AspectJ的集成。</p>
 <h2 id="Spring-AOP"><a href="#Spring-AOP" class="headerlink" title="Spring AOP"></a>Spring AOP</h2><p>JDK动态代理：Java提供的动态代理技术，可以在运行时创建接口的代理实例。Spring AOP默认采用这种方式，在接口的代理实例中织入代码。（代理模式）</p>
 <p>CGLib动态代理：采用底层的字节码技术，在运行时创建子类代理实例。当目标对象不存在接口时，Spring AOP会采用这种方式，在子类实例中织入代码。</p>
-<h1 id="Redis-1"><a href="#Redis-1" class="headerlink" title="Redis"></a>Redis</h1><p>Redis是一款基于键值对的NoSQL数据库，它的key是string，value支持多种数据结构：字符串（Strings），哈希（Hashes），列表（Lists），集合（Sets），有序集合（Sorted Sets）等。</p>
+<h1 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h1><p>Redis是一款基于键值对的NoSQL数据库，它的key是string，value支持多种数据结构：字符串（Strings），哈希（Hashes），列表（Lists），集合（Sets），有序集合（Sorted Sets）等。</p>
 <p>Redis将所有数据都存放在内存中，读写速度快。同时，Redis还可以将内存中的数据以<strong>快照</strong>或者<strong>日志</strong>的形式保存在硬盘上，保证数据的安全。</p>
 <p>应用场景：缓存、排行榜、计数器、社交网络、消息队列等。</p>
 <p><code>keys *</code>：查看所有的key。</p>
@@ -1852,7 +1852,8 @@ log(精华分+评论分\times10+点赞数\times2+收藏数\times2)+(发布时间
 <li>Spring AOP：运行时增强，基于动态代理，简单。</li>
 <li>Aspect AOP：编译时增强，基于字节码操作，强大，更快。</li>
 </ul>
-<h1 id="Bean的作用域"><a href="#Bean的作用域" class="headerlink" title="Bean的作用域"></a>Bean的作用域</h1><ul>
+<h1 id="Bean的作用域"><a href="#Bean的作用域" class="headerlink" title="Bean的作用域"></a>Bean的作用域</h1><p>@scope(“singleton”)</p>
+<ul>
 <li><strong>singleton</strong>：在Spring IoC容器中只存在一个Bean实例，即以单例方式存在，默认值。</li>
 <li><strong>prototype</strong>：每次从容器中调用Bean时，都返回一个新的实例。</li>
 <li>request：每次HTTP请求都会创建一个新的Bean，仅适用于WebApplicationContext环境。</li>
@@ -1906,7 +1907,34 @@ log(精华分+评论分\times10+点赞数\times2+收藏数\times2)+(发布时间
 <li>编程式事务：代码中硬编码。</li>
 <li>声明式事务：在配置文件中配置。基于XML或基于注解。</li>
 </ul>
-<h2 id="事务传播行为"><a href="#事务传播行为" class="headerlink" title="事务传播行为"></a>事务传播行为</h2>]]></content>
+<h2 id="事务传播行为"><a href="#事务传播行为" class="headerlink" title="事务传播行为"></a>事务传播行为</h2><p>规定了事务方法或事务方法嵌套调用时的事务传播方式。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Transactional</span>(propagation=propagation.REQUIRED)</span><br><span class="line">methodA &#123;</span><br><span class="line">	methodB();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Transactional</span>(propagation=propagation.[以下七种传播机制])</span><br><span class="line">methodB &#123;&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="required"><a href="#required" class="headerlink" title="required"></a>required</h3><blockquote>
+<p>如果当前没有事务，则新建一个事务，如果已经存在一个事务中，则加入该事务。</p>
+</blockquote>
+<p>如果当前没有事务，则创建一个事务；如果当前已经处于一个事务中，则加入到该事务。默认设置。</p>
+<h3 id="supports"><a href="#supports" class="headerlink" title="supports"></a>supports</h3><blockquote>
+<p>支持当前事务，如果当前没有事务，则以非事务方式执行。</p>
+</blockquote>
+<p>如果当前没有事务，则以非事务方式执行；如果当前已经处于一个事务中，则加入到该事务。</p>
+<h3 id="mandatory"><a href="#mandatory" class="headerlink" title="mandatory"></a>mandatory</h3><blockquote>
+<p>使用当前事务，如果当前没有事务，则抛出异常。</p>
+</blockquote>
+<p>如果当前没有事务，则抛出异常；如果当前已经处于一个事务中，则加入到该事务。</p>
+<h3 id="requires-new"><a href="#requires-new" class="headerlink" title="requires_new"></a>requires_new</h3><blockquote>
+<p>新建事务，如果当前存在事务，则把当前事务挂起。</p>
+</blockquote>
+<p>如果当前没有事务，则创建一个事务；如果当前已经处于一个事务中，则把已存在的事务挂起，新创建一个事务并执行。</p>
+<h3 id="not-supported"><a href="#not-supported" class="headerlink" title="not_supported"></a>not_supported</h3><blockquote>
+<p>以非事务方式执行，如果当前存在事务，则把当前事务挂起。</p>
+</blockquote>
+<p>如果当前没有事务，则以非事务方式执行；如果当前已经处于一个事务中，则把已存在的事务挂起。</p>
+<h3 id="never"><a href="#never" class="headerlink" title="never"></a>never</h3><blockquote>
+<p>以非事务方式执行，如果当前存在事务，则抛出异常。</p>
+</blockquote>
+<p>如果当前没有事务，则以非事务方式执行；如果当前已经处于一个事务中，则抛出异常。</p>
+<h3 id="nested"><a href="#nested" class="headerlink" title="nested"></a>nested</h3><p>如果当前没有事务，则创建一个事务；如果当前已经处于一个事务中，则创建一个嵌套事务。</p>
+]]></content>
       <categories>
         <category>Spring</category>
       </categories>
@@ -1971,13 +1999,15 @@ log(精华分+评论分\times10+点赞数\times2+收藏数\times2)+(发布时间
 <h1 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h1><h2 id="什么是事务"><a href="#什么是事务" class="headerlink" title="什么是事务"></a>什么是事务</h2><p>事务是逻辑上的一组数据库操作，要么全部执行，要么都不执行。</p>
 <h2 id="四大特性——ACID"><a href="#四大特性——ACID" class="headerlink" title="四大特性——ACID"></a>四大特性——ACID</h2><ul>
 <li><strong>原子性</strong>（Atomic）：事务是最小执行单位，不允许分割，要么全部执行，要么都不执行。</li>
-<li><strong>一致性</strong>（Consistent）：事务执行前后，数据库的完整性约束没有被破坏。</li>
-<li><strong>隔离性</strong>（Isolation）：并发访问数据库时，事务之间互不影响。</li>
+<li><strong>一致性</strong>（Consistent）：事务使系统从一个一致的状态转换到另一个一致状态。事务开始和结束的中间状态不会被其他事务观察到。</li>
+<li><strong>隔离性</strong>（Isolation）：并发访问数据库时，事务之间互不影响。适当破坏一致性来提高性能与并行度。</li>
 <li><strong>持久性</strong>（Durability）：事务提交后对数据库中数据的改变是永久的，不会被回滚。</li>
 </ul>
 <h2 id="并发问题"><a href="#并发问题" class="headerlink" title="并发问题"></a>并发问题</h2><ul>
-<li><strong>脏读</strong>：一个事务正在访问并修改某个数据，但是修改后还没提交，如果此时另一个事务也访问了该数据，那么另一个事务读到的是未提交的数据，称为脏读。</li>
-<li><strong>丢失修改</strong>：一个事务正在访问并修改某个数据，但是修改后还没提交，如果此时另一个事务也对该数据进行了修改，那么第一个事务的修改就被覆盖了，称为丢失修改。</li>
+<li><p><strong>丢失修改</strong>：一个事务正在访问并修改某个数据，但是修改后还没提交，如果此时另一个事务也对该数据进行了修改，那么第一个事务的修改就被覆盖了，称为丢失修改。</p>
+</li>
+<li><p><strong>脏读</strong>：一个事务正在访问并修改某个数据，但是修改后还没提交，如果此时另一个事务也访问了该数据，那么另一个事务读到的是未提交的数据，称为脏读。</p>
+</li>
 <li><strong>不可重复读</strong>：在一个事务两次访问同一个数据之间，另一个事务对该数据进行了<strong>修改</strong>，导致第一个事务两次访问的结果不一致。</li>
 <li><strong>幻读</strong>：在一个事务两次进行相同查询之间，另一个事务进行了<strong>插入</strong>操作，导致第一个事务两次查询到的数据行数不一致。</li>
 </ul>
@@ -2385,17 +2415,54 @@ log(精华分+评论分\times10+点赞数\times2+收藏数\times2)+(发布时间
 <li>支持事务，操作都是原子性的。</li>
 <li>支持发布订阅，设置过期时间等。</li>
 </ol>
-<h1 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h1><ul>
-<li>String：值可以是string，也可以是数字、二进制数据等，最大存储512m。</li>
-<li>Hash：存储键值对，适合存储Java对象。</li>
-<li>List：双向链表，按插入顺序排序。</li>
-<li>Set：String类型的无序去重集合，通过Hashtable实现。</li>
-<li>Zset（Sorted Set）：在Set的基础上增加了一个score，使得集合中的元素可以按score有序排列。</li>
+<h1 id="底层数据结构"><a href="#底层数据结构" class="headerlink" title="底层数据结构"></a>底层数据结构</h1><h2 id="简单动态字符串SDS"><a href="#简单动态字符串SDS" class="headerlink" title="简单动态字符串SDS"></a>简单动态字符串SDS</h2><p>用途：键，string类型，缓冲区（AOF缓冲区，客户端状态的输入缓冲区等）。</p>
+<p>SDS结构如图所示</p>
+<p><img src="/images/Redis/image-20200921213725636.png" alt="image-20200921213725636"></p>
+<ul>
+<li>free：记录该SDS的空闲空间。</li>
+<li>len：记录该SDS的已用空间。</li>
+<li>buf：char数组，用于保存字符串。</li>
 </ul>
-<h1 id="过期策略"><a href="#过期策略" class="headerlink" title="过期策略"></a>过期策略</h1><p>定期删除+惰性删除。</p>
+<h2 id="链表linkedlist"><a href="#链表linkedlist" class="headerlink" title="链表linkedlist"></a>链表linkedlist</h2><p>用途：list类型等。</p>
+<h2 id="字典hashtable"><a href="#字典hashtable" class="headerlink" title="字典hashtable"></a>字典hashtable</h2><p>用途：hash类型等。</p>
+<h2 id="跳跃表skiplist"><a href="#跳跃表skiplist" class="headerlink" title="跳跃表skiplist"></a>跳跃表skiplist</h2><p>用途：zset类型，集群节点等。</p>
+<p>每个结点会根据幂次定律（越大的数出现的概率越小）随机生成多个层，每个层中保存了下一个<strong>同级层</strong>的指针及其跨度。</p>
+<h2 id="整数集合intset"><a href="#整数集合intset" class="headerlink" title="整数集合intset"></a>整数集合intset</h2><p>用途：set类型等。</p>
+<p>可以保存的类型为int16_t、int32_t、int64_t的整数值，通过自动升级策略节约内存，提高灵活性。</p>
+<p>当一个set只包含整数值元素，且元素数量不多时（512），<strong>Redis采用intset作为set的底层实现</strong>。</p>
+<h2 id="压缩列表ziplist"><a href="#压缩列表ziplist" class="headerlink" title="压缩列表ziplist"></a>压缩列表ziplist</h2><p>用途：list类型，hash类型等。</p>
+<p>当一个<strong>list键</strong>只包含少量元素（512），且元素长度都小于64字节时，Redis采用ziplist作为底层实现。</p>
+<p>当一个<strong>hash键</strong>只包含少量键值对（512），且键值都小于64字节时，Redis采用ziplist作为底层实现。</p>
+<p>当一个<strong>zset键</strong>只包含少量元素（512），且元素长度都小于64字节时，Redis采用ziplist作为底层实现。</p>
+<p>压缩列表的节点包括三个属性：</p>
+<ul>
+<li>previous_entry_length：以字节为单位，记录了前一个节点的长度。</li>
+<li>encoding：记录了content保存的数据的类型和长度。</li>
+<li>content：保存节点的值，是一个char数组或整数。</li>
+</ul>
+<p>节约内存，从尾向头遍历。</p>
+<h1 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h1><ul>
+<li><p>String：值可以是string，也可以是数字、二进制数据等。底层数据结构可以是<strong>int，raw(SDS)或embstr</strong>。</p>
+</li>
+<li><p>Hash：存储键值对，适合存储Java对象。底层数据结构可以是<strong>ziplist或hashtable</strong>。</p>
+</li>
+<li><p>List：双向链表，按插入顺序排序。底层数据结构可以是<strong>ziplist或linkedlist</strong>。</p>
+</li>
+<li><p>Set：String类型的无序去重集合。底层数据结构可以是<strong>intset或hashtable</strong>。</p>
+</li>
+<li><p>Zset（Sorted Set）：在Set的基础上增加了一个score，使得集合中的元素可以按score有序排列。底层数据结构可以是<strong>ziplist或skiplist</strong>。当底层结构为skiplist时，zset中有一个字典用于保存key到score的映射，且key和score是共享跳跃表中的数据，因此不需要额外的内存空间。</p>
+</li>
+</ul>
+<h1 id="内存回收与对象共享"><a href="#内存回收与对象共享" class="headerlink" title="内存回收与对象共享"></a>内存回收与对象共享</h1><p>基于引用计数实现内存回收。</p>
+<p>Redis在初始化服务器时，会创建0-9999的字符串共享对象。</p>
+<h1 id="过期键删除策略"><a href="#过期键删除策略" class="headerlink" title="过期键删除策略"></a>过期键删除策略</h1><p>定期删除+惰性删除。</p>
 <ul>
 <li>定期删除：每100ms随机抽取一些设置了过期时间的key，检查其是否过期，如果过期就删除。</li>
 <li>惰性删除：尝试访问一个已过期但还没被删除的key时，redis会把该数据删除掉。</li>
+</ul>
+<h3 id="主从复制下的过期键"><a href="#主从复制下的过期键" class="headerlink" title="主从复制下的过期键"></a>主从复制下的过期键</h3><ul>
+<li>主服务器在删除一个过期键之后，会向所有从服务器发送一个DEL命令。</li>
+<li>从服务器<strong>只有在接到主服务器发来的DEL命令时才会删除过期键</strong>。在执行客户端发送的请求时，不会考虑键是否已经过期。</li>
 </ul>
 <h1 id="内存淘汰策略"><a href="#内存淘汰策略" class="headerlink" title="内存淘汰策略"></a>内存淘汰策略</h1><ul>
 <li>volatile-lru：从已设置过期时间的数据中挑选<strong>最近最少使用</strong>的数据淘汰。</li>
@@ -2407,22 +2474,192 @@ log(精华分+评论分\times10+点赞数\times2+收藏数\times2)+(发布时间
 <li>allkeys-random：从所有数据中<strong>随机选择</strong>数据淘汰。</li>
 <li>no-eviction：<strong>不淘汰数据</strong>，内存不足以容纳新写入数据时报错。</li>
 </ul>
-<h1 id="持久化机制"><a href="#持久化机制" class="headerlink" title="持久化机制"></a>持久化机制</h1><h2 id="快照持久化RDB"><a href="#快照持久化RDB" class="headerlink" title="快照持久化RDB"></a>快照持久化RDB</h2><p>在某个时间点创建内存数据的快照，保存在原地或者其他服务器结点上。</p>
-<p>每次进行快照持久化时，开启一个子进程进行全量备份，备份期间的数据变化不会被保存，可能丢失数据。</p>
-<p>适合于定时文件备份和灾难恢复，恢复大数据集时比AOF快。</p>
+<h1 id="持久化机制"><a href="#持久化机制" class="headerlink" title="持久化机制"></a>持久化机制</h1><p>若服务器在启动时优先检测是否开启AOF持久化，若没有则检测RDB文件并自动载入RDB文件。</p>
+<h2 id="快照持久化RDB"><a href="#快照持久化RDB" class="headerlink" title="快照持久化RDB"></a>快照持久化RDB</h2><p>适合于定时文件备份和灾难恢复，恢复大数据集时比AOF快。但由于是全量备份，因此备份需要花费较多的时间，且不会记录备份期间的数据变化。</p>
+<h3 id="SAVE和BGSAVE"><a href="#SAVE和BGSAVE" class="headerlink" title="SAVE和BGSAVE"></a>SAVE和BGSAVE</h3><ul>
+<li><p>SAVE：save会阻塞Redis服务器进程，直到RDB文件创建完毕，期间无法执行其他命令。</p>
+</li>
+<li><p>BGSAVE：bgsave会派生出一个子进程（fork()方法），然后由子进程负责创建RDB文件。在bgsave执行期间，会拒绝其他的save和bgsave命令。</p>
+<p>以下命令每100ms检查是否满足保存条件，满足时执行<strong>BGSAVE</strong>命令。</p>
 <ul>
-<li>save 900 1：在15分钟后，至少1个key发生变化，创建快照。</li>
-<li>save 300 10：在5分钟后，至少10个key发生变化，创建快照。</li>
-<li>save 60 10000：在1分钟后，至少10000个key发生变化，创建快照。</li>
+<li>save 900 1：在15分钟内，至少1个key发生变化，创建快照。</li>
+<li>save 300 10：在5分钟内，至少10个key发生变化，创建快照。</li>
+<li>save 60 10000：在1分钟内，至少10000个key发生变化，创建快照。</li>
 </ul>
-<h2 id="只追加文件AOF"><a href="#只追加文件AOF" class="headerlink" title="只追加文件AOF"></a>只追加文件AOF</h2><p>每执行一条写命令时，Redis将该命令写入硬盘中的AOF文件。</p>
-<p>恢复速度比RDB慢，通常比快照文件大。</p>
-<p>丢失数据较少，比如设置每秒钟记录一次时，最多丢失一秒钟的数据。备份速度比较快。</p>
+</li>
+</ul>
+<h3 id="RDB过期键处理"><a href="#RDB过期键处理" class="headerlink" title="RDB过期键处理"></a>RDB过期键处理</h3><ul>
+<li>生成RDB文件时，只保存未过期键。</li>
+<li>主服务器载入RDB文件时，只读取未过期键；从服务器则会读取所有键。</li>
+</ul>
+<h2 id="只追加文件AOF"><a href="#只追加文件AOF" class="headerlink" title="只追加文件AOF"></a>只追加文件AOF</h2><p>恢复速度比RDB慢，通常比快照文件大。但是备份的实时性较好。</p>
+<h3 id="备份步骤"><a href="#备份步骤" class="headerlink" title="备份步骤"></a>备份步骤</h3><ol>
+<li><p><strong>命令追加：</strong>服务器执行一个写命令，并将该命令追加到服务器状态的aof_buf缓冲区。</p>
+</li>
+<li><p><strong>文件写入和同步：</strong>在事件循环结束之前会根据以下配置决定AOF文件同步方式。</p>
+</li>
+</ol>
 <ul>
-<li>appendfsync always：每次有数据修改时都会写入AOF文件，会严重降低Redis的速度。</li>
-<li>appendfsync everysec：每秒钟同步一次。</li>
-<li>appendfsync no：让操作系统决定何时进行同步。</li>
+<li><p>appendfsync always：将缓冲区所有内容写入并<strong>立即同步</strong>AOF文件。效率最慢，但是最安全。</p>
+</li>
+<li><p>appendfsync everysec：将缓冲区所有内容写入AOF文件，<strong>每秒钟同步</strong>一次。默认选项。</p>
+</li>
+<li><p>appendfsync no：将缓冲区所有内容写入AOF文件，让<strong>操作系统决定何时进行同步</strong>。效率最快，但是出现故障停机时，操作系统没有来得及写入到文件的缓冲区部分会丢失。</p>
+</li>
 </ul>
+<p>说明：在操作系统中，当用户调研write()函数时，操作系统通常会将写入数据暂时<strong>保存在一个内存缓冲区</strong>中，可以通过fsync和fdatasync两个<strong>同步函数</strong>强制让操作系统立即将缓冲区中的数据写入到硬盘，保证安全性。</p>
+<h3 id="AOF载入"><a href="#AOF载入" class="headerlink" title="AOF载入"></a>AOF载入</h3><p>由于Redis命令只能在客户端上下文中执行，因此在载入AOF文件时，会创建一个不带网络连接的<strong>伪客户端</strong>来执行逐行读取AOF文件中的命令并执行。</p>
+<h3 id="AOF重写"><a href="#AOF重写" class="headerlink" title="AOF重写"></a>AOF重写</h3><p>AOF文件会随着时间越来越大，因此需要对AOF文件进行重写来减少一些冗余的命令。首先从数据库中读取键现在的值，然后用一条命令去记录键值对，代替之前记录这个键值对的多条命令。</p>
+<p>AOF重写是在子进程中执行的，Redis服务器会将AOF重写期间执行的命令同时发送到<strong>AOF缓冲区和AOF重写缓冲</strong>区。当子进程完成重写任务后，父进程会将AOF重写缓冲区里的所有内容写入新AOF文件中，然后原子地覆盖原本的AOF文件。</p>
+<h3 id="AOF过期键处理"><a href="#AOF过期键处理" class="headerlink" title="AOF过期键处理"></a>AOF过期键处理</h3><p>当过期键被惰性删除或者定期删除时，Redis会向AOF文件中追加一条DEL命令来显式地记录该键已被删除。</p>
+<h1 id="主从复制"><a href="#主从复制" class="headerlink" title="主从复制"></a>主从复制</h1><p>Redis的主从复制分为同步和命令传播两个操作：</p>
+<ul>
+<li><strong>同步：</strong>更新从服务器的数据库状态与主服务器一致</li>
+<li><strong>命令传播：</strong>主服务器的数据库状态变化时，需要将这些命令同步给从服务器。</li>
+</ul>
+<p>当从服务器初次对主服务器进行复制时，主服务器会将自己的运行ID传送给从服务器保存，以便从服务器断线后进行主服务器确认。</p>
+<h2 id="完整重同步"><a href="#完整重同步" class="headerlink" title="完整重同步"></a>完整重同步</h2><p><img src="/images/Redis/image-20200924000325035.png" alt="image-20200924000325035"></p>
+<p>当客户端向从服务器发送SLAVEOF命令时，从服务器需要执行同步操作。</p>
+<ol>
+<li>从服务器向主服务器发送<code>PSYNC ? -1</code>（2.8之前为SYNC）命令。</li>
+<li>主服务器收到PSYNC后执行BGSAVE生成一个RDB文件，并将期间执行的所有写命令记录在一个缓冲区中。</li>
+<li>主服务器将生成好的RDB文件发送给从服务器，从服务器接收并载入RDB文件。</li>
+<li>主服务器将缓冲区中的写命令发送给从服务器，从服务器执行这些写命令。</li>
+</ol>
+<h2 id="部分重同步"><a href="#部分重同步" class="headerlink" title="部分重同步"></a>部分重同步</h2><p><img src="/images/Redis/image-20200924001048756.png" alt="image-20200924001048756"></p>
+<p>部分重同步用于处理从服务器断线后重复制的情况。</p>
+<ul>
+<li><strong>复制偏移量</strong>：主服务器向从服务器发送N个字节的数据时，将自己的复制偏移量加N。从服务器收到主服务器发送的N个字节的数据时，将自己的复制偏移量加N。</li>
+<li><strong>复制积压缓冲区</strong>：是主服务器维护的一个固定长度先进先出队列，默认为1MB。主服务器进行命令传播时，不仅会将写命令发送给从服务器，还会写入到复制积压缓冲区中。</li>
+</ul>
+<p>当从服务器断线重连时，会向服务器发送<code>PSYNC 主服务器ID 从服务器复制偏移量</code>，若从服务器与主服务器的复制偏移量之差小于复制积压缓冲区的大小，则主服务器执行部分重同步，只发送断线期间缺失的数据。否则主服务器执行完整重同步。</p>
+<h2 id="命令传播"><a href="#命令传播" class="headerlink" title="命令传播"></a>命令传播</h2><p>完成同步后，主从服务器就会进入命令传播阶段，当客户端向主服务器发送新的写命令时，主服务器会将这些写命令发送给从服务器执行。</p>
+<h3 id="心跳检测"><a href="#心跳检测" class="headerlink" title="心跳检测"></a>心跳检测</h3><p>在命令传播阶段，从服务器默认以每秒一次的频率向主服务器发送命令<code>REPLCONF ACK 复制偏移量</code>。其作用为：</p>
+<ul>
+<li>检测主从服务器的网络连接状态。</li>
+<li>辅助实现min-salves选项，如可以设置在检测到从服务器数量少于3个，或者3个从服务器的延迟都大于等于10s时，可能处于不安全状态，主服务器拒绝执行写命令。</li>
+<li>检测命令丢失。</li>
+</ul>
+<h1 id="哨兵-Sentinel-模式"><a href="#哨兵-Sentinel-模式" class="headerlink" title="哨兵(Sentinel)模式"></a>哨兵(Sentinel)模式</h1><p>哨兵模式是Redis集群的<strong>高可用性</strong>的解决方案：由一个或多个哨兵实例组成的哨兵系统可以监视主服务器及其所有从服务器，并在监视到主服务器进入下线状态时，自动地将某个从服务器升级为新的主服务器。</p>
+<h2 id="启动并初始化Sentinel"><a href="#启动并初始化Sentinel" class="headerlink" title="启动并初始化Sentinel"></a>启动并初始化Sentinel</h2><p>Sentinel本质上是一个运行在特殊模式下的Redis服务器。</p>
+<ol>
+<li>初始化服务器。</li>
+<li>将普通Redis服务器代码替换为Sentinel专用代码。</li>
+<li>初始化Sentinel状态：根据配置文件初始化监听的主服务器列表。</li>
+<li>创建与主服务器的网络连接：成为主服务器的客户端，包括<strong>一个命令连接和一个订阅连接</strong>：<ul>
+<li>命令连接：用于向主服务器发送命令并接收回复。</li>
+<li>订阅连接：用于订阅主服务器的__sentinel__:hello频道，防止丢失信息。</li>
+</ul>
+</li>
+</ol>
+<h2 id="获取服务器信息"><a href="#获取服务器信息" class="headerlink" title="获取服务器信息"></a>获取服务器信息</h2><p>Sentinel默认每10秒向被监听服务器发送<strong>INFO命令</strong>来获取服务器状态，通过分析INFO命令回复，Sentinel可以获取到被监听服务器信息（服务器ID，角色，IP地址，复制偏移量等），然后Sentinel根据信息服务器的实例结构。</p>
+<p>如果主服务器返回的信息中存在<strong>新的从服务器</strong>，则会创建与新从服务器的<strong>命令连接和订阅连接</strong>。</p>
+<h2 id="向服务器发送频道信息"><a href="#向服务器发送频道信息" class="headerlink" title="向服务器发送频道信息"></a>向服务器发送频道信息</h2><p>Sentinel默认每2秒向被监听服务器发送命令<code>PUBLISH __sentinel__: hello sentinel信息 主服务器或从服务器正在复制的主服务器的信息</code>。</p>
+<h2 id="接收来自服务器频道信息"><a href="#接收来自服务器频道信息" class="headerlink" title="接收来自服务器频道信息"></a>接收来自服务器频道信息</h2><p>当Sentinel与一个服务器建立订阅连接后，会向服务器发送命令<code>SUBSCRIBE __sentinel__:hello</code>，对于监视同一个服务器的多个Sentinel，<strong>一个Sentinel发送的信息也会被其他Sentinel接收到</strong>，并被用于更新对应主服务器的实例结构。</p>
+<p>当一个Sentinel接收到其他Sentinel的消息时，会从中提取出源Sentinel和主服务器的相关参数并进行更新。</p>
+<p>若源Sentinel是一个<strong>新的Sentinel</strong>，则会创建与新Sentinel的<strong>命令连接</strong>，而新Sentinel也会创建一个连向当前Sentinel的<strong>命令连接</strong>。</p>
+<h2 id="检查主观下线状态"><a href="#检查主观下线状态" class="headerlink" title="检查主观下线状态"></a>检查主观下线状态</h2><p>Sentinel默认会每秒向其他创建了命令连接的服务器，Sentinel发送PING命令，并通过实例返回的PING命令回复来判断实例是否在线。</p>
+<p>若实例在<strong>down-after-milliseconds</strong>（Sentinel的配置文件中）毫秒内连续返回无效回复，当前Sentinel则判定此实例已主观下线。</p>
+<ul>
+<li>有效回复：+PONG、-LOADING、-MASTERDOWN。</li>
+<li>无效回复：除有效回复之外的回复或在指定时间内没有回复。</li>
+</ul>
+<h2 id="检查客观下线状态"><a href="#检查客观下线状态" class="headerlink" title="检查客观下线状态"></a>检查客观下线状态</h2><p>当Sentinel发送命令<code>SENTINEL is-master-down-by-addr &lt;ip&gt; &lt;port&gt; &lt;current_epoch&gt; &lt;runid&gt;</code>从其他Sentinel询问到足够数量的主观下线判定后，会将该服务器判定为客观下线。</p>
+<h2 id="选举领头Sentinel"><a href="#选举领头Sentinel" class="headerlink" title="选举领头Sentinel"></a>选举领头Sentinel</h2><p>当一个主服务器被判定为客观下线时，监视该主服务器的所有Sentinel会协商选举一个领头Sentinel，然后由领头Sentinel对下线主服务器进行故障转移操作。</p>
+<p>每个发现主服务器进入客观下线的Sentinel都会向其他Sentinel发送命令要求对方将自己设置为局部领头Sentinel，在一个配置纪元中，每个Sentinel都有一次将某个Sentinel设置为局部领头Sentinel的机会，而每个Sentinel会设置命令最早到达的Sentinel为局部领头Sentinel。</p>
+<p>若某个Sentinel被半数以上的Sentinel设置为局部领头Sentinel，那么这个Sentinel成为领头Sentinel。若在给定时限内没有产生Sentinel，那么会在一段时间后再次进行选举，直到选出领头Sentinel为止。</p>
+<h2 id="故障转移"><a href="#故障转移" class="headerlink" title="故障转移"></a>故障转移</h2><p>领头Sentinel对已下线的主服务器执行故障转移操作包括三个步骤：</p>
+<ol>
+<li><p>在已下线主服务器的从服务器中挑选一个<strong>状态良好、数据完整</strong>的从服务器作为新的主服务器。</p>
+<ol>
+<li><p>排除处于下线或断线的从服务器。</p>
+</li>
+<li><p>排除最近5秒没有回复过领头Sentinel的INFO命令的从服务器。</p>
+</li>
+<li><p>排除与旧主服务器连接断开超过down-after-milliseconds * 10毫米的从服务器。</p>
+</li>
+<li><p>选择优先级最高的服务器。</p>
+</li>
+<li><p>选择复制偏移量最大的服务器。</p>
+</li>
+<li>选择运行ID最小的服务器。</li>
+</ol>
+</li>
+<li><p>让其他从服务器复制新主服务器。</p>
+</li>
+<li><p>将旧主服务器设置为新主服务器的从服务器。</p>
+</li>
+</ol>
+<h1 id="集群"><a href="#集群" class="headerlink" title="集群"></a>集群</h1><h2 id="CLUSTER-MEET命令"><a href="#CLUSTER-MEET命令" class="headerlink" title="CLUSTER MEET命令"></a>CLUSTER MEET命令</h2><p>握手成功时，将ip和port指定的节点加入到当前节点所在的集群中，握手过程：</p>
+<p><img src="/images/Redis/image-20200924232022113.png" alt="image-20200924232022113"></p>
+<h2 id="槽指派"><a href="#槽指派" class="headerlink" title="槽指派"></a>槽指派</h2><p><strong>集群的整个数据库被分为16384（2^14）个槽（slot）</strong>，数据库中的每个键都属于其中某一个slot，当所有slot都有结点负责处理时，集群处于上线状态，否则处于下线状态（fail）。</p>
+<ul>
+<li>节点结构中的clusterNode.slots是一个16384位的二进制数组，记录了结点负责处理哪些slot。</li>
+<li>集群状态结构中的clusterState.slots是一个节点链表，记录了集群中16384个slot分别分配给了哪个节点。</li>
+</ul>
+<h2 id="集群命令执行过程"><a href="#集群命令执行过程" class="headerlink" title="集群命令执行过程"></a>集群命令执行过程</h2><p>当客户端向节点发送与某个键相关的命令时，节点得到键所属的slot，若该slot指派给了当前结点，则直接执行该命令，否则会向客户端返回一个<code>MOVED &lt;slot&gt; &lt;ip&gt;:&lt;port&gt;</code>错误，指引客户端redirect到正确的结点，并再次发送命令。</p>
+<p><img src="/images/Redis/image-20200924233646774.png" alt="image-20200924233646774"></p>
+<h2 id="键所属slot的计算与存储"><a href="#键所属slot的计算与存储" class="headerlink" title="键所属slot的计算与存储"></a>键所属slot的计算与存储</h2><p>键所属的slot根据<code>CRC16(key) &amp; (16384 - 1)</code>进行计算，其中CRC16(key)用于计算键的CRC-16校验和。</p>
+<p>节点会用clusterState.slots_to_keys来保存slot和键之间的关系，<strong>跳跃表</strong>的<strong>score为slot号，member为键</strong>。</p>
+<h2 id="重新分片"><a href="#重新分片" class="headerlink" title="重新分片"></a>重新分片</h2><p>将任意数量已经指派的slot重新指派给另一个节点，并且slot相关的键值对数据也会移动过去。</p>
+<p>重新分片是由Redis集群管理软件redis-trib负责执行的，对单个slot重新分片的步骤如下：</p>
+<p><img src="/images/Redis/image-20200925000826229.png" alt="image-20200925000826229"></p>
+<ol>
+<li>redis-trib向目标节点发送命令<code>CLUSTER SETSLOT &lt;slot&gt; IMPORTING &lt;source_id&gt;</code>，让目标节点准备接受slot相关的键值对。</li>
+<li>redis-trib向源节点发送命令<code>CLUSTER SETSLOT &lt;slot&gt; MIGRATING &lt;target_id&gt;</code>，让源节点准备将slot相关的键值对迁移到目标节点。</li>
+<li>redis-trib向源节点发送命令<code>CLUSTER GETKEYSINSLOT &lt;slot&gt; &lt;count&gt;</code>，获得最多count个属于slot的键名。</li>
+<li>对于步骤3获得的每个键名，redis-trib都向源节点发送命令<code>MIGRATE &lt;target_ip&gt; &lt;target_port&gt; &lt;key_name&gt; 0 &lt;timeout&gt;</code>，原子性地迁移键的数据。</li>
+<li>重复执行步骤3、4直到所有属于slot的键值对都迁移完毕。</li>
+<li>redis-trib向集群中的任意一个节点发送命令<code>CLUSTER SETSLOT &lt;slot&gt; NODE &lt;target_id&gt;</code>，最终所有节点都会知道slot已经被指派给了目标节点。</li>
+</ol>
+<p>如果在重新分片期间，客户端需要访问一个属于正在迁移的slot的键，那么源节点首先在自己的数据库中进行查找，若没有找到，则返回一个<code>ASK &lt;slot&gt; &lt;ip&gt;:&lt;port&gt;</code>，指引客户端redirect到目标阶段执行命令。</p>
+<h2 id="复制与故障转移"><a href="#复制与故障转移" class="headerlink" title="复制与故障转移"></a>复制与故障转移</h2><p>Redis集群的节点分为主节点和从节点，其中主节点用于处理slot，从节点用于复制某个主节点，并在复制的主节点下线时，代替下线主节点继续处理命令请求。</p>
+<h3 id="设置从节点"><a href="#设置从节点" class="headerlink" title="设置从节点"></a>设置从节点</h3><p>命令<code>CLUSTER REPLICATE &lt;node_id&gt;</code>可以让当前结点称为node_id的从节点，并开始对主节点进行复制（相当于执行SLAVEOF命令）。</p>
+<h3 id="故障检测"><a href="#故障检测" class="headerlink" title="故障检测"></a>故障检测</h3><p>集群中的每个节点会定期向其他节点发送<strong>PING消息</strong>，若某个节点没有在规定时间内返回PONG消息，则标记该节点为疑似下线（PFAIL），节点之间会通过相互发送消息的方式获取其他节点的状态信息，当半数以上负责处理slot的主节点都将某个主节点标记为疑似下线时，那么该节点将被标记为已下线（FAIL），并立即通知其他节点。</p>
+<h3 id="故障转移-1"><a href="#故障转移-1" class="headerlink" title="故障转移"></a>故障转移</h3><p>当一个从节点发现自己复制的主节点已下线时，开始对主节点进行故障转移：</p>
+<ol>
+<li><p>选举一个从节点执行命令<code>SLAVEOF on one</code>，成为新的主节点。<strong>选举方式</strong>（与领头Sentinel选举基本一致）：</p>
+<p>每个发现主节点已下线的从节点都会向集群广播一条命令，<strong>第一次</strong>收到该命令且<strong>正在负责处理slot的主节点</strong>会返回一条投票消息，若某个从节点收到的返回消息数量大于<strong>正在负责处理slot的主节点数量</strong>的一半时，该节点成为新主节点。</p>
+<p>若在一个配置纪元里没有成功选举出一个新主节点，那么集群进入一个新的配置纪元再次进行选举。</p>
+</li>
+<li><p>新主节点撤销已下线主节点的所有slot指派，并将这些slot指派给自己。</p>
+</li>
+<li><p>新主节点向集群广播一条PONG消息，通知其他节点自己是新主节点。</p>
+</li>
+<li><p>新主节点开始接收和负责处理slot相关请求，故障转移完成。</p>
+</li>
+</ol>
+<h1 id="发布与订阅"><a href="#发布与订阅" class="headerlink" title="发布与订阅"></a>发布与订阅</h1><h2 id="订阅与退订"><a href="#订阅与退订" class="headerlink" title="订阅与退订"></a>订阅与退订</h2><p>Redis将所有频道的订阅关系保存在服务器状态的<strong>pubsub_channels字典</strong>中，键是频道，值是订阅该频道的客户端链表。</p>
+<h3 id="SUBSCRIBE"><a href="#SUBSCRIBE" class="headerlink" title="SUBSCRIBE"></a>SUBSCRIBE</h3><p>当客户端执行SUBSCRIBE命令订阅某个频道时，若该频道已存在，则将客户端加入到对应链表尾部，否则在字典中添加一个新频道，并将客户端加入到对应链表。</p>
+<h3 id="UNSUBSCRIBE"><a href="#UNSUBSCRIBE" class="headerlink" title="UNSUBSCRIBE"></a>UNSUBSCRIBE</h3><p>当客户端执行UNSUBSCRIBE命令退订某个频道时，服务器会从对应链表中删除该客户端节点，若删除后为空链表，则将频道对应的键也从字典中删除。</p>
+<h2 id="模式订阅与退订"><a href="#模式订阅与退订" class="headerlink" title="模式订阅与退订"></a>模式订阅与退订</h2><p>模式订阅可以通过模式匹配来定义满足该模式的所有频道，如<code>PSUBSCRIBE &quot;news.*&quot;</code>。</p>
+<p>模式的订阅关系都被保存在服务器状态的<strong>pubsub_patterns链表</strong>里面，链表的每个节点记录了被订阅的模式和客户端。PSUBSCRIBE和PUNSUBSCRIBE命令分别添加和删除一个结点。</p>
+<h2 id="发送消息"><a href="#发送消息" class="headerlink" title="发送消息"></a>发送消息</h2><p>命令<code>PUBLISH &lt;channel&gt; &lt;message&gt;</code>将消息message发送给频道channel。</p>
+<p>Redis服务器首先将消息发送给<strong>pubsub_channels字典</strong>中频道channel对应的所有订阅者，然后遍历<strong>pubsub_patterns链表</strong>，当遇到与channel频道相匹配的模式时，将消息发送给对应客户端。</p>
+<h1 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h1><p>事务开始：<code>MULTI</code>命令。</p>
+<p>命令入队：每个Redis客户端都有自己的事务状态，其中的事务队列来保存事务期间的多条命令。</p>
+<p>事务执行：<code>EXEC</code>命令开始执行事务，服务器会遍历客户端的事务队列，执行队列中的所有命令，最后将结果返回给客户端。</p>
+<h2 id="WATCH命令"><a href="#WATCH命令" class="headerlink" title="WATCH命令"></a>WATCH命令</h2><p><strong>WATCH命令是一个乐观锁</strong>，可以在EXEC命令执行之前调用来监视一些键的变化。</p>
+<p>若在EXEC执行时，被WATCH监视的键发生了修改，服务器则拒绝执行事务，并向客户端返回空回复（nil）。</p>
+<h3 id="WATCH原理"><a href="#WATCH原理" class="headerlink" title="WATCH原理"></a>WATCH原理</h3><p>Redis数据库中保存着一个<strong>watched_keys字典</strong>，该字典的键是被WATCH命令监视的键，值是监视该键的客户端链表。</p>
+<p>对于SET、LPUSH、SADD、ZREM、DEL等会对数据库进行修改的命令，在执行之后会检查watched_keys字典是否存在刚刚操作的键，若存在，则打开将该键对应链表中的客户端的<strong>REDIS_DIRTY_CAS标识</strong>。而在EXEC执行时，服务器会根据客户端的REDIS_DIRTY_CAS状态来决定是否执行事务。</p>
+<h2 id="Redis中事务的性质"><a href="#Redis中事务的性质" class="headerlink" title="Redis中事务的性质"></a>Redis中事务的性质</h2><p>在Redis中，事务总是满足<strong>原子性，一致性和隔离性</strong>的，并且当Redis开启持久化模式时，也满足<strong>持久性</strong>。</p>
+<h3 id="原子性"><a href="#原子性" class="headerlink" title="原子性"></a>原子性</h3><p>Redis事务队列中的命令要么全部执行，要么一个都不执行。但是Redis不支持事务回滚，即使事务队列中某个命令执行出现了错误，整个事务也会继续执行下去。</p>
+<h3 id="一致性"><a href="#一致性" class="headerlink" title="一致性"></a>一致性</h3><p>Redis通过错误检测和一些设计来保证食物的一致性。</p>
+<p><strong>入队错误：</strong>如果一个事务在命令入队时出现了命令不存在或命令格式错误的情况，Redis会拒绝执行该事务。</p>
+<p><strong>执行错误：</strong>执行错误是一些不能在入队时被检查出来的错误。若事务在执行过程中发生了错误，服务器不会中断事务的执行。</p>
+<p><strong>服务器停机：</strong>若Redis在执行事务的过程中停机，服务器要么无持久化机制，重启之后为空白数据库，要么根据RDB或者AOF文件恢复数据。</p>
+<h3 id="隔离性"><a href="#隔离性" class="headerlink" title="隔离性"></a>隔离性</h3><p>Redis使用单线程模式来执行事务，因此Redis的隔离级别总是串行化的。</p>
+<h3 id="持久性"><a href="#持久性" class="headerlink" title="持久性"></a>持久性</h3><p>Redis只是简单的用队列包裹了一组Redis命令，没有为事务提供额外的持久化机制，因此Redis的持久性由Redis的持久化模式决定。</p>
+<p>若Redis运行在无持久化、RDB持久化、AOF持久化（appendfsync值为everysec）下，事务不具有持久性。</p>
+<p>若Redis运行在<strong>AOF持久化且appendfsync值为always</strong>，事务具有持久性。</p>
+<p>或者在<strong>事务的最后，EXEC之前加上SAVE</strong>命令，可以保证事务的持久性。</p>
+<h1 id="Lua脚本"><a href="#Lua脚本" class="headerlink" title="Lua脚本"></a>Lua脚本</h1><p>Redis在服务器嵌入Lua环境，客户端可以使用Lua脚本直接在服务器端原子地执行多个Redis命令。</p>
+<h1 id="慢查询日志"><a href="#慢查询日志" class="headerlink" title="慢查询日志"></a>慢查询日志</h1><ul>
+<li>slowlog-log-slower-than：执行时间超过指定微秒的命令会记录在日志上。</li>
+<li>slowlog-max-len：最多保存多少条慢查询日志，<strong>链表保存，先进先出</strong>。</li>
+</ul>
+<h1 id="监视器"><a href="#监视器" class="headerlink" title="监视器"></a>监视器</h1><p>通过执行MONITOR命令，客户端可以将自己变为一个监视器。每当一个客户端向服务器发送一条命令时，服务器除了会处理命令之外，还会将命令信息发给monitors链表中的所有监视器。</p>
 <h1 id="缓存问题"><a href="#缓存问题" class="headerlink" title="缓存问题"></a>缓存问题</h1><h2 id="缓存和数据库一致性问题"><a href="#缓存和数据库一致性问题" class="headerlink" title="缓存和数据库一致性问题"></a>缓存和数据库一致性问题</h2><p>使用缓存只能通过合适的策略来降低缓存和数据库之间不一致的概率，无法保证两者间的强一致性。</p>
 <p><a href="https://github.com/doocs/advanced-java/blob/master/docs/high-concurrency/redis-consistence.md" target="_blank" rel="noopener">https://github.com/doocs/advanced-java/blob/master/docs/high-concurrency/redis-consistence.md</a></p>
 <h2 id="缓存击穿"><a href="#缓存击穿" class="headerlink" title="缓存击穿"></a>缓存击穿</h2><p>指对于会被高并发访问的若干个热点数据，在这个数据失效的瞬间，这些高并发访问直接落到了数据库上。</p>
@@ -2453,17 +2690,6 @@ log(精华分+评论分\times10+点赞数\times2+收藏数\times2)+(发布时间
 <li><p>缓存无效key：查询数据库中也没用的数据时，返回一个key-null缓存到Redis中，并设置一个较短过期时间。</p>
 </li>
 </ul>
-<h1 id="主从复制"><a href="#主从复制" class="headerlink" title="主从复制"></a>主从复制</h1><p>通常Redis主节点负责写操作，若干个从节点负责读操作。</p>
-<p>全量复制：</p>
-<ol>
-<li>主节点发送RDB文件给从节点。RDB文件传输期间，新的写命令放入缓冲区。</li>
-<li>从节点清理自己的数据库数据，接受RDB文件并保存在数据库中。</li>
-<li>通过部分复制将缓冲区的数据发送给从节点。</li>
-</ol>
-<p>部分复制：</p>
-<p>在从节点复制主节点时，如果发生异常情况，主节点会将期间产生的新的写命令存入缓冲区等待恢复连接后进行部分复制。但如果恢复连接时缓冲区已经溢出，则进行全量复制。</p>
-<h1 id="哨兵模式"><a href="#哨兵模式" class="headerlink" title="哨兵模式"></a>哨兵模式</h1><p>哨兵模式是Redis集群的高可用性的解决方案：由一个或多个哨兵实例组成的哨兵系统可以监视主服务器及其所有从服务器，并在监视到主服务器进入下线状态时，自动地将某个从服务器升级为新的主服务器。</p>
-<p>哨兵会定期获取服务器的状态信息。</p>
 ]]></content>
       <categories>
         <category>数据库</category>
@@ -2756,7 +2982,7 @@ IP地址::={<网络号>,<子网号>,<主机号>}</script><p><img src="/images/%E
 </ol>
 <h1 id="HTTP——超文本传送协议"><a href="#HTTP——超文本传送协议" class="headerlink" title="HTTP——超文本传送协议"></a>HTTP——超文本传送协议</h1><p>HTTP协议是客户和服务器之间进行请求和应答的格式和规范。</p>
 <p>HTTP使用了TCP作为运输层协议，但是HTTP本身是<strong>无连接的</strong>，也就是说通信双方在交换HTTP报文之前不需要先建立HTTP连接。</p>
-<p>HTTP协议时<strong>无状态的</strong>，也就是说同一个客户第二次访问同一个服务器的页面时，服务器的响应与第一次访问相同。</p>
+<p>HTTP协议是<strong>无状态的</strong>，也就是说同一个客户第二次访问同一个服务器的页面时，服务器的响应与第一次访问相同。</p>
 <p><strong>在浏览器地址栏键入URL，按下回车之后会经历以下流程：</strong></p>
 <ol>
 <li>浏览器向本地DNS服务器请求解析该URL中的域名对应的IP地址。</li>
@@ -2804,7 +3030,7 @@ IP地址::={<网络号>,<子网号>,<主机号>}</script><p><img src="/images/%E
 <h2 id="Cookie被禁用了怎么办"><a href="#Cookie被禁用了怎么办" class="headerlink" title="Cookie被禁用了怎么办"></a>Cookie被禁用了怎么办</h2><p>直接把SessionID附加在URL路径后面。</p>
 <h2 id="HTTP-2-0的主要新特性"><a href="#HTTP-2-0的主要新特性" class="headerlink" title="HTTP 2.0的主要新特性"></a>HTTP 2.0的主要新特性</h2><ol>
 <li>新的二进制格式：HTTP 1.x基于文本解析，HTTP 2.0采用二进制格式。</li>
-<li>多路复用：连接共享，每个请求对应一个id，这样一个连接上可以有多个请求交错传输（避免TCP慢启动）。</li>
+<li>多路复用：一个TCP连接中会存在多个请求流，每个<strong>帧</strong>会标识出该帧属于哪个流，接收方根据流标识符重新组装请求流。</li>
 <li>header压缩</li>
 <li>服务器推送</li>
 </ol>
@@ -3204,6 +3430,73 @@ n = n &amp; (n - 1);
       </categories>
       <tags>
         <tag>面试</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>分布式相关知识点</title>
+    <url>/2020/07/25/%E5%88%86%E5%B8%83%E5%BC%8F%E7%9B%B8%E5%85%B3/</url>
+    <content><![CDATA[<p>记录分布式相关知识点。</p>
+<a id="more"></a>
+<h1 id="分布式锁"><a href="#分布式锁" class="headerlink" title="分布式锁"></a>分布式锁</h1><p><a href="https://blog.csdn.net/huyaowei789/article/details/87873977" target="_blank" rel="noopener">https://blog.csdn.net/huyaowei789/article/details/87873977</a></p>
+<p>任何一个分布式系统都无法同时满足<strong>CAP</strong>，最多只能同时满足两项：</p>
+<ul>
+<li>一致性（Consistency）：所有用户看到一致的数据。</li>
+<li>可用性（Availability）：非故障的结点在合理的时间内返回合理的响应。</li>
+<li>分区容错性（Partition tolerance）：容忍网络中断。</li>
+</ul>
+<h2 id="数据库实现分布式锁"><a href="#数据库实现分布式锁" class="headerlink" title="数据库实现分布式锁"></a>数据库实现分布式锁</h2><h3 id="基于数据库表实现"><a href="#基于数据库表实现" class="headerlink" title="基于数据库表实现"></a>基于数据库表实现</h3><p>利用主键冲突实现，当一个结点执行某个方法前，尝试向数据库中插入一条数据（如<strong>以方法名为唯一索引</strong>的数据），若插入成功，表示当前没有其他节点在执行相同方法，在方法执行完毕删除该行数据。</p>
+<h3 id="基于数据库的排他锁实现"><a href="#基于数据库的排他锁实现" class="headerlink" title="基于数据库的排他锁实现"></a>基于数据库的排他锁实现</h3><p>在执行数据操作之前，使用<strong>for update</strong>查询为该数据加上排他锁，执行完数据操作后，通过commit释放所。</p>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><ul>
+<li><p>依赖于数据库的可用性，而数据库是一个单点，一旦数据库不可用，会导致整个业务不可用。数据库可以采用双机部署、主备切换。</p>
+</li>
+<li><p>没有锁失效机制，一旦解锁失败，就会导致其他线程无法获取锁。可以通过一个字段记录失效时间，并且需要定时任务清除失效的数据。</p>
+</li>
+<li><p>非重入的。可以增加字段记录锁的机器编号和线程编号。</p>
+</li>
+</ul>
+<h2 id="Redis实现分布式锁"><a href="#Redis实现分布式锁" class="headerlink" title="Redis实现分布式锁"></a>Redis实现分布式锁</h2><p>基于Redis的setnx()、expire()、getset()方法实现分布式锁。</p>
+<ul>
+<li>setnx(key, value)：setnx的含义是set if not exist，该方法具有原子性。通常key为锁名，value为超时时间。如果key不存在，则设置当前key成功，返回1。否则检查当前key是否过期，如果已过期，可以获得锁。</li>
+<li>expire(key, timeout)：在Redis中设置key的过期时间，防止某个程序崩溃了无法释放锁。</li>
+<li>getset(key, newValue)：该方法具有原子性，替换key的value为newValue并返回value。可以通过该方法实现锁的续时。</li>
+</ul>
+<h3 id="分析-1"><a href="#分析-1" class="headerlink" title="分析"></a>分析</h3><p>性能高，但是实现复杂，且需要自己根据需求配置超时时间。</p>
+<h2 id="Zookeeper实现分布式锁"><a href="#Zookeeper实现分布式锁" class="headerlink" title="Zookeeper实现分布式锁"></a>Zookeeper实现分布式锁</h2><h3 id="zk结点类型"><a href="#zk结点类型" class="headerlink" title="zk结点类型"></a>zk结点类型</h3><ul>
+<li><strong>持久结点：</strong>默认的结点类型，创建结点的客户与zk断开连接后，结点依然存在。</li>
+<li><p><strong>持久顺序结点：</strong>在创建结点时，zk根据创建的时间顺序给结点名称进行编号。</p>
+</li>
+<li><p><strong>临时结点：</strong>当创建结点的客户与zk断开连接后，临时结点会被删除。</p>
+</li>
+<li><strong>临时顺序结点：</strong>创建结点时，zk根据创建的时间顺序给结点名称进行编号。</li>
+</ul>
+<h3 id="锁过程"><a href="#锁过程" class="headerlink" title="锁过程"></a>锁过程</h3><p><strong>获取锁：</strong>在Zookeeper中创建一个持久结点Lock，当一个客户获取锁时，需要在Lock结点下创建一个临时顺序结点，若该临时顺序结点是最靠前的一个结点，则获取锁成功。否则向该结点的前一个结点注册<strong>Watcher</strong>来监听前一个结点的状态。</p>
+<p><strong>释放锁：</strong>当最靠前的结点任务完成或者崩溃时，该结点会被删除，后面一个结点会收到通知，并再次检查自己是否是当前最考前的结点，如果是则该节点获取到锁。</p>
+<h3 id="分析-2"><a href="#分析-2" class="headerlink" title="分析"></a>分析</h3><p>高可用，可重入，易实现。但是Zookeeper中只能通过leader结点创建和删除结点，因此创建结点（加锁）和删除结点（释放锁）的性能不如Redis。</p>
+<h1 id="分布式事务"><a href="#分布式事务" class="headerlink" title="分布式事务"></a>分布式事务</h1>]]></content>
+      <categories>
+        <category>面试</category>
+      </categories>
+      <tags>
+        <tag>面试</tag>
+        <tag>分布式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>秒杀系统</title>
+    <url>/2020/09/19/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/</url>
+    <content><![CDATA[<p>高并发秒杀系统实战。</p>
+<a id="more"></a>
+<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><h2 id="技术点"><a href="#技术点" class="headerlink" title="技术点"></a>技术点</h2><p><img src="../images/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/image-20200919233729150.png" alt="image-20200919233729150"></p>
+<h2 id="系统总览"><a href="#系统总览" class="headerlink" title="系统总览"></a>系统总览</h2><p><img src="../images/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/image-20200919233712253.png" alt="image-20200919233712253"></p>
+<h1 id="用户管理"><a href="#用户管理" class="headerlink" title="用户管理"></a>用户管理</h1><h2 id="两次MD5"><a href="#两次MD5" class="headerlink" title="两次MD5"></a>两次MD5</h2><p>用户端：MD5（明文+固定salt），防止明文密码在网络上传输。</p>
+<p>服务端：MD5（前端+随机salt），防止数据库异常被他人破解密码。</p>
+]]></content>
+      <categories>
+        <category>项目</category>
+      </categories>
+      <tags>
+        <tag>JAVA</tag>
+        <tag>项目</tag>
       </tags>
   </entry>
 </search>
