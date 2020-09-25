@@ -13,57 +13,119 @@ typora-root-url: ..
 
 <!--more-->
 
-# 常见面试题
+dao=data access object
 
-## MySQL
+# 数据库
 
-存储引擎、事务、锁、索引
+## user表
 
-![image-20200809213043517](/images/JAVA%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0/image-20200809213043517.png)
+```mysql
+CREATE TABLE `user` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `username` varchar(50) DEFAULT NULL,
+  `password` varchar(50) DEFAULT NULL,
+  `salt` varchar(50) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `type` int DEFAULT NULL COMMENT '0-普通用户; 1-超级管理员; 2-版主;',
+  `status` int DEFAULT NULL COMMENT '0-未激活; 1-已激活;',
+  `activation_code` varchar(100) DEFAULT NULL,
+  `header_url` varchar(200) DEFAULT NULL,
+  `create_time` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `index_username` (`username`(20)),
+  KEY `index_email` (`email`(20))
+) ENGINE=InnoDB AUTO_INCREMENT=158 DEFAULT CHARSET=utf8
+```
 
-![image-20200809213320099](/images/JAVA%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0/image-20200809213320099.png)
+## login_ticket表
 
-![image-20200809213504488](/images/JAVA%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0/image-20200809213504488.png)
+```mysql
+CREATE TABLE `login_ticket` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int NOT NULL,
+  `ticket` varchar(45) NOT NULL,
+  `status` int DEFAULT '0' COMMENT '0-有效; 1-无效;',
+  `expired` timestamp NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `index_ticket` (`ticket`(20))
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8
+```
 
-![image-20200809213808121](/images/JAVA%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0/image-20200809213808121.png)
+## discuss_post表
 
-![image-20200809215949478](/images/JAVA%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0/image-20200809215949478.png)
+```mysql
+CREATE TABLE `discuss_post` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` varchar(45) DEFAULT NULL,
+  `title` varchar(100) DEFAULT NULL,
+  `content` text,
+  `type` int DEFAULT NULL COMMENT '0-普通; 1-置顶;',
+  `status` int DEFAULT NULL COMMENT '0-正常; 1-精华; 2-拉黑;',
+  `create_time` timestamp NULL DEFAULT NULL,
+  `comment_count` int DEFAULT NULL,
+  `score` double DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `index_user_id` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=289 DEFAULT CHARSET=utf8
+```
 
-## Redis
+## comment表
 
-数据类型、过期策略、淘汰策略、缓存穿透、缓存击穿、缓存雪崩、分布式锁
+```mysql
+CREATE TABLE `comment` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int DEFAULT NULL,
+  `entity_type` int DEFAULT NULL,
+  `entity_id` int DEFAULT NULL,
+  `target_id` int DEFAULT NULL,
+  `content` text,
+  `status` int DEFAULT NULL,
+  `create_time` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `index_user_id` (`user_id`) /*!80000 INVISIBLE */,
+  KEY `index_entity_id` (`entity_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=249 DEFAULT CHARSET=utf8
+```
 
-![image-20200809220403384](/images/JAVA%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0/image-20200809220403384.png)
+## message表
 
-![image-20200809221108002](/images/JAVA%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0/image-20200809221108002.png)
+```mysql
+CREATE TABLE `message` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `from_id` int DEFAULT NULL,
+  `to_id` int DEFAULT NULL,
+  `conversation_id` varchar(45) NOT NULL,
+  `content` text,
+  `status` int DEFAULT NULL COMMENT '0-未读;1-已读;2-删除;',
+  `create_time` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `index_from_id` (`from_id`),
+  KEY `index_to_id` (`to_id`),
+  KEY `index_conversation_id` (`conversation_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=368 DEFAULT CHARSET=utf8
+```
 
-![image-20200809221233840](/images/JAVA%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0/image-20200809221233840.png)
+# Spring
 
-![image-20200809221928733](/images/JAVA%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0/image-20200809221928733.png)
+@Bean：修饰方法，该方法返回的对象会被装配到Bean容器中。
 
-![image-20200809224716221](/images/JAVA%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0/image-20200809224716221.png)
+## Bean的管理
 
-![image-20200809225055699](/images/JAVA%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0/image-20200809225055699.png)
+- @PostConstruct：修饰方法，在Bean的构造函数之后调用。
+- @PreDestroy：修饰方法，在Bean销毁之前调用。
 
-![image-20200809225404680](/images/JAVA%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0/image-20200809225404680.png)
+# HTTP请求
 
-![image-20200809225612734](/images/JAVA%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0/image-20200809225612734.png)
+第14节 SpringMVC入门
 
-![image-20200809230020652](/images/JAVA%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0/image-20200809230020652.png)
+## Get传递参数的方式
 
-![image-20200809230153491](/images/JAVA%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0/image-20200809230153491.png)
+- 在Url中通过?后接参数信息，如/student?id=1。这种方式可以通过`@RequestParam(name = "id", required = false, defaultValue = "1")`在服务器中对应的方法参数中获取。
+- 在url中传递参数，如/student/1，同时`@RequestMapping(path = "/student/{id}")`。这种方式可以通过`@PathVariable("id")`在服务器中对应的方法参数中获取。
 
-![image-20200809230505197](/images/JAVA%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0/image-20200809230505197.png)
+## Post传递参数的方式
 
-## Spring
-
-Spring IoC、Spring AOP、Spring MVC
-
-![image-20200809230723732](/images/JAVA%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0/image-20200809230723732.png)
-
-![image-20200809230911953](/images/JAVA%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0/image-20200809230911953.png)
-
-![image-20200809230939929](/images/JAVA%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0/image-20200809230939929.png)
+前端表单中的参数名与后台对应方法的参数名一致即可。
 
 # 拦截器
 

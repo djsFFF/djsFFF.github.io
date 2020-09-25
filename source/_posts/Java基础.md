@@ -77,10 +77,15 @@ typora-root-url: ..
 
 ## 异常
 
-![image-20200823112219462](../images/JAVA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94JAVA%E5%9F%BA%E7%A1%80/image-20200823112219462.png)
-
 - Error：程序无法处理的错误，通常是JVM出现的问题。
 - Exception：程序本身能够处理的错误，
+
+## finally块不会执行的情况
+
+- finally语句块第一行发生了异常。
+- 在前面的代码中执行`System.exit(int)`退出了程序。
+- 程序所在的线程死亡。
+- 关闭CPU。
 
 # Java集合
 

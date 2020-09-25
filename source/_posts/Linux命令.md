@@ -19,4 +19,3 @@ typora-root-url: ..
 - -p：--programs，显示进程名。
 - -n：--numeric，禁用域名解析功能，加快查询速度。
 - -l：--listening，显示正在监听的socket。
-
