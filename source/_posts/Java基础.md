@@ -14,11 +14,16 @@ typora-root-url: ..
 
 # Java基础
 
+## JRE与JDK
+
+- JRE：Java运行时环境，可以运行已编译的Java程序，包括JVM、Java类库、Java命令等。
+- JDK：JDK包含JRE，能够创建和编译程序。
+
 ## 面向对象特性
 
 - 封装：将对象的实现细节隐藏起来，通过公共的方法暴露对象的功能。
 - 继承：继承使子类能够获取父类中的非private修饰的成员。
-- 多态：继承，重写，向上转型。
+- 多态：程序中定义的引用变量的具体类型和通过该引用变量调用的方法在编程时是不确定的，而是在运行时才确定。继承，重写，向上转型。
 
 ## Java基本数据类型
 
@@ -32,6 +37,12 @@ typora-root-url: ..
 |          | double  | 8字节    |15-16位精度|
 | 字符     | char    | 2字节    |
 | 布尔类型 | boolean | 4字节    |
+
+## String、StringBuilder与StringBuffer
+
+- String：使用final修饰的char数组保存字符串，线程安全。
+- StringBuilder：没有使用final修饰，因此是可变的，线程不安全。
+- StringBuffer：与StringBuilder类似，但是使用了synchronized保证线程安全。
 
 ## 接口与抽象类的区别
 
@@ -78,7 +89,9 @@ typora-root-url: ..
 ## 异常
 
 - Error：程序无法处理的错误，通常是JVM出现的问题。
-- Exception：程序本身能够处理的错误，
+- Exception：程序本身能够处理的错误。
+
+![image-20201012130111575](/images/Java%E5%9F%BA%E7%A1%80/image-20201012130111575.png)
 
 ## finally块不会执行的情况
 
@@ -86,6 +99,30 @@ typora-root-url: ..
 - 在前面的代码中执行`System.exit(int)`退出了程序。
 - 程序所在的线程死亡。
 - 关闭CPU。
+
+## 内部类
+
+在编译时，每个内部类会生成一个独立的class文件。
+
+### 静态内部类
+
+static修饰内部类为静态内部类，可以通过`外部类名.静态内部类名`来创建。
+
+只能访问外部类的**静态**方法和变量。
+
+### 成员内部类
+
+成员内部类只能通过外部类的实例来创建。编译时，会将成员内部类单独编译成一个字节码文件，并添加一个外部类实例的final引用参数。
+
+成员内部类类似于**成员方法**，不能有static修饰的成员或方法。可以访问外部类的**所有**变量和方法，外部类需要创建一个内部类实例才能访问内部类的属性和方法。
+
+### 局部内部类
+
+局部内部类存在于方法中，只能在方法中访问该类，局部内部类中只能访问所在方法的final变量。
+
+### 匿名内部类
+
+匿名内部类必须实现一个接口或继承一个抽象类，且只能使用所在方法的final变量。
 
 # Java集合
 
@@ -130,6 +167,12 @@ ConcurrentHashMap是线程安全版HashMap，ConcurrentHashMap与HashTable的key
 实现java.lang.Comparable接口的类可以通过实现int compareTo(T o)进行两个类之间的比较。
 
 实现java.util.Comparator接口的类为比较器类，需要实现int compare(T o1, T o2)，Arrays.sort()等方法可以通过传递一个比较器类实例来自定义比较规则。
+
+## LinkedHashMap 与TreeMap 
+
+LinkedHashMap在HashMap的基础上使用一个双向循环链表记录顺序，根据元素的添加或访问顺序进行排序。
+
+ TreeMap基于红黑树实现，根据元素的 Key 进行排序，也可以自定义比较器。
 
 # 多线程
 
@@ -209,3 +252,7 @@ public Future<?> submit(Runnable task) {
 - Eden区满的时候。
 - Young GC时，空间分配担保触发FullGC。
 - 分配大对象，没有足够的连续空间。
+
+# 软件开发流程
+
+需求分析，概要设计，详细设计，编码，测试，软件交付，验收，维护。

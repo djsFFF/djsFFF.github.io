@@ -71,13 +71,19 @@ CREATE TABLE `discuss_post` (
 
 ## comment表
 
+评论的评论称为回复。
+
+查询某个帖子的评论时，给定type值和帖子id即可。
+
+查询某个评论的回复时，给定type值和评论id即可。同时若targetId不为0，则还需要查询回复的目标用户。
+
 ```mysql
 CREATE TABLE `comment` (
   `id` int NOT NULL AUTO_INCREMENT,
   `user_id` int DEFAULT NULL,
-  `entity_type` int DEFAULT NULL,
-  `entity_id` int DEFAULT NULL,
-  `target_id` int DEFAULT NULL,
+  `entity_type` int DEFAULT NULL, // 评论目标的类型（帖子或评论）
+  `entity_id` int DEFAULT NULL, // 评论目标的ID
+  `target_id` int DEFAULT NULL, // 回复的目标用户ID
   `content` text,
   `status` int DEFAULT NULL,
   `create_time` timestamp NULL DEFAULT NULL,
@@ -92,9 +98,9 @@ CREATE TABLE `comment` (
 ```mysql
 CREATE TABLE `message` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `from_id` int DEFAULT NULL,
+  `from_id` int DEFAULT NULL, // 系统通知为1
   `to_id` int DEFAULT NULL,
-  `conversation_id` varchar(45) NOT NULL,
+  `conversation_id` varchar(45) NOT NULL, // from_id和to_id的组合，小的id在前。
   `content` text,
   `status` int DEFAULT NULL COMMENT '0-未读;1-已读;2-删除;',
   `create_time` timestamp NULL DEFAULT NULL,
@@ -104,6 +110,29 @@ CREATE TABLE `message` (
   KEY `index_conversation_id` (`conversation_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=368 DEFAULT CHARSET=utf8
 ```
+
+## Redis表
+
+### 某个实体获得的赞
+
+- **key：**"like:entity" + entityType + entityId
+
+- **value：**set存放点赞的userId
+
+### 某个用户获得的赞（个人主页显示）
+
+- **key：**"like:user" + userId
+- **value：**string存放获得赞的数量
+
+### 某个用户关注的用户
+
+- **key：**"followee:" + userId + ":user"
+- **value:** zset存放关注的用户ID
+
+某个用户拥有的粉丝
+
+- **key：**"follower:user" + userId 
+- **value：**zset存放拥有的粉丝ID
 
 # Spring
 
@@ -127,6 +156,89 @@ CREATE TABLE `message` (
 
 前端表单中的参数名与后台对应方法的参数名一致即可。
 
+## 转发与重定向
+
+重定向：返回给浏览器**302状态码**和一个url，浏览器再次访问该url。如注册成功后自动跳转到登陆页面。
+
+# 日志
+
+SpringBoot默认启用的日志工具为LOGBack（org.slf4j.Logger）
+
+日志级别：trace，debug，info，warn，error
+
+# 邮件
+
+1. 导入Spring Boot Mail Starter。
+2. 邮箱配置（域名，端口，发件人账号密码）。
+3. 构建MimeMessage（发件人，收件人，主题，内容）。
+4. 注入JavaMailSender实例，并调用其send()方法发送邮件。
+
+# 工具包
+
+- Apache Commons Lang：字符串工具包。
+- Kaptcha：生成验证码图片。
+- Fastjson：生成或处理json数据。
+
+# Cookie和Session
+
+## Cookie
+
+数据存在客户端。
+
+```java
+@RequestMapping(path = "/cookie/set", method = RequestMethod.GET)
+@ResponseBody
+// 生成一个键为key，值为value的cookie，并添加到response中返回给浏览器
+public String setCookie(HttpServletResponse response) {
+	Cookie cookie = new Cookie("key", "value");
+	// 设置cookie生效的路径范围
+	cookie.setPath("/community/alpha");
+	// 设置cookie的生存时间（秒）
+	cookie.setMaxAge(60 * 10);
+	// 发送cookie
+	response.addCooikie(cookie);
+	return "set cookie";
+}
+
+@RequestMapping(path = "/cookie/get", method = RequestMethod.GET)
+@ResponseBody
+// 获取键为key的cookie的value，并传递给参数value
+public String getCookie(@CookieValue("key") String value) {
+    System.out.println(value);
+    return "get cookie";
+}
+```
+
+## Session
+
+数据存在服务器内存，只传递一个SessionID。
+
+```java
+@RequestMapping(path = "/session/set", method = RequestMethod.GET)
+@ResponseBody
+// 自动注入一个HttpSession实例，然后设置信息，（JSessionID）传给浏览器
+public String setSession(HttpSession session) {
+    session.setAttribute("id", 1);
+    session.setAttribute("name", djs);
+    return "set session";
+}
+
+@RequestMapping(path = "/session/get", method = RequestMethod.GET)
+@ResponseBody
+public String getSession(HttpSession session) {
+    System.out.println(session.getAttribute("id"));
+    System.out.println(session.getAttribute("name"));
+    return "set session";
+}
+```
+
+分布式Session：
+
+- 粘性Session：同一个IP分配到同一个服务器。
+- 同步Session：每个服务器的Session通过同步保持一致。
+- 共享Session：单独一台服务器存放Session数据，其他服务器向该服务器请求Session。
+- 基于数据库：使用MySQL或者Redis集群存储Session，其他服务器向该集群请求Session。
+
 # 拦截器
 
 对于一些需要登录才能访问或者需要一定权限的路径如个人信息，需要使用拦截器检查登录状态。
@@ -140,8 +252,26 @@ CREATE TABLE `message` (
    - postHandler()：在Controller之后，模板引擎之前执行。从hostHolder获取到User并传给模板引擎。
 
    - afterCompletion()：在模板引擎之后执行。清除hostHolder。
-
 2. 在实现WebMvcConfigurer接口的类中addInterceptors()配置拦截器：拦截哪些路径，不拦截哪些路径。
+
+# 检查登录状态
+
+通过自定义注解修饰需要拦截的方法。
+
+```java
+// 自定义注解
+@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface LoginRequired {
+    
+}
+```
+
+在拦截器中检查拦截到的方法是否包含自定义注解，然后进行登录状态检查。
+
+```
+LoginRequired loginRequired = method.getAnnotation(LoginRequired.class);
+```
 
 # 敏感词过滤
 
@@ -155,53 +285,36 @@ CREATE TABLE `message` (
 - 根据敏感词，初始化前缀树
 - 编写过滤敏感词的方法
 
-# 发布帖子（异步请求）
-
-- FastJSON库
-
-## AJAX（Asynchronous JavaScript and XML）
-
-# 事务管理
-
-事务是由一步或多步数据库操作序列组成的逻辑执行单元，这些操作要么全执行，要么全放弃执行（其中一个操作失败，则全部放弃）。
-
-特性（ACID）：
-
-- 原子性（Atomicity）：事务是应用中不可再分的最小执行体。
-- 一致性（Consistency）：事务执行的结果，须使数据从一个一致性状态（满足约束），变为另一个一致性状态（依然满足约束）。
-- 隔离性（Isolation）：各个事务的执行互不干扰，任何事物的内部操作对其他事务都是隔离的（并发时）。
-- 持久性（Durability）：事务一旦提交，对数据所做的任何改变都要记录到永久存储器中。
-
-## 事务的隔离性
-
-**常见并发异常（两个事务之间）：**
-
-1. 第一类丢失异常：某一个事务的回滚导致另外一个事务已更新数据丢失。
-2. 第二类丢失异常：某一个事务的提交导致另外一个事务已更新数据丢失。
-3. 脏读：某一个事务读取了另一个事务未提交的数据。
-4. 不可重复读：某一个事务对同一个数据前后查询结果不一致。
-5. 幻读：某一个事务对同一个表前后查询到的行数不一致。
-
-**隔离级别：**
-
-- Read Uncommitted：读取未提交数据。
-- Read Commited：读取已提交数据，解决**第一类丢失、脏读**。
-- Repeatable Read：可重复读，解决**第一类丢失、第二类丢失、脏读、不可重复读**。
-- Serializable：串行化，以上异常都可解决。
-
-**实现机制：**
-
-- 悲观锁（数据库）
-  - 共享锁（S锁）：某个事务对某数据加共享锁后，其他事物只能对该数据加共享锁，但不能加排他锁。
-  - 排他锁（X锁）：某个事务对某数据加排他锁后，其他事物对该数据既不能加共享锁，也不能加排他锁。
-- 乐观锁（自定义）：在更新数据前，检查版本号是否发生变化，若发生变化则取消本次更新，否则就更新数据（版本号+1）。
-
-**Spring数据管理：**
+# Spring事务管理
 
 - 声明式事务
   - 通过XML配置，声明某方法的事务特征。
   - 通过注解，声明某方法的事务特征。
+
+```java
+@Transactional(isolation = Isolation.READ_COMMMITED, propagation = Propagation.REQUIRED)
+public void method() {
+    // 实现事务
+}
+```
+
 - 编程式事务：通过TransactionTemplate管理事务，并通过它执行数据库操作。
+
+```java
+@Autowired
+private TransactionTemplate template;
+public void method() {
+    template.setIsolationLevel(TransactionDefinition.ISOLATION_READ_COMMITED);
+    template.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+    return template.execute(new TransactionCallback<Object>() {
+        @Override
+        public Object doInTransaction(TransactionStatus status) {
+            // 实现事务
+            return null;
+        }
+    });
+}
+```
 
 隔离级别，传递机制。
 
@@ -211,7 +324,7 @@ CREATE TABLE `message` (
 
 # 添加评论
 
-事务操作：增加评论并更新帖子的评论数量。
+**事务操作**：增加评论并更新帖子的评论数量。
 
 # 私信列表
 
@@ -223,17 +336,17 @@ CREATE TABLE `message` (
 
 # 统一处理异常
 
-@ControllerAdvice
+**@ControllerAdvice**
 
 - 用于修饰类，表示该类是Controller的全局配置类。
 
 - 在此类中，可以对Controller进行全局配置：异常处理方案、绑定数据方案、绑定参数方案。
 
-  - @ExceptionHandler：用于修饰方法，该方法会在Controller出现异常后调用，用于处理捕获到的异常。
+  - **@ExceptionHandler**：用于修饰方法，该方法会在Controller出现异常后调用，用于处理捕获到的异常。
 
-  - @ModelAttribute：用于修饰方法，该方法会在Controller方法执行前被调用，用于为Model对象绑定参数。
+  - **@ModelAttribute**：用于修饰方法，该方法会在Controller方法执行前被调用，用于为Model对象绑定参数。
 
-  - @DataBinder：用于修饰方法，该方法会在Controller方法执行前被调用，用于绑定参数的转换器。
+  - **@DataBinder**：用于修饰方法，该方法会在Controller方法执行前被调用，用于绑定参数的转换器。
 
 # 统一记录日志
 
@@ -251,9 +364,26 @@ Spring AOP：使用纯Java实现，在运行时通过代理方式织入代码，
 
 ## Spring AOP
 
-JDK动态代理：Java提供的动态代理技术，可以在运行时创建接口的代理实例。Spring AOP默认采用这种方式，在接口的代理实例中织入代码。（代理模式）
+**JDK动态代理：**Java提供的动态代理技术，可以在运行时创建接口的代理实例。Spring AOP默认采用这种方式，在接口的代理实例中织入代码。（代理模式）
 
-CGLib动态代理：采用底层的字节码技术，在运行时创建子类代理实例。当目标对象不存在接口时，Spring AOP会采用这种方式，在子类实例中织入代码。
+**CGLib动态代理：**采用底层的字节码技术，在运行时创建子类代理实例。当目标对象不存在接口时，Spring AOP会采用这种方式，在子类实例中织入代码。
+
+```java
+// 修饰一个类
+@Aspect
+// 修饰一个方法，括号内为切入点模式
+@Pointcut("execution (* com.djs.community.service.*.*(...))")
+// 修饰一个方法，在切入点之前执行。
+@Before("pointcut()")
+// 修饰一个方法，在切入点之后执行。
+@After("pointcut()")
+// 修饰一个方法，在切入点返回之后执行。
+@AfterReturning("pointcut()")
+// 修饰一个方法，在抛出异常时执行。
+@AfterThrowing("pointcut()")
+// 修饰一个方法，在目标方法前后执行。
+@Around("pointcut()")
+```
 
 # Redis
 
@@ -327,15 +457,23 @@ Redis将所有数据都存放在内存中，读写速度快。同时，Redis还�
 
 异步点赞，点赞信息存在Redis。
 
+- **key：**"like:entity" + entityType + entityId
+
+- **value：**set存放点赞的userId
+
 # 收到的赞
 
-事务管理：记录帖子的点赞数量同时记录用户收到的赞。
+事务管理：记录帖子的点赞数量同时记录该贴子的作者收到的赞。
+
+- **key：**"like:user" + userId
+
+- **value：**string存放获得赞的数量
 
 # 关注、取消关注
 
 关注信息存在Redis。
 
-异步（取消）关注，事务管理：更新user的关注信息，更新目标的被关注信息。
+异步（取消）关注，**事务操作**：更新user的关注信息，更新目标的粉丝信息。
 
 # 关注列表、粉丝列表
 
