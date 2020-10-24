@@ -56,7 +56,7 @@
 <meta property="og:image" content="http://djsfff.github.io/2020/09/11/images/%E7%AE%97%E6%B3%95/image-20200911161304549.png">
 <meta property="og:image" content="http://djsfff.github.io/2020/09/11/images/%E7%AE%97%E6%B3%95/image-20200911161551630.png">
 <meta property="article:published_time" content="2020-09-10T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-09-11T08:17:08.578Z">
+<meta property="article:modified_time" content="2020-10-14T08:03:58.083Z">
 <meta property="article:author" content="Clover">
 <meta property="article:tag" content="算法">
 <meta name="twitter:card" content="summary">
@@ -288,7 +288,8 @@
 <h3 id="A-60、B-45、C-13、D-69、E-14、FG-8"><a href="#A-60、B-45、C-13、D-69、E-14、FG-8" class="headerlink" title="A-60、B-45、C-13、D-69、E-14、FG-8"></a>A-60、B-45、C-13、D-69、E-14、FG-8</h3><p><img src="../images/%E7%AE%97%E6%B3%95/image-20200911160856599.png" alt="image-20200911160856599"></p>
 <h3 id="……省略"><a href="#……省略" class="headerlink" title="……省略"></a>……省略</h3><h3 id="AD：129、FGCEB：80"><a href="#AD：129、FGCEB：80" class="headerlink" title="AD：129、FGCEB：80"></a>AD：129、FGCEB：80</h3><p><img src="../images/%E7%AE%97%E6%B3%95/image-20200911161304549.png" alt="image-20200911161304549"></p>
 <h3 id="左路径为0，右路径为1"><a href="#左路径为0，右路径为1" class="headerlink" title="左路径为0，右路径为1"></a>左路径为0，右路径为1</h3><p><img src="../images/%E7%AE%97%E6%B3%95/image-20200911161551630.png" alt="image-20200911161551630"></p>
-<h1 id="Dijkstra算法"><a href="#Dijkstra算法" class="headerlink" title="Dijkstra算法"></a>Dijkstra算法</h1>
+<h1 id="Dijkstra算法"><a href="#Dijkstra算法" class="headerlink" title="Dijkstra算法"></a>Dijkstra算法</h1><h1 id="单调栈"><a href="#单调栈" class="headerlink" title="单调栈"></a>单调栈</h1><p>496</p>
+
     </div>
 
     
@@ -377,7 +378,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#哈夫曼树"><span class="nav-number">1.</span> <span class="nav-text">哈夫曼树</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-输入频率表：A-60、B-45、C-13、D-69、E-14、F-5、G-3"><span class="nav-number">1.1.</span> <span class="nav-text">1. 输入频率表：A-60、B-45、C-13、D-69、E-14、F-5、G-3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-依次找出两个最小的，小的在左边，大的在右边。"><span class="nav-number">1.2.</span> <span class="nav-text">2. 依次找出两个最小的，小的在左边，大的在右边。</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#A-60、B-45、C-13、D-69、E-14、F-5、G-3"><span class="nav-number">1.2.1.</span> <span class="nav-text">A-60、B-45、C-13、D-69、E-14、F-5、G-3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#A-60、B-45、C-13、D-69、E-14、FG-8"><span class="nav-number">1.2.2.</span> <span class="nav-text">A-60、B-45、C-13、D-69、E-14、FG-8</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#……省略"><span class="nav-number">1.2.3.</span> <span class="nav-text">……省略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AD：129、FGCEB：80"><span class="nav-number">1.2.4.</span> <span class="nav-text">AD：129、FGCEB：80</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#左路径为0，右路径为1"><span class="nav-number">1.2.5.</span> <span class="nav-text">左路径为0，右路径为1</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Dijkstra算法"><span class="nav-number">2.</span> <span class="nav-text">Dijkstra算法</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#哈夫曼树"><span class="nav-number">1.</span> <span class="nav-text">哈夫曼树</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-输入频率表：A-60、B-45、C-13、D-69、E-14、F-5、G-3"><span class="nav-number">1.1.</span> <span class="nav-text">1. 输入频率表：A-60、B-45、C-13、D-69、E-14、F-5、G-3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-依次找出两个最小的，小的在左边，大的在右边。"><span class="nav-number">1.2.</span> <span class="nav-text">2. 依次找出两个最小的，小的在左边，大的在右边。</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#A-60、B-45、C-13、D-69、E-14、F-5、G-3"><span class="nav-number">1.2.1.</span> <span class="nav-text">A-60、B-45、C-13、D-69、E-14、F-5、G-3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#A-60、B-45、C-13、D-69、E-14、FG-8"><span class="nav-number">1.2.2.</span> <span class="nav-text">A-60、B-45、C-13、D-69、E-14、FG-8</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#……省略"><span class="nav-number">1.2.3.</span> <span class="nav-text">……省略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AD：129、FGCEB：80"><span class="nav-number">1.2.4.</span> <span class="nav-text">AD：129、FGCEB：80</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#左路径为0，右路径为1"><span class="nav-number">1.2.5.</span> <span class="nav-text">左路径为0，右路径为1</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Dijkstra算法"><span class="nav-number">2.</span> <span class="nav-text">Dijkstra算法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#单调栈"><span class="nav-number">3.</span> <span class="nav-text">单调栈</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -400,13 +401,13 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-count">14</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">30</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

@@ -65,7 +65,7 @@
 <meta property="og:image" content="http://djsfff.github.io/images/Java%E5%B9%B6%E5%8F%91/image-20200904231439695.png">
 <meta property="og:image" content="http://djsfff.github.io/images/Java%E5%B9%B6%E5%8F%91/image-20200904233842705.png">
 <meta property="article:published_time" content="2020-08-15T12:15:00.000Z">
-<meta property="article:modified_time" content="2020-09-15T01:39:29.715Z">
+<meta property="article:modified_time" content="2020-10-10T05:06:46.679Z">
 <meta property="article:author" content="Clover">
 <meta property="article:tag" content="JAVA">
 <meta property="article:tag" content="并发">
@@ -442,7 +442,7 @@
 </li>
 </ul>
 <p>添加元素时通过CAS操作来保证只有一个线程可以成功追加元素到队列尾部，失败的线程会循环尝试添加元素。</p>
-<p>通过无线循环的CAS尝试来代替阻塞，<strong>使用CPU资源换阻塞带来的用户态与内核态切换、线程切换等开销</strong>。</p>
+<p>通过无限循环的CAS尝试来代替阻塞，<strong>使用CPU资源换阻塞带来的用户态与内核态切换、线程切换等开销</strong>。</p>
 <h2 id="阻塞队列"><a href="#阻塞队列" class="headerlink" title="阻塞队列"></a>阻塞队列</h2><p><img src="/images/Java%E5%B9%B6%E5%8F%91/image-20200901234217695.png" alt="image-20200901234217695"></p>
 <p>都继承自AbstractQueue类，除LinkedTransferQueue外都实现了<strong>BlockingQueue</strong>接口。</p>
 <h3 id="LinkedBlockingQueue"><a href="#LinkedBlockingQueue" class="headerlink" title="LinkedBlockingQueue"></a>LinkedBlockingQueue</h3><p><img src="/images/Java%E5%B9%B6%E5%8F%91/image-20200904192818763.png" alt="image-20200904192818763"></p>
@@ -664,13 +664,13 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-count">14</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">30</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

@@ -51,15 +51,16 @@
 <meta property="og:site_name" content="Clover">
 <meta property="og:description" content="记录Java学习过程中的一些笔记。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://djsfff.github.io/images/Java%E5%9F%BA%E7%A1%80/image-20201012130111575.png">
 <meta property="og:image" content="http://djsfff.github.io/images/Java%E5%9F%BA%E7%A1%80/image-20200824195854215.png">
 <meta property="og:image" content="http://djsfff.github.io/images/Java%E5%9F%BA%E7%A1%80/image-20200824201627280.png">
 <meta property="og:image" content="http://djsfff.github.io/images/Java%E5%9F%BA%E7%A1%80/image-20200824203844421.png">
 <meta property="article:published_time" content="2020-07-28T09:48:12.000Z">
-<meta property="article:modified_time" content="2020-09-24T13:59:58.790Z">
+<meta property="article:modified_time" content="2020-10-12T05:01:14.708Z">
 <meta property="article:author" content="Clover">
 <meta property="article:tag" content="JAVA">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://djsfff.github.io/images/Java%E5%9F%BA%E7%A1%80/image-20200824195854215.png">
+<meta name="twitter:image" content="http://djsfff.github.io/images/Java%E5%9F%BA%E7%A1%80/image-20201012130111575.png">
 
 <link rel="canonical" href="http://djsfff.github.io/2020/07/28/Java%E5%9F%BA%E7%A1%80/">
 
@@ -283,10 +284,14 @@
       
         <p>记录Java学习过程中的一些笔记。</p>
 <a id="more"></a>
-<h1 id="Java基础"><a href="#Java基础" class="headerlink" title="Java基础"></a>Java基础</h1><h2 id="面向对象特性"><a href="#面向对象特性" class="headerlink" title="面向对象特性"></a>面向对象特性</h2><ul>
+<h1 id="Java基础"><a href="#Java基础" class="headerlink" title="Java基础"></a>Java基础</h1><h2 id="JRE与JDK"><a href="#JRE与JDK" class="headerlink" title="JRE与JDK"></a>JRE与JDK</h2><ul>
+<li>JRE：Java运行时环境，可以运行已编译的Java程序，包括JVM、Java类库、Java命令等。</li>
+<li>JDK：JDK包含JRE，能够创建和编译程序。</li>
+</ul>
+<h2 id="面向对象特性"><a href="#面向对象特性" class="headerlink" title="面向对象特性"></a>面向对象特性</h2><ul>
 <li>封装：将对象的实现细节隐藏起来，通过公共的方法暴露对象的功能。</li>
 <li>继承：继承使子类能够获取父类中的非private修饰的成员。</li>
-<li>多态：继承，重写，向上转型。</li>
+<li>多态：程序中定义的引用变量的具体类型和通过该引用变量调用的方法在编程时是不确定的，而是在运行时才确定。继承，重写，向上转型。</li>
 </ul>
 <h2 id="Java基本数据类型"><a href="#Java基本数据类型" class="headerlink" title="Java基本数据类型"></a>Java基本数据类型</h2><div class="table-container">
 <table>
@@ -344,6 +349,11 @@
 </tbody>
 </table>
 </div>
+<h2 id="String、StringBuilder与StringBuffer"><a href="#String、StringBuilder与StringBuffer" class="headerlink" title="String、StringBuilder与StringBuffer"></a>String、StringBuilder与StringBuffer</h2><ul>
+<li>String：使用final修饰的char数组保存字符串，线程安全。</li>
+<li>StringBuilder：没有使用final修饰，因此是可变的，线程不安全。</li>
+<li>StringBuffer：与StringBuilder类似，但是使用了synchronized保证线程安全。</li>
+</ul>
 <h2 id="接口与抽象类的区别"><a href="#接口与抽象类的区别" class="headerlink" title="接口与抽象类的区别"></a>接口与抽象类的区别</h2><ol>
 <li>抽象类里可以有非抽象方法，接口里不能有实现的方法（JDK 8开始可以有default 修饰的方法）。</li>
 <li>抽象类可以使用protected、public、default修饰符，接口里只能且默认都是是public。</li>
@@ -383,14 +393,22 @@
 </ol>
 <h2 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h2><ul>
 <li>Error：程序无法处理的错误，通常是JVM出现的问题。</li>
-<li>Exception：程序本身能够处理的错误，</li>
+<li>Exception：程序本身能够处理的错误。</li>
 </ul>
+<p><img src="/images/Java%E5%9F%BA%E7%A1%80/image-20201012130111575.png" alt="image-20201012130111575"></p>
 <h2 id="finally块不会执行的情况"><a href="#finally块不会执行的情况" class="headerlink" title="finally块不会执行的情况"></a>finally块不会执行的情况</h2><ul>
 <li>finally语句块第一行发生了异常。</li>
 <li>在前面的代码中执行<code>System.exit(int)</code>退出了程序。</li>
 <li>程序所在的线程死亡。</li>
 <li>关闭CPU。</li>
 </ul>
+<h2 id="内部类"><a href="#内部类" class="headerlink" title="内部类"></a>内部类</h2><p>在编译时，每个内部类会生成一个独立的class文件。</p>
+<h3 id="静态内部类"><a href="#静态内部类" class="headerlink" title="静态内部类"></a>静态内部类</h3><p>static修饰内部类为静态内部类，可以通过<code>外部类名.静态内部类名</code>来创建。</p>
+<p>只能访问外部类的<strong>静态</strong>方法和变量。</p>
+<h3 id="成员内部类"><a href="#成员内部类" class="headerlink" title="成员内部类"></a>成员内部类</h3><p>成员内部类只能通过外部类的实例来创建。编译时，会将成员内部类单独编译成一个字节码文件，并添加一个外部类实例的final引用参数。</p>
+<p>成员内部类类似于<strong>成员方法</strong>，不能有static修饰的成员或方法。可以访问外部类的<strong>所有</strong>变量和方法，外部类需要创建一个内部类实例才能访问内部类的属性和方法。</p>
+<h3 id="局部内部类"><a href="#局部内部类" class="headerlink" title="局部内部类"></a>局部内部类</h3><p>局部内部类存在于方法中，只能在方法中访问该类，局部内部类中只能访问所在方法的final变量。</p>
+<h3 id="匿名内部类"><a href="#匿名内部类" class="headerlink" title="匿名内部类"></a>匿名内部类</h3><p>匿名内部类必须实现一个接口或继承一个抽象类，且只能使用所在方法的final变量。</p>
 <h1 id="Java集合"><a href="#Java集合" class="headerlink" title="Java集合"></a>Java集合</h1><h2 id="常用集合"><a href="#常用集合" class="headerlink" title="常用集合"></a>常用集合</h2><ul>
 <li>Collection<ul>
 <li>List：ArrayList、Vector、LinkedList</li>
@@ -427,6 +445,8 @@
 </ol>
 <h2 id="Comparable与Comparator"><a href="#Comparable与Comparator" class="headerlink" title="Comparable与Comparator"></a>Comparable与Comparator</h2><p>实现java.lang.Comparable接口的类可以通过实现int compareTo(T o)进行两个类之间的比较。</p>
 <p>实现java.util.Comparator接口的类为比较器类，需要实现int compare(T o1, T o2)，Arrays.sort()等方法可以通过传递一个比较器类实例来自定义比较规则。</p>
+<h2 id="LinkedHashMap-与TreeMap"><a href="#LinkedHashMap-与TreeMap" class="headerlink" title="LinkedHashMap 与TreeMap"></a>LinkedHashMap 与TreeMap</h2><p>LinkedHashMap在HashMap的基础上使用一个双向循环链表记录顺序，根据元素的添加或访问顺序进行排序。</p>
+<p> TreeMap基于红黑树实现，根据元素的 Key 进行排序，也可以自定义比较器。</p>
 <h1 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h1><h2 id="什么是上下文切换"><a href="#什么是上下文切换" class="headerlink" title="什么是上下文切换"></a>什么是上下文切换</h2><p>当前线程在执行完CPU时间片后切换到另一个线程前会先保存当前的运行状态，以便下次再切换回来。</p>
 <h2 id="synchronized与ReentrantLock的区别"><a href="#synchronized与ReentrantLock的区别" class="headerlink" title="synchronized与ReentrantLock的区别"></a>synchronized与ReentrantLock的区别</h2><ol>
 <li>底层实现不同<ul>
@@ -478,6 +498,7 @@
 <li>Young GC时，空间分配担保触发FullGC。</li>
 <li>分配大对象，没有足够的连续空间。</li>
 </ul>
+<h1 id="软件开发流程"><a href="#软件开发流程" class="headerlink" title="软件开发流程"></a>软件开发流程</h1><p>需求分析，概要设计，详细设计，编码，测试，软件交付，验收，维护。</p>
 
     </div>
 
@@ -567,7 +588,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java基础"><span class="nav-number">1.</span> <span class="nav-text">Java基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#面向对象特性"><span class="nav-number">1.1.</span> <span class="nav-text">面向对象特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java基本数据类型"><span class="nav-number">1.2.</span> <span class="nav-text">Java基本数据类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接口与抽象类的区别"><span class="nav-number">1.3.</span> <span class="nav-text">接口与抽象类的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#与equals-区别"><span class="nav-number">1.4.</span> <span class="nav-text">&#x3D;&#x3D;与equals()区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么重写equals-时需要重写hashCode"><span class="nav-number">1.5.</span> <span class="nav-text">为什么重写equals()时需要重写hashCode()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用多线程有什么优势"><span class="nav-number">1.6.</span> <span class="nav-text">使用多线程有什么优势</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#static关键字"><span class="nav-number">1.7.</span> <span class="nav-text">static关键字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#final关键字"><span class="nav-number">1.8.</span> <span class="nav-text">final关键字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异常"><span class="nav-number">1.9.</span> <span class="nav-text">异常</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#finally块不会执行的情况"><span class="nav-number">1.10.</span> <span class="nav-text">finally块不会执行的情况</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java集合"><span class="nav-number">2.</span> <span class="nav-text">Java集合</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#常用集合"><span class="nav-number">2.1.</span> <span class="nav-text">常用集合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ArrayList与LinkedList的区别"><span class="nav-number">2.2.</span> <span class="nav-text">ArrayList与LinkedList的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ArrayList与Vector的区别"><span class="nav-number">2.3.</span> <span class="nav-text">ArrayList与Vector的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HashMap与HashTable的区别"><span class="nav-number">2.4.</span> <span class="nav-text">HashMap与HashTable的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ConcurrentHashMap与Hashtable的区别"><span class="nav-number">2.5.</span> <span class="nav-text">ConcurrentHashMap与Hashtable的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Comparable与Comparator"><span class="nav-number">2.6.</span> <span class="nav-text">Comparable与Comparator</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#多线程"><span class="nav-number">3.</span> <span class="nav-text">多线程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是上下文切换"><span class="nav-number">3.1.</span> <span class="nav-text">什么是上下文切换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#synchronized与ReentrantLock的区别"><span class="nav-number">3.2.</span> <span class="nav-text">synchronized与ReentrantLock的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#synchronized与volatile的区别"><span class="nav-number">3.3.</span> <span class="nav-text">synchronized与volatile的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ThreadLocal内存泄漏问题"><span class="nav-number">3.4.</span> <span class="nav-text">ThreadLocal内存泄漏问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程池执行execute-和submit-的区别"><span class="nav-number">3.5.</span> <span class="nav-text">线程池执行execute()和submit()的区别</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JVM"><span class="nav-number">4.</span> <span class="nav-text">JVM</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#内存区域（JDK-1-8及以后）"><span class="nav-number">4.1.</span> <span class="nav-text">内存区域（JDK 1.8及以后）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要将永久代（PermGen）替换为元空间（MetaSpace）"><span class="nav-number">4.2.</span> <span class="nav-text">为什么要将永久代（PermGen）替换为元空间（MetaSpace）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象创建过程"><span class="nav-number">4.3.</span> <span class="nav-text">对象创建过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何判断一个类是无用的类"><span class="nav-number">4.4.</span> <span class="nav-text">如何判断一个类是无用的类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么时候会触发GC"><span class="nav-number">4.5.</span> <span class="nav-text">什么时候会触发GC</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java基础"><span class="nav-number">1.</span> <span class="nav-text">Java基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JRE与JDK"><span class="nav-number">1.1.</span> <span class="nav-text">JRE与JDK</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#面向对象特性"><span class="nav-number">1.2.</span> <span class="nav-text">面向对象特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java基本数据类型"><span class="nav-number">1.3.</span> <span class="nav-text">Java基本数据类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#String、StringBuilder与StringBuffer"><span class="nav-number">1.4.</span> <span class="nav-text">String、StringBuilder与StringBuffer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接口与抽象类的区别"><span class="nav-number">1.5.</span> <span class="nav-text">接口与抽象类的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#与equals-区别"><span class="nav-number">1.6.</span> <span class="nav-text">&#x3D;&#x3D;与equals()区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么重写equals-时需要重写hashCode"><span class="nav-number">1.7.</span> <span class="nav-text">为什么重写equals()时需要重写hashCode()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用多线程有什么优势"><span class="nav-number">1.8.</span> <span class="nav-text">使用多线程有什么优势</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#static关键字"><span class="nav-number">1.9.</span> <span class="nav-text">static关键字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#final关键字"><span class="nav-number">1.10.</span> <span class="nav-text">final关键字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异常"><span class="nav-number">1.11.</span> <span class="nav-text">异常</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#finally块不会执行的情况"><span class="nav-number">1.12.</span> <span class="nav-text">finally块不会执行的情况</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内部类"><span class="nav-number">1.13.</span> <span class="nav-text">内部类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#静态内部类"><span class="nav-number">1.13.1.</span> <span class="nav-text">静态内部类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#成员内部类"><span class="nav-number">1.13.2.</span> <span class="nav-text">成员内部类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#局部内部类"><span class="nav-number">1.13.3.</span> <span class="nav-text">局部内部类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#匿名内部类"><span class="nav-number">1.13.4.</span> <span class="nav-text">匿名内部类</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java集合"><span class="nav-number">2.</span> <span class="nav-text">Java集合</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#常用集合"><span class="nav-number">2.1.</span> <span class="nav-text">常用集合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ArrayList与LinkedList的区别"><span class="nav-number">2.2.</span> <span class="nav-text">ArrayList与LinkedList的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ArrayList与Vector的区别"><span class="nav-number">2.3.</span> <span class="nav-text">ArrayList与Vector的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HashMap与HashTable的区别"><span class="nav-number">2.4.</span> <span class="nav-text">HashMap与HashTable的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ConcurrentHashMap与Hashtable的区别"><span class="nav-number">2.5.</span> <span class="nav-text">ConcurrentHashMap与Hashtable的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Comparable与Comparator"><span class="nav-number">2.6.</span> <span class="nav-text">Comparable与Comparator</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LinkedHashMap-与TreeMap"><span class="nav-number">2.7.</span> <span class="nav-text">LinkedHashMap 与TreeMap</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#多线程"><span class="nav-number">3.</span> <span class="nav-text">多线程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是上下文切换"><span class="nav-number">3.1.</span> <span class="nav-text">什么是上下文切换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#synchronized与ReentrantLock的区别"><span class="nav-number">3.2.</span> <span class="nav-text">synchronized与ReentrantLock的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#synchronized与volatile的区别"><span class="nav-number">3.3.</span> <span class="nav-text">synchronized与volatile的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ThreadLocal内存泄漏问题"><span class="nav-number">3.4.</span> <span class="nav-text">ThreadLocal内存泄漏问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程池执行execute-和submit-的区别"><span class="nav-number">3.5.</span> <span class="nav-text">线程池执行execute()和submit()的区别</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JVM"><span class="nav-number">4.</span> <span class="nav-text">JVM</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#内存区域（JDK-1-8及以后）"><span class="nav-number">4.1.</span> <span class="nav-text">内存区域（JDK 1.8及以后）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要将永久代（PermGen）替换为元空间（MetaSpace）"><span class="nav-number">4.2.</span> <span class="nav-text">为什么要将永久代（PermGen）替换为元空间（MetaSpace）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象创建过程"><span class="nav-number">4.3.</span> <span class="nav-text">对象创建过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何判断一个类是无用的类"><span class="nav-number">4.4.</span> <span class="nav-text">如何判断一个类是无用的类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么时候会触发GC"><span class="nav-number">4.5.</span> <span class="nav-text">什么时候会触发GC</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#软件开发流程"><span class="nav-number">5.</span> <span class="nav-text">软件开发流程</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -590,13 +611,13 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-count">14</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">30</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
