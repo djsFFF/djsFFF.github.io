@@ -26,7 +26,7 @@ npm install -g hexo-cli
 
 4. 配置typora
 
-![image-20211231232044509](/Users/clover/Documents/djsFFF.github.io/source/images/更换电脑时Hexo博客迁移流程/image-20211231232044509.png)
+![image-20211231232809498](../images/更换电脑时Hexo博客迁移流程/image-20211231232809498.png)
 
 5. 创建新文章
 
