@@ -3,6 +3,8 @@ title: 更换电脑时Hexo博客迁移流程
 date: 2021-12-31 23:10:15
 tags: 
   - 记录
+categories:
+  - blog
 ---
 
 1. 配置环境
