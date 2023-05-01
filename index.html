@@ -219,7 +219,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://djsfff.github.io/2023/05/01/%E9%87%91%E5%AD%97%E5%A1%94%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+    <link itemprop="mainEntityOfPage" href="http://djsfff.github.io/2023/05/01/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E9%87%91%E5%AD%97%E5%A1%94%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -233,7 +233,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2023/05/01/%E9%87%91%E5%AD%97%E5%A1%94%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">《金字塔原理》学习笔记</a>
+            <a href="/2023/05/01/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E9%87%91%E5%AD%97%E5%A1%94%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">《金字塔原理》学习笔记</a>
         </h2>
 
         <div class="post-meta">
@@ -268,7 +268,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          
+          <a id="more"></a>
+
       
     </div>
 
@@ -287,7 +288,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://djsfff.github.io/2022/01/26/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F/">
+    <link itemprop="mainEntityOfPage" href="http://djsfff.github.io/2022/01/26/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -301,7 +302,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2022/01/26/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F/" class="post-title-link" itemprop="url">深入理解计算机系统</a>
+            <a href="/2022/01/26/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F/" class="post-title-link" itemprop="url">深入理解计算机系统</a>
         </h2>
 
         <div class="post-meta">
@@ -336,47 +337,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><h4 id="系统的硬件组成"><a href="#系统的硬件组成" class="headerlink" title="系统的硬件组成"></a>系统的硬件组成</h4><p><img src="/../images/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F/image-20220126230603179.png" alt="image-20220126230603179"></p>
-<ul>
-<li><strong>总线：</strong>贯穿整个系统的一组电子管道，传送定长的字节块，也就是字。32位系统中1字&#x3D;4字节&#x3D;32位，64位系统中1字&#x3D;8字节&#x3D;64位。</li>
-<li><strong>I&#x2F;O设备：</strong>图中有鼠标、键盘、显示器、磁盘。通过控制器或者适配器与<strong>I&#x2F;O总线</strong>相连。</li>
-<li><strong>主存：</strong>临时存储设备，在处理执行程序时，存放程序和程序处理的数据。由一组<strong>动态随机存储器（DRAM）</strong>芯片组成。</li>
-<li><strong>CPU（处理器）：</strong>中央处理单元，是执行存储在主存中指令的引擎。核心是一个大小为<strong>一个字</strong>的<strong>寄存器</strong>（<strong>程序计数器，PC</strong>），PC始终指向主存中的某条机器语言指令，CPU负责执行PC指向的指令，并更新PC。CPU在指令的要求下可能执行的操作包括：<ul>
-<li><strong>加载：</strong>从主存复制一个字节或一个字到寄存器。</li>
-<li><strong>存储：</strong>从寄存器复制一个字节或一个字到主存中。</li>
-<li><strong>操作：</strong>将两个寄存器的内容复制到ALU，ALU对这两个字做算术运算并将结果存放到一个寄存器中。</li>
-<li><strong>跳转：</strong>从指令本身中抽取一个字复制到PC中。</li>
-</ul>
-</li>
-<li><strong>寄存器文件：</strong>由一些单个字长的寄存器组成，每个寄存器都有唯一的名字。</li>
-<li><strong>ALU（算术&#x2F;逻辑单元）：</strong>负责计算新的数据和地址值。</li>
-</ul>
-<h4 id="运行可执行文件"><a href="#运行可执行文件" class="headerlink" title="运行可执行文件"></a>运行可执行文件</h4><ol>
-<li>在shell程序中输入可执行文件名，shell程序会将文件名做为一个指令读入到寄存器，再存放到内存中。</li>
-<li>运行可执行文件时，shell首先执行一系列指令来加载可执行文件，会将目标文件中的代码通过<strong>DMA（直接存储器存取）</strong>技术直接从磁盘复制到主存。</li>
-<li>处理器开始运行可执行文件，需要将文件中的机器语言指令从主存中复制到寄存器，执行结果再复制到显示设备。</li>
-</ol>
-<h4 id="高速缓存的重要性"><a href="#高速缓存的重要性" class="headerlink" title="高速缓存的重要性"></a>高速缓存的重要性</h4><p><img src="/../images/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F/image-20220127175645947.png" alt="image-20220127175645947"></p>
-<p>​	主存和寄存器直接的读写速度相差大约100倍，因此添加高速缓存存储器来存放处理器近期可能需要的信息（<strong>局部性原理</strong>）。典型的高速缓存存储器可能由多级高速缓存组成（L1、L2），这些高速缓存是用<strong>SRAM（静态随机访问存储器）</strong>的硬件技术实现的。</p>
-<h4 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h4><p>​	进程是对运行的程序的一种抽象，进程切换是由<strong>操作系统内核</strong>管理的，内核是操作系统代码常驻主存的部分。</p>
-<h4 id="虚拟内存"><a href="#虚拟内存" class="headerlink" title="虚拟内存"></a>虚拟内存</h4><p><img src="/../images/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F/image-20220128084821826.png" alt="image-20220128084821826"></p>
-<ul>
-<li>程序代码和数据：所有进程的代码都是从同一固定地址开始的，代码和数据区就是根据可执行文件内容初始化的。</li>
-<li>堆：堆区用于代码运行时内存分配，可以通过malloc和free等方法动态分配。</li>
-<li>共享库：存放类似C标准卡和数学库的区域。</li>
-<li>栈：栈区用于调用方法时分配，可以在执行程序时动态分配。</li>
-<li>内核虚拟内存：为内核保留的。</li>
-</ul>
-<h1 id="程序结构和执行"><a href="#程序结构和执行" class="headerlink" title="程序结构和执行"></a>程序结构和执行</h1><h2 id="信息的表示和处理"><a href="#信息的表示和处理" class="headerlink" title="信息的表示和处理"></a>信息的表示和处理</h2><h3 id="字数据大小"><a href="#字数据大小" class="headerlink" title="字数据大小"></a>字数据大小</h3><p>​	字长决定了虚拟地址空间的大小，例如对于一个32位机器来说，字长为4字节，虚拟地址的最大为$2^{32}-1$，通常一个地址表示一个字节。</p>
-<h3 id="整数表示"><a href="#整数表示" class="headerlink" title="整数表示"></a>整数表示</h3><ul>
-<li>无符号整数：00000000-11111111，范围为0~255。</li>
-<li>有符号整数：10000000-01111111，<strong>补码</strong>形式，最高位为负权，10000000&#x3D;$-2^8$&#x3D;-128，01111111&#x3D;127。再比如10001111&#x3D;-10000000+00001111&#x3D;-128+15&#x3D;-113。因此，补码表示的正负范围是不对称的。当运算结果溢出时，会对结果进行截断，仅保留类型支持的位数。</li>
-</ul>
-<h3 id="小数表示"><a href="#小数表示" class="headerlink" title="小数表示"></a>小数表示</h3><h4 id="普通浮点表示"><a href="#普通浮点表示" class="headerlink" title="普通浮点表示"></a>普通浮点表示</h4><p>​	0.0&#x3D;0&#x2F;2&#x3D;0		0.01&#x3D;1&#x2F;4&#x3D;0.25		0.11&#x3D;1&#x2F;2 + 1&#x2F;4 &#x3D; 0.75</p>
-<p>​	从上面的表示方法可以看出，普通的小数的二进制表示法只能表示那些小数位为2的次幂的小数，而像1&#x2F;5这样的小数无法准确表示。</p>
-<h4 id="IEEE浮点表示"><a href="#IEEE浮点表示" class="headerlink" title="IEEE浮点表示"></a>IEEE浮点表示</h4><p><a href="https://zhuanlan.zhihu.com/p/358417700" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/358417700</a></p>
-<p><img src="/../images/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F/image-20220207153702578.png" alt="image-20220207153702578"></p>
-
+          <p>《深入理解计算机系统》</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/01/26/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -395,7 +364,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://djsfff.github.io/2022/01/01/%E7%89%9B%E5%AE%A2%E7%AE%97%E6%B3%95%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/">
+    <link itemprop="mainEntityOfPage" href="http://djsfff.github.io/2022/01/01/%E7%AE%97%E6%B3%95/%E7%89%9B%E5%AE%A2%E7%AE%97%E6%B3%95%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -409,7 +378,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2022/01/01/%E7%89%9B%E5%AE%A2%E7%AE%97%E6%B3%95%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">牛客算法课程笔记</a>
+            <a href="/2022/01/01/%E7%AE%97%E6%B3%95/%E7%89%9B%E5%AE%A2%E7%AE%97%E6%B3%95%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">牛客算法课程笔记</a>
         </h2>
 
         <div class="post-meta">
@@ -444,171 +413,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="异或运算可以理解为无进位加法"><a href="#异或运算可以理解为无进位加法" class="headerlink" title="异或运算可以理解为无进位加法"></a>异或运算可以理解为无进位加法</h3><ul>
-<li><code>a ^ a = 0</code>, <code>a ^ 0 = 0</code></li>
-<li>交换两个数</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a = a ^ b;</span><br><span class="line">b = a ^ b;</span><br><span class="line">a = a ^ b;</span><br></pre></td></tr></table></figure>
-
-<h3 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h3><h4 id="1-快排改进步骤"><a href="#1-快排改进步骤" class="headerlink" title="1. 快排改进步骤"></a>1. 快排改进步骤</h4><ul>
-<li><p>改进一：每次递归的时候，将与划分值相等的值放在一起（荷兰国旗问题），不需要再参与递归。</p>
-<ul>
-<li>左右两端分别保存小于和大于划分值的元素</li>
-</ul>
-</li>
-<li><p>改进二：每次随机选取划分值，使得平均复杂度为O(nlogn)。</p>
-</li>
-</ul>
-<h4 id="2-桶排序"><a href="#2-桶排序" class="headerlink" title="2. 桶排序"></a>2. 桶排序</h4><ul>
-<li>计数排序：统计数组中每种数字的频率，适用于最小值和最大值相差不大的情况。</li>
-<li>基数排序：从个位到最高位（权重从低到高），每次按元素的对应位排序。</li>
-</ul>
-<h4 id="3-排序算法总结"><a href="#3-排序算法总结" class="headerlink" title="3. 排序算法总结"></a>3. 排序算法总结</h4><ul>
-<li>不稳定：选择排序、快速排序、堆排序。</li>
-<li>稳定：冒泡排序（相邻相等时不交换）、插入排序（插入到相等值的后面）、归并排序（合并遇到相等时先合入左边数组）。</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th align="center">排序算法</th>
-<th align="center">时间复杂度</th>
-<th align="center">空间复杂度</th>
-<th align="center">稳定性</th>
-<th align="center">备注</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">选择排序</td>
-<td align="center">O(n^2)</td>
-<td align="center">O(1)</td>
-<td align="center">x</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">冒泡排序</td>
-<td align="center">O(n^2)</td>
-<td align="center">O(1)</td>
-<td align="center">✓</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">插入排序</td>
-<td align="center">O(n^2)</td>
-<td align="center">O(1)</td>
-<td align="center">✓</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">归并排序</td>
-<td align="center">O(nlogn)</td>
-<td align="center">O(n)</td>
-<td align="center">✓</td>
-<td align="center">稳定</td>
-</tr>
-<tr>
-<td align="center">堆排序</td>
-<td align="center">O(nlogn)</td>
-<td align="center">O(1)</td>
-<td align="center">x</td>
-<td align="center">空间小</td>
-</tr>
-<tr>
-<td align="center">快速排序</td>
-<td align="center">O(nlogn)</td>
-<td align="center">O(logn)</td>
-<td align="center">x</td>
-<td align="center">最快（常数时间小）</td>
-</tr>
-<tr>
-<td align="center">桶排序</td>
-<td align="center">O(n)</td>
-<td align="center">O(n)</td>
-<td align="center">✓</td>
-<td align="center"></td>
-</tr>
-</tbody></table>
-<p>​	综合排序：快排的时候，当传入的子数组元素小于60时，采用插入排序。</p>
-<p><img src="/../images/%E7%89%9B%E5%AE%A2%E7%AE%97%E6%B3%95%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/image-20220106080043599.png" alt="image-20220106080043599"> </p>
-<h3 id="比较器"><a href="#比较器" class="headerlink" title="比较器"></a>比较器</h3><ul>
-<li>返回负数：第一个参数排在前面。</li>
-<li>返回正数：第二个参数排在前面。</li>
-<li>返回0：默认第一个排在前面。</li>
-</ul>
-<h3 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h3><h4 id="1-判断单链表是否有环"><a href="#1-判断单链表是否有环" class="headerlink" title="1. 判断单链表是否有环"></a>1. 判断单链表是否有环</h4><p>(1) 快慢指针从表头出发，快指针每次移动两个节点，慢指针每次移动一个节点。</p>
-<p>(2) 若快指针为空，链表无环。</p>
-<p>(3) 若快慢指针相交，链表有环。</p>
-<h4 id="2-求单链表入环节点"><a href="#2-求单链表入环节点" class="headerlink" title="2. 求单链表入环节点"></a>2. 求单链表入环节点</h4><p>(1) 判断单链表是否有环。</p>
-<p>(2) 若单链表有环，快慢指针相交点为环内某个节点。</p>
-<p>(3) 快指针重新从表头出发，快慢指针每次移动一个节点。</p>
-<p>(4) 返回快慢指针再次相交的节点。</p>
-<h4 id="3-求两个链表的第一个交点（是否有环→是否有交点→求第一个交点）"><a href="#3-求两个链表的第一个交点（是否有环→是否有交点→求第一个交点）" class="headerlink" title="3. 求两个链表的第一个交点（是否有环→是否有交点→求第一个交点）"></a>3. 求两个链表的第一个交点（是否有环→是否有交点→求第一个交点）</h4><p>(1) 分别判断两个链表是否有环。</p>
-<p>(2) 若一个存在环，一个不存在环，则两个链表<strong>无交点</strong>。</p>
-<p>(3) 若两个链表<strong>都不存在环</strong>：</p>
-<p>​	① 分别遍历两个链表并记录链表长度。</p>
-<p>​	② 若表尾不相交，则两个链表<strong>无交点</strong>，否则有交点。</p>
-<p>​	③ 长链表指针从表头先移动$长度差$个节点，然后两个指针同时移动。</p>
-<p>​	④ 返回两个指针第一次相交的节点。</p>
-<p>(4) 若两个链表都存在环：</p>
-<p>​	① 分别求两个链表入环节点。</p>
-<p>​	② 若入环节点相同：</p>
-<p>​		Ⅰ 分别遍历两个链表到入环节点并记录长度。</p>
-<p>​		Ⅱ 长链表指针从表头先移动$长度差$个节点，然后两个指针同时移动。</p>
-<p>​		Ⅲ 返回两个指针第一次相交的节点。</p>
-<p>​	③ 若入环节点不同：</p>
-<p>​		Ⅰ 链表1从入环节点出发遍历，若再次遇到链表1的入环节点，则两个链表<strong>无交点</strong>。</p>
-<p>​		Ⅱ 若遇到链表2的入环节点，则两个链表有交点，且两个入环节点均可以看做第一个相交节点。</p>
-<h3 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h3><h4 id="1-非递归遍历"><a href="#1-非递归遍历" class="headerlink" title="1. 非递归遍历"></a>1. 非递归遍历</h4><p>(1) 先序遍历（中左右）</p>
-<p>​	① 根节点入栈。</p>
-<p>​	② while 栈不为空：</p>
-<p>​		Ⅰ 弹出栈顶元素并打印。</p>
-<p>​		Ⅱ 压入弹出元素的右子树。</p>
-<p>​		Ⅲ 压入弹出元素的左子树。</p>
-<p>(2) 后序遍历（左右中）</p>
-<p>​	① 根节点入栈。</p>
-<p>​	② while 栈不为空：</p>
-<p>​		Ⅰ 弹出栈顶元素并记录。</p>
-<p>​		Ⅱ 压入弹出元素的左子树。</p>
-<p>​		Ⅲ 压入弹出元素的右子树。</p>
-<p>​	③ 记录到的节点顺序为中右左，将记录反转输出（用栈记录）即为左右中。</p>
-<p>(3) 中序遍历（左中右）</p>
-<p>​	① 以根节点为cur节点。</p>
-<p>​	② while 栈不为空 || cur不为空：</p>
-<p>​		Ⅰ 从cur节点开始向左遍历到叶子节点，并依次入栈。</p>
-<p>​		Ⅱ 弹出栈顶节点并打印。</p>
-<p>​		Ⅲ 以弹出节点的右节点为cur节点。</p>
-<h4 id="2-后继节点（对应还有前驱节点）"><a href="#2-后继节点（对应还有前驱节点）" class="headerlink" title="2. 后继节点（对应还有前驱节点）"></a>2. 后继节点（对应还有前驱节点）</h4><p>​	定义：<strong>中序遍历序列</strong>中，每个节点的下一个节点为该节点的后继节点。</p>
-<p>​	(1) 若节点有右子树，其后继节点为右子树的最左节点。</p>
-<p>​	(2) 若节点无右子树，则向上遍历直到找到一个父节点，满足节点属于该父节点的子树。该父节点为节点的后继节点。</p>
-<h4 id="3-判断二叉树是否为另一个二叉树的子树"><a href="#3-判断二叉树是否为另一个二叉树的子树" class="headerlink" title="3. 判断二叉树是否为另一个二叉树的子树"></a>3. 判断二叉树是否为另一个二叉树的子树</h4><p>递归方法复杂度较高。</p>
-<p>可以将两个二叉树序列化为两个字符串，判断一个字符串是否为另一个字符串的子串。</p>
-<h1 id="前缀树"><a href="#前缀树" class="headerlink" title="前缀树"></a>前缀树</h1><p>节点结构：</p>
-<ul>
-<li>pass：节点通过次数。</li>
-<li>end：以结点为结尾的次数。</li>
-<li>map：key为字符（根节点为空字符’’），value为下一个节点。</li>
-</ul>
-<h1 id="图"><a href="#图" class="headerlink" title="图"></a>图</h1><h4 id="1-拓扑排序（有向无环图，有至少一个入度为0的点）"><a href="#1-拓扑排序（有向无环图，有至少一个入度为0的点）" class="headerlink" title="1. 拓扑排序（有向无环图，有至少一个入度为0的点）"></a>1. 拓扑排序（有向无环图，有至少一个入度为0的点）</h4><p>(1) 使用一个map记录节点的入度，queue记录入度为0的节点。</p>
-<p>(2) while queue不为空：</p>
-<p>​	① 弹出queue尾节点，并添加到result列表。</p>
-<p>​	② 遍历弹出节点的下一个节点，所有节点入度-1，若入度为0，则入queue。</p>
-<h4 id="2-最小生成树—Prim算法"><a href="#2-最小生成树—Prim算法" class="headerlink" title="2. 最小生成树—Prim算法"></a>2. 最小生成树—Prim算法</h4><p>(1) 从任意节点node开始遍历所有节点：</p>
-<p>​	① 若set中不包含node：</p>
-<p>​		Ⅰ 将与node相连的边放入优先队列priorityQueue。</p>
-<p>​		Ⅱ while priorityQueue不为空：</p>
-<p>​			弹出一条边（最小边），若边的另一个节点不在set中，将边放入result，将节点加入set，并将节点的所有边加入priorityQueue。</p>
-<h4 id="3-最小生成树—Kruskal算法（集合查询合并可以使用并查集）"><a href="#3-最小生成树—Kruskal算法（集合查询合并可以使用并查集）" class="headerlink" title="3. 最小生成树—Kruskal算法（集合查询合并可以使用并查集）"></a>3. 最小生成树—Kruskal算法（集合查询合并可以使用并查集）</h4><p>(1) 将每个节点各自单独存放在一个set中。</p>
-<p>(2) 将所有边放在一个优先队列priorityQueue中。</p>
-<p>(3) while priorityQueue不为空：</p>
-<p>​	① 弹出一条边，若边的两个节点不属于同一个set：</p>
-<p>​		Ⅰ 将边存入result。</p>
-<p>​		Ⅱ 将两个节点所在的集合合并在一起。</p>
-<h4 id="4-Dijkstra算法—单源最短路径算法"><a href="#4-Dijkstra算法—单源最短路径算法" class="headerlink" title="4. Dijkstra算法—单源最短路径算法"></a>4. Dijkstra算法—单源最短路径算法</h4><h1 id="贪心算法"><a href="#贪心算法" class="headerlink" title="贪心算法"></a>贪心算法</h1><h4 id="1-拼接最小字典序字符串"><a href="#1-拼接最小字典序字符串" class="headerlink" title="1. 拼接最小字典序字符串"></a>1. 拼接最小字典序字符串</h4><p>若str1 + str2 &lt;&#x3D; str2 + str1，则认为str1 &lt; str2。按照这种排序方式对字符串数组进行排序后，拼接而成的即为最小字典序字符串。</p>
-<h1 id="暴力递归"><a href="#暴力递归" class="headerlink" title="暴力递归"></a>暴力递归</h1><h4 id="汉诺塔问题"><a href="#汉诺塔问题" class="headerlink" title="汉诺塔问题"></a>汉诺塔问题</h4><p>​	存在左中右三个杆，需要将左杆上的n个圆盘移动到右杆上，并保持圆盘顺序不变，每次可以将任意杆上的第一个圆盘移动到其他杆上。</p>
-<p>​	循环以下步骤：</p>
-<p>(1) 将n - 1个圆盘从左移动到中。</p>
-<p>(2) 将第n个圆盘从左移动到右。</p>
-<p>(3) 将n - 1个圆盘从中移动到右。</p>
-
+          <p>牛客算法课程笔记</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/01/01/%E7%AE%97%E6%B3%95/%E7%89%9B%E5%AE%A2%E7%AE%97%E6%B3%95%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -627,7 +440,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://djsfff.github.io/2021/12/31/%E6%9B%B4%E6%8D%A2%E7%94%B5%E8%84%91%E6%97%B6Hexo%E5%8D%9A%E5%AE%A2%E8%BF%81%E7%A7%BB%E6%B5%81%E7%A8%8B/">
+    <link itemprop="mainEntityOfPage" href="http://djsfff.github.io/2021/12/31/%E5%85%B6%E4%BB%96/%E6%9B%B4%E6%8D%A2%E7%94%B5%E8%84%91%E6%97%B6Hexo%E5%8D%9A%E5%AE%A2%E8%BF%81%E7%A7%BB%E6%B5%81%E7%A8%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -641,7 +454,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/12/31/%E6%9B%B4%E6%8D%A2%E7%94%B5%E8%84%91%E6%97%B6Hexo%E5%8D%9A%E5%AE%A2%E8%BF%81%E7%A7%BB%E6%B5%81%E7%A8%8B/" class="post-title-link" itemprop="url">更换电脑时Hexo博客迁移流程</a>
+            <a href="/2021/12/31/%E5%85%B6%E4%BB%96/%E6%9B%B4%E6%8D%A2%E7%94%B5%E8%84%91%E6%97%B6Hexo%E5%8D%9A%E5%AE%A2%E8%BF%81%E7%A7%BB%E6%B5%81%E7%A8%8B/" class="post-title-link" itemprop="url">更换电脑时Hexo博客迁移流程</a>
         </h2>
 
         <div class="post-meta">
@@ -676,33 +489,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <ol>
-<li>配置环境</li>
-</ol>
-<p>​	Mac环境下</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew install node</span><br><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>拉取代码</li>
-<li>进入代码根目录，安装模块</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br><span class="line">npm install hexo-deployer-git --save</span><br><span class="line">npm install hexo-generator-feed --save</span><br><span class="line">npm install hexo-generator-sitemap --save</span><br></pre></td></tr></table></figure>
-
-<ol start="4">
-<li>配置typora</li>
-</ol>
-<p><img src="/../images/%E6%9B%B4%E6%8D%A2%E7%94%B5%E8%84%91%E6%97%B6Hexo%E5%8D%9A%E5%AE%A2%E8%BF%81%E7%A7%BB%E6%B5%81%E7%A8%8B/image-20211231232809498.png" alt="image-20211231232809498"></p>
-<ol start="5">
-<li>创建新文章</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo n <span class="string">"title"</span></span><br></pre></td></tr></table></figure>
-
-<ol start="6">
-<li>提交部署</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">"some descrption"</span></span><br><span class="line">git push origin hexo</span><br><span class="line">hexo g -d</span><br></pre></td></tr></table></figure>
-
-
+          <p>更换电脑时Hexo博客迁移流程</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/12/31/%E5%85%B6%E4%BB%96/%E6%9B%B4%E6%8D%A2%E7%94%B5%E8%84%91%E6%97%B6Hexo%E5%8D%9A%E5%AE%A2%E8%BF%81%E7%A7%BB%E6%B5%81%E7%A8%8B/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -721,7 +516,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://djsfff.github.io/2020/09/26/Kafka/">
+    <link itemprop="mainEntityOfPage" href="http://djsfff.github.io/2020/09/26/%E6%9E%B6%E6%9E%84/Kafka/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -735,7 +530,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/09/26/Kafka/" class="post-title-link" itemprop="url">Kafka</a>
+            <a href="/2020/09/26/%E6%9E%B6%E6%9E%84/Kafka/" class="post-title-link" itemprop="url">Kafka</a>
         </h2>
 
         <div class="post-meta">
@@ -773,7 +568,7 @@
           <p>Kafka相关知识点，主要参考《Apache Kafka实战》一书。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/09/26/Kafka/#more" rel="contents">
+              <a class="btn" href="/2020/09/26/%E6%9E%B6%E6%9E%84/Kafka/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -797,7 +592,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://djsfff.github.io/2020/09/19/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/">
+    <link itemprop="mainEntityOfPage" href="http://djsfff.github.io/2020/09/19/%E6%9E%B6%E6%9E%84/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -811,7 +606,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/09/19/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/" class="post-title-link" itemprop="url">秒杀系统</a>
+            <a href="/2020/09/19/%E6%9E%B6%E6%9E%84/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/" class="post-title-link" itemprop="url">秒杀系统</a>
         </h2>
 
         <div class="post-meta">
@@ -849,7 +644,7 @@
           <p>高并发秒杀系统实战。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/09/19/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/#more" rel="contents">
+              <a class="btn" href="/2020/09/19/%E6%9E%B6%E6%9E%84/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -873,7 +668,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://djsfff.github.io/2020/09/13/Leetcode%E7%BB%8F%E5%85%B8%E7%AE%97%E6%B3%95/">
+    <link itemprop="mainEntityOfPage" href="http://djsfff.github.io/2020/09/13/%E7%AE%97%E6%B3%95/Leetcode%E7%BB%8F%E5%85%B8%E7%AE%97%E6%B3%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -887,7 +682,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/09/13/Leetcode%E7%BB%8F%E5%85%B8%E7%AE%97%E6%B3%95/" class="post-title-link" itemprop="url">Leetcode经典算法</a>
+            <a href="/2020/09/13/%E7%AE%97%E6%B3%95/Leetcode%E7%BB%8F%E5%85%B8%E7%AE%97%E6%B3%95/" class="post-title-link" itemprop="url">Leetcode经典算法</a>
         </h2>
 
         <div class="post-meta">
@@ -925,7 +720,7 @@
           <p>记录Leetcode中经典的算法思路。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/09/13/Leetcode%E7%BB%8F%E5%85%B8%E7%AE%97%E6%B3%95/#more" rel="contents">
+              <a class="btn" href="/2020/09/13/%E7%AE%97%E6%B3%95/Leetcode%E7%BB%8F%E5%85%B8%E7%AE%97%E6%B3%95/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -949,7 +744,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://djsfff.github.io/2020/09/13/%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98/">
+    <link itemprop="mainEntityOfPage" href="http://djsfff.github.io/2020/09/13/Java/%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -963,7 +758,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/09/13/%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">面试问题</a>
+            <a href="/2020/09/13/Java/%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">面试问题</a>
         </h2>
 
         <div class="post-meta">
@@ -1001,7 +796,7 @@
           <p>记录面试问题。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/09/13/%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98/#more" rel="contents">
+              <a class="btn" href="/2020/09/13/Java/%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1025,7 +820,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://djsfff.github.io/2020/09/13/Linux%E5%91%BD%E4%BB%A4/">
+    <link itemprop="mainEntityOfPage" href="http://djsfff.github.io/2020/09/13/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/Linux%E5%91%BD%E4%BB%A4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -1039,7 +834,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/09/13/Linux%E5%91%BD%E4%BB%A4/" class="post-title-link" itemprop="url">Linux命令</a>
+            <a href="/2020/09/13/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/Linux%E5%91%BD%E4%BB%A4/" class="post-title-link" itemprop="url">Linux命令</a>
         </h2>
 
         <div class="post-meta">
@@ -1077,7 +872,7 @@
           <p>Linux常用命令。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/09/13/Linux%E5%91%BD%E4%BB%A4/#more" rel="contents">
+              <a class="btn" href="/2020/09/13/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/Linux%E5%91%BD%E4%BB%A4/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1101,7 +896,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://djsfff.github.io/2020/09/11/%E5%89%91%E6%8C%87Offer/">
+    <link itemprop="mainEntityOfPage" href="http://djsfff.github.io/2020/09/11/%E7%AE%97%E6%B3%95/%E5%89%91%E6%8C%87Offer/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -1115,7 +910,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/09/11/%E5%89%91%E6%8C%87Offer/" class="post-title-link" itemprop="url">剑指Offer</a>
+            <a href="/2020/09/11/%E7%AE%97%E6%B3%95/%E5%89%91%E6%8C%87Offer/" class="post-title-link" itemprop="url">剑指Offer</a>
         </h2>
 
         <div class="post-meta">
@@ -1153,7 +948,7 @@
           <p>《剑指Offer》关键算法题思路总结。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/09/11/%E5%89%91%E6%8C%87Offer/#more" rel="contents">
+              <a class="btn" href="/2020/09/11/%E7%AE%97%E6%B3%95/%E5%89%91%E6%8C%87Offer/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>

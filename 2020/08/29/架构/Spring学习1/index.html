@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://djsFFF.github.io').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.7.1',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="Spring学习。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring学习1">
+<meta property="og:url" content="http://djsfff.github.io/2020/08/29/%E6%9E%B6%E6%9E%84/Spring%E5%AD%A6%E4%B9%A01/index.html">
+<meta property="og:site_name" content="Clover">
+<meta property="og:description" content="Spring学习。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://djsfff.github.io/images/Spring%E5%AD%A6%E4%B9%A01/image-20200830194807094.png">
+<meta property="og:image" content="http://djsfff.github.io/images/Spring%E5%AD%A6%E4%B9%A01/880f402c83a0e04f2b4ccfcec3239dc8_r.jpg">
+<meta property="article:published_time" content="2020-08-29T12:15:00.000Z">
+<meta property="article:modified_time" content="2023-05-01T04:19:47.157Z">
+<meta property="article:author" content="Clover">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="Spring">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://djsfff.github.io/images/Spring%E5%AD%A6%E4%B9%A01/image-20200830194807094.png">
+
+<link rel="canonical" href="http://djsfff.github.io/2020/08/29/%E6%9E%B6%E6%9E%84/Spring%E5%AD%A6%E4%B9%A01/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>Spring学习1 | Clover</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?b759ac2a7fa45129e3ef060bf68259f0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Clover</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <h1 class="site-subtitle" itemprop="description">学无止境</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/djsFFF" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://djsfff.github.io/2020/08/29/%E6%9E%B6%E6%9E%84/Spring%E5%AD%A6%E4%B9%A01/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Clover">
+      <meta itemprop="description" content="汝心安处即吾乡">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clover">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          Spring学习1
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-29 20:15:00" itemprop="dateCreated datePublished" datetime="2020-08-29T20:15:00+08:00">2020-08-29</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>Spring学习。</p>
+<a id="more"></a>
+
+<h1 id="IoC"><a href="#IoC" class="headerlink" title="IoC"></a>IoC</h1><p>IoC（Inverse of Control，反转控制）是一种设计思想，将原本手动创建对象的控制权交给Spring框架来管理。</p>
+<h1 id="AOP"><a href="#AOP" class="headerlink" title="AOP"></a>AOP</h1><p>AOP能够将那些与业务无关，却为业务模块所共同调用的逻辑或责任封装起来，减少系统的重复代码，降低模块的耦合度，有利于提高系统的可扩展性和可维护性。</p>
+<p><img src="/images/Spring%E5%AD%A6%E4%B9%A01/image-20200830194807094.png" alt="image-20200830194807094"></p>
+<p>AOP基于动态代理，如果代理的对象实现了某个接口，那么Spring AOP会使用JDK Proxy去创建代理对象，而对于没有实现接口的对象，使用Cglib生成一个被代理对象的子类来作为代理。</p>
+<h2 id="Spring-AOP与Aspect-AOP"><a href="#Spring-AOP与Aspect-AOP" class="headerlink" title="Spring AOP与Aspect AOP"></a>Spring AOP与Aspect AOP</h2><ul>
+<li>Spring AOP：运行时增强，基于动态代理，简单。</li>
+<li>Aspect AOP：编译时增强，基于字节码操作，强大，更快。</li>
+</ul>
+<h1 id="Bean的作用域"><a href="#Bean的作用域" class="headerlink" title="Bean的作用域"></a>Bean的作用域</h1><p>@scope(“singleton”)</p>
+<ul>
+<li><strong>singleton</strong>：在Spring IoC容器中只存在一个Bean实例，即以单例方式存在，默认值。</li>
+<li><strong>prototype</strong>：每次从容器中调用Bean时，都返回一个新的实例。</li>
+<li>request：每次HTTP请求都会创建一个新的Bean，仅适用于WebApplicationContext环境。</li>
+<li>session：同一个HTTP Session共享一个Bean，仅适用于WebApplicationContext环境。</li>
+<li>global-session：全局session，一般用于Portlet应用环境，仅适用于WebApplicationContext环境。</li>
+</ul>
+<h1 id="Bean的生命周期"><a href="#Bean的生命周期" class="headerlink" title="Bean的生命周期"></a>Bean的生命周期</h1><p><img src="/images/Spring%E5%AD%A6%E4%B9%A01/880f402c83a0e04f2b4ccfcec3239dc8_r.jpg" alt="preview"></p>
+<ol>
+<li><p>实例化Bean：new操作，调用构造方法。</p>
+</li>
+<li><p>设置对象属性：利用依赖注入调用setter设置属性值。</p>
+</li>
+<li><p>BeanNameAware接口，Spring将Bean的id传给setBeanName()。</p>
+</li>
+<li><p>BeanFactoryAware接口，Spring调用setBeanFactory()，将BeanFactory容器实例传入。</p>
+</li>
+<li><p>ApplicationContextAware接口，Spring调用setApplicationContext()，将bean所在应用的上下文引用传入。</p>
+</li>
+<li><p>BeanPostProcessor接口，Spring调用他们的postProcess<strong>Before</strong>Initialization()。</p>
+</li>
+<li><p>InitializingBean接口，Spring调用他们的afterPropertiesSet()。</p>
+</li>
+<li><p>调用配置文件中包含init-method属性的方法</p>
+</li>
+<li><p>BeanPostProcessor接口，Spring调用他们的postProcess<strong>After</strong>Initialization()。</p>
+</li>
+<li><p>Bean已经准备就绪，可以被使用。</p>
+</li>
+<li><p>DisposableBean接口，Spring将调用destory()。</p>
+</li>
+<li><p>调用配置文件中包含destroy-method属性的方法。</p>
+</li>
+</ol>
+<h1 id="Spring-MVC"><a href="#Spring-MVC" class="headerlink" title="Spring MVC"></a>Spring MVC</h1><p>Spring MVC是一个基于MVC设计模式的框架，通过把Model，View，Controller分离，将表现层（其他两层：业务层，数据访问层）进行解耦，简化开发，减少出错，方便组内人员之间的配合。</p>
+<h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><ol>
+<li>用户发送请求到前端控制器DispatcherServlet。</li>
+<li>DispatcherServlet根据请求调用HandlerMapping，获取到对应的Handler。</li>
+<li>DispatcherServlet调用HandlerAdapter来执行Handler，并返回一个ModelAndView对象。</li>
+<li>DispatcherServlet调用ViewResolver对视图进行解析，并将Model数据填充到视图中。</li>
+<li>最后DispatcherServlet将View返回给用户。</li>
+</ol>
+<h1 id="相关设计模式"><a href="#相关设计模式" class="headerlink" title="相关设计模式"></a>相关设计模式</h1><ol>
+<li>工厂模式：BeanFactory、ApplicationContext创建Bean对象。</li>
+<li>代理模式：Spring AOP的实现。</li>
+<li>单例模式：Bean的默认作用域。</li>
+<li>装饰器模式：不同的客户在每次访问中会根据需求去访问不同的数据库。</li>
+<li>观察者模式：Spring事件驱动模型。</li>
+<li>适配器模式：Spring AOP的增强或通知、Spring MVC使用适配器模式适配Controller。</li>
+</ol>
+<h1 id="Spring事务"><a href="#Spring事务" class="headerlink" title="Spring事务"></a>Spring事务</h1><h2 id="管理事务的方式"><a href="#管理事务的方式" class="headerlink" title="管理事务的方式"></a>管理事务的方式</h2><ul>
+<li>编程式事务：代码中硬编码。</li>
+<li>声明式事务：在配置文件中配置。基于XML或基于注解。</li>
+</ul>
+<h2 id="事务传播行为"><a href="#事务传播行为" class="headerlink" title="事务传播行为"></a>事务传播行为</h2><p>规定了事务方法或事务方法嵌套调用时的事务传播方式。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Transactional</span>(propagation=propagation.REQUIRED)</span><br><span class="line">methodA &#123;</span><br><span class="line">	methodB();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Transactional</span>(propagation=propagation.[以下七种传播机制])</span><br><span class="line">methodB &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="required"><a href="#required" class="headerlink" title="required"></a>required</h3><blockquote>
+<p>如果当前没有事务，则新建一个事务，如果已经存在一个事务中，则加入该事务。</p>
+</blockquote>
+<p>如果当前没有事务，则创建一个事务；如果当前已经处于一个事务中，则加入到该事务。默认设置。</p>
+<h3 id="supports"><a href="#supports" class="headerlink" title="supports"></a>supports</h3><blockquote>
+<p>支持当前事务，如果当前没有事务，则以非事务方式执行。</p>
+</blockquote>
+<p>如果当前没有事务，则以非事务方式执行；如果当前已经处于一个事务中，则加入到该事务。</p>
+<h3 id="mandatory"><a href="#mandatory" class="headerlink" title="mandatory"></a>mandatory</h3><blockquote>
+<p>使用当前事务，如果当前没有事务，则抛出异常。</p>
+</blockquote>
+<p>如果当前没有事务，则抛出异常；如果当前已经处于一个事务中，则加入到该事务。</p>
+<h3 id="requires-new"><a href="#requires-new" class="headerlink" title="requires_new"></a>requires_new</h3><blockquote>
+<p>新建事务，如果当前存在事务，则把当前事务挂起。</p>
+</blockquote>
+<p>如果当前没有事务，则创建一个事务；如果当前已经处于一个事务中，则把已存在的事务挂起，新创建一个事务并执行。</p>
+<h3 id="not-supported"><a href="#not-supported" class="headerlink" title="not_supported"></a>not_supported</h3><blockquote>
+<p>以非事务方式执行，如果当前存在事务，则把当前事务挂起。</p>
+</blockquote>
+<p>如果当前没有事务，则以非事务方式执行；如果当前已经处于一个事务中，则把已存在的事务挂起。</p>
+<h3 id="never"><a href="#never" class="headerlink" title="never"></a>never</h3><blockquote>
+<p>以非事务方式执行，如果当前存在事务，则抛出异常。</p>
+</blockquote>
+<p>如果当前没有事务，则以非事务方式执行；如果当前已经处于一个事务中，则抛出异常。</p>
+<h3 id="nested"><a href="#nested" class="headerlink" title="nested"></a>nested</h3><p>如果当前没有事务，则创建一个事务；如果当前已经处于一个事务中，则创建一个嵌套事务。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java/" rel="tag"># Java</a>
+              <a href="/tags/Spring/" rel="tag"># Spring</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/08/15/Java/Java%E5%B9%B6%E5%8F%91/" rel="prev" title="Java并发编程">
+      <i class="fa fa-chevron-left"></i> Java并发编程
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/08/29/Java/Java%E9%A1%B9%E7%9B%AE%E9%97%AE%E9%A2%98/" rel="next" title="Java项目问题">
+      Java项目问题 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="lv-container" data-id="city" data-uid="MTAyMC8zODU3Mi8xNTEwMA=="></div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#IoC"><span class="nav-number">1.</span> <span class="nav-text">IoC</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#AOP"><span class="nav-number">2.</span> <span class="nav-text">AOP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring-AOP与Aspect-AOP"><span class="nav-number">2.1.</span> <span class="nav-text">Spring AOP与Aspect AOP</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Bean的作用域"><span class="nav-number">3.</span> <span class="nav-text">Bean的作用域</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Bean的生命周期"><span class="nav-number">4.</span> <span class="nav-text">Bean的生命周期</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring-MVC"><span class="nav-number">5.</span> <span class="nav-text">Spring MVC</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#流程"><span class="nav-number">5.1.</span> <span class="nav-text">流程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#相关设计模式"><span class="nav-number">6.</span> <span class="nav-text">相关设计模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring事务"><span class="nav-number">7.</span> <span class="nav-text">Spring事务</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#管理事务的方式"><span class="nav-number">7.1.</span> <span class="nav-text">管理事务的方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事务传播行为"><span class="nav-number">7.2.</span> <span class="nav-text">事务传播行为</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#required"><span class="nav-number">7.2.1.</span> <span class="nav-text">required</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#supports"><span class="nav-number">7.2.2.</span> <span class="nav-text">supports</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mandatory"><span class="nav-number">7.2.3.</span> <span class="nav-text">mandatory</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#requires-new"><span class="nav-number">7.2.4.</span> <span class="nav-text">requires_new</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#not-supported"><span class="nav-number">7.2.5.</span> <span class="nav-text">not_supported</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#never"><span class="nav-number">7.2.6.</span> <span class="nav-text">never</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nested"><span class="nav-number">7.2.7.</span> <span class="nav-text">nested</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Clover"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Clover</p>
+  <div class="site-description" itemprop="description">汝心安处即吾乡</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="mailto:1210090743@qq.com" title="E-Mail → mailto:1210090743@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/djsFFF" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;djsFFF" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Clover</span>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+  </div>
+
+  
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "topRight";
+      
+          flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+<script>
+NexT.utils.loadComments(document.querySelector('#lv-container'), () => {
+  // window.livereOptions = {
+  //   refer: location.pathname.replace(CONFIG.root, '').replace('index.html', '')
+  // };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+});
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</body>
+</html>

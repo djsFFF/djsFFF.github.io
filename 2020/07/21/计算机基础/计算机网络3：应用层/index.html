@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://djsFFF.github.io').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.7.1',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="本文整理计算机网络中应用层的主要知识点。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机网络三：应用层">
+<meta property="og:url" content="http://djsfff.github.io/2020/07/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C3%EF%BC%9A%E5%BA%94%E7%94%A8%E5%B1%82/index.html">
+<meta property="og:site_name" content="Clover">
+<meta property="og:description" content="本文整理计算机网络中应用层的主要知识点。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://djsfff.github.io/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/6.png">
+<meta property="og:image" content="http://djsfff.github.io/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/2.png">
+<meta property="og:image" content="http://djsfff.github.io/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/1.png">
+<meta property="og:image" content="http://djsfff.github.io/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/3.png">
+<meta property="og:image" content="http://djsfff.github.io/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/4.png">
+<meta property="og:image" content="http://djsfff.github.io/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/5.png">
+<meta property="og:image" content="http://djsfff.github.io/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/7.png">
+<meta property="article:published_time" content="2020-07-21T11:20:20.000Z">
+<meta property="article:modified_time" content="2023-05-01T04:17:36.900Z">
+<meta property="article:author" content="Clover">
+<meta property="article:tag" content="计算机网络">
+<meta property="article:tag" content="应用层">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://djsfff.github.io/images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/6.png">
+
+<link rel="canonical" href="http://djsfff.github.io/2020/07/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C3%EF%BC%9A%E5%BA%94%E7%94%A8%E5%B1%82/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>计算机网络三：应用层 | Clover</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?b759ac2a7fa45129e3ef060bf68259f0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Clover</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <h1 class="site-subtitle" itemprop="description">学无止境</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/djsFFF" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://djsfff.github.io/2020/07/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C3%EF%BC%9A%E5%BA%94%E7%94%A8%E5%B1%82/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Clover">
+      <meta itemprop="description" content="汝心安处即吾乡">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clover">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          计算机网络三：应用层
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-07-21 19:20:20" itemprop="dateCreated datePublished" datetime="2020-07-21T19:20:20+08:00">2020-07-21</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机网络</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>本文整理计算机网络中应用层的主要知识点。</p>
+<a id="more"></a>
+
+<p><img src="/./images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/6.png" alt="6"></p>
+<h1 id="DNS——域名系统"><a href="#DNS——域名系统" class="headerlink" title="DNS——域名系统"></a>DNS——域名系统</h1><p>主机不仅有IP地址，还有便于用户记忆的主机名字。DNS能够将互联网上的主机名字转换为IP地址。</p>
+<ul>
+<li>域名具有层次结构：</li>
+</ul>
+<p><img src="/./images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/2.png" alt="2"></p>
+<ul>
+<li>级别最低的域名写在最左边，级别最高的域名写在最右边：</li>
+</ul>
+<p><img src="/./images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/1.png" alt="1"></p>
+<ul>
+<li><p>域名到IP的解析过程：</p>
+<ol>
+<li><p>应用进程调用解析程序，并成为DNS的一个客户，把待解析的域名放在DNS请求报文中，以UDP用户数据报方式发给本地域名服务器。</p>
+</li>
+<li><p>若本地域名服务器能解析该域名，把对应的IP地址放在回答报文中返回。</p>
+</li>
+<li><p>若本地域名服务器不能回答该请求，则此域名服务器就暂时成为DNS中的另一个客户，并向其他域名服务器发出查询请求：</p>
+<ul>
+<li>迭代查询（常用）：其他域名服务器收到域名服务器的查询请求报文时，返回IP或告诉本地域名服务器下一步应该向哪一个域名服务器查询。</li>
+<li>递归查询：其他域名服务器收到域名服务器的查询请求报文时，返回IP或成为DNS客户继续向其他域名服务器查询。</li>
+</ul>
+<p>其他域名服务器采用哪种查询方式取决于最初的查询报文的设置。</p>
+</li>
+</ol>
+</li>
+<li><p>域名服务器和主机中广泛地使用了高速缓存来存放最近查询的域名以及从何处获得域名映射信息的记录。</p>
+</li>
+</ul>
+<h1 id="FTP——文件传送协议"><a href="#FTP——文件传送协议" class="headerlink" title="FTP——文件传送协议"></a>FTP——文件传送协议</h1><ul>
+<li>FTP使用客户服务器方式。FTP服务器进程包括两大部分：<ul>
+<li>一个进程：负责接受新的请求。</li>
+<li>若干个从属进程：负责处理单个请求。</li>
+</ul>
+</li>
+<li>FTP使用TCP进行连接，需要两个TCP连接（控制连接和文件传送连接）来传送一个文件。</li>
+<li>主进程工作步骤如下：<ol>
+<li>打开端口熟知端口21，等待客户发出连接请求。</li>
+<li>启动从属进程处理客户的请求。<ul>
+<li>控制进程：接收到客户通过“控制连接”发送的文件传送请求后，利用自己的熟知端口20与客户提供的端口号建立“数据连接”，并打开“数据传送进程”。</li>
+<li>数据传送进程：用于传送文件数据，传送完毕后关闭。</li>
+</ul>
+</li>
+<li>回到等待状态。</li>
+</ol>
+</li>
+<li>简单文件传送协议TFTP使用UDP连接。</li>
+</ul>
+<h1 id="TELNET——远程终端协议"><a href="#TELNET——远程终端协议" class="headerlink" title="TELNET——远程终端协议"></a>TELNET——远程终端协议</h1><p>TELNET通过TCP连接登录，能将客户的击键传送到服务器，同时也能将服务器的输出返回到客户屏幕，可以适应许多计算机和操作系统的差异。和FTP情况类似，服务器中的主进程等待新的请求，并产生从属进程来处理每一个连接。</p>
+<h1 id="电子邮件协议"><a href="#电子邮件协议" class="headerlink" title="电子邮件协议"></a>电子邮件协议</h1><ul>
+<li><p>一个电子邮件系统由三部分组成：</p>
+<ul>
+<li>用户代理：用户与电子邮件系统的接口，即客户端软件。</li>
+<li>邮件服务器：发送和接收邮件等。</li>
+<li>邮件协议：发送协议SMTP，读取协议POP3或IMAP，都是使用TCP连接。</li>
+</ul>
+</li>
+<li><p>电子邮件发送和接收步骤：</p>
+<p><img src="/./images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/3.png" alt="3"></p>
+<ol>
+<li><p>用户代理用SMTP协议将邮件发给邮件服务器。</p>
+</li>
+<li><p>邮件服务器将邮件临时存放在邮件缓存队列中，等待发送到邮件服务器。</p>
+</li>
+<li><p>发送方邮件服务器的SMTP客户与接收方邮件服务器的SMTP服务器建立TCP连接，然后把邮件缓存队里中的邮件依次发出去。</p>
+</li>
+<li><p>接收方的SMTP服务器把邮件放入收件人的用户邮箱。</p>
+</li>
+<li><p>收件人使用POP3（或IMAP）协议读取邮件。</p>
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="SMTP——简单邮件传送协议"><a href="#SMTP——简单邮件传送协议" class="headerlink" title="SMTP——简单邮件传送协议"></a>SMTP——简单邮件传送协议</h2><p>SMTP 只能发送 ASCII 码，而互联网邮件扩充 MIME 可以发送二进制文件。MIME 并没有改动或者取代 SMTP，而是增加邮件主体的结构，定义了非 ASCII 码的编码规则。</p>
+<h2 id="POP3——邮局协议"><a href="#POP3——邮局协议" class="headerlink" title="POP3——邮局协议"></a>POP3——邮局协议</h2><p>POP3 的特点是只要用户从POP3服务器上读取了邮件，POP3就把该邮件删除。功能扩充的 POP3 可以设置读取后的存放时间。</p>
+<h2 id="IMAP——网际报文存取协议"><a href="#IMAP——网际报文存取协议" class="headerlink" title="IMAP——网际报文存取协议"></a>IMAP——网际报文存取协议</h2><p>IMAP 协议中客户端和服务器上的邮件保持同步，如果不手动删除邮件，那么服务器上的邮件也不会被删除。IMAP 这种做法可以让用户随时随地去访问服务器上的邮件。</p>
+<h1 id="DHCP——动态主机配置协议"><a href="#DHCP——动态主机配置协议" class="headerlink" title="DHCP——动态主机配置协议"></a>DHCP——动态主机配置协议</h1><p>DHCP提供了一种即插即用连网的机制，自动配置IP地址、子网掩码和网关IP地址。</p>
+<p>工作过程：</p>
+<p><img src="/./images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/4.png" alt="4"></p>
+<ol>
+<li>需要IP地址的主机以广播方式发送发现报文，该报文目的地址为255.255.255.255:67，源地址为0.0.0.0:68，被放入UDP中。</li>
+<li>DHCP中继代理（通常是一台路由器）收到发现报文后，以单播方式向DHCP服务器转发此报文。</li>
+<li>收到DHCP服务器回答的提供报文后，DHCP中继代理再把此提供报文发回给主机。</li>
+</ol>
+<h1 id="HTTP——超文本传送协议"><a href="#HTTP——超文本传送协议" class="headerlink" title="HTTP——超文本传送协议"></a>HTTP——超文本传送协议</h1><p>HTTP协议是客户和服务器之间进行请求和应答的格式和规范。</p>
+<p>HTTP使用了TCP作为运输层协议，但是HTTP本身是<strong>无连接的</strong>，也就是说通信双方在交换HTTP报文之前不需要先建立HTTP连接。</p>
+<p>HTTP协议是<strong>无状态的</strong>，也就是说同一个客户第二次访问同一个服务器的页面时，服务器的响应与第一次访问相同。</p>
+<p><strong>在浏览器地址栏键入URL，按下回车之后会经历以下流程：</strong></p>
+<ol>
+<li>浏览器向本地DNS服务器请求解析该URL中的域名对应的IP地址。</li>
+<li>根据该IP地址和默认端口80，与服务器建立TCP连接，HTTP请求报文会被放入TCP连接三次握手的第三个报文数据中发给服务器。</li>
+<li>服务器对浏览器请求做出响应，并把所请求的文档作为响应报文返回给浏览器。</li>
+<li>HTTP&#x2F;1.0立即释放TCP连接，HTTP&#x2F;1.1在一段时间内保持该连接。</li>
+<li>浏览器显示文档内容。</li>
+</ol>
+<h2 id="HTTP报文结构"><a href="#HTTP报文结构" class="headerlink" title="HTTP报文结构"></a>HTTP报文结构</h2><p><img src="/./images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/5.png" alt="5"></p>
+<p>HTTP有两类报文：</p>
+<ul>
+<li><p>请求报文：从客户向服务器发送请求报文。</p>
+<ul>
+<li>请求报文常用的方法：</li>
+</ul>
+<p><img src="/./images/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82/7.png" alt="7"></p>
+</li>
+<li><p>响应报文：从服务器到客户的回答。</p>
+<ul>
+<li>响应报文状态码包括：<ul>
+<li>1xx表示通知信息，如100表示客户应继续请求，101表示服务器切换高版本协议。</li>
+<li>2xx表示成功，如200表示请求成功，202表示已接受请求但还未处理完成。</li>
+<li>3xx表示重定向，如301表示永久转移并重定向到新的url。</li>
+<li>4xx表示客户错误，如400表示语法错误，404表示找不到资源 。</li>
+<li>5xx表示服务器错误，如500表示服务器内部错误，501当前无法处理请求。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Get和Post的区别"><a href="#Get和Post的区别" class="headerlink" title="Get和Post的区别"></a>Get和Post的区别</h2><ol>
+<li><p>Get将参数放在URL中，POST将参数放在RequestBody，所以Get的参数是直接暴露的。</p>
+</li>
+<li><p>Post在浏览器回退时会重新请求，Get不会。</p>
+</li>
+<li><p>Get可传递的参数有长度限制，Post没有。</p>
+</li>
+<li><p>Get会将header和data一起发送出去，服务器响应状态码200；</p>
+<p>而Post先发送header，服务器响应状态码100，然后再发送data，服务器响应状态码200。</p>
+</li>
+</ol>
+<h2 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h2><p>当浏览器首次访问使用Cookie的网站时，服务器为浏览器生成一个唯一识别码通过Set-cookie字段返回给浏览器，然后浏览器将Cookie保存在本地，此后浏览器再次访问该网站时，都会将该Cookie放在HTTP请求报文的Cookie字段中。</p>
+<p>Cookie可携带的信息有限（4k），并且是存在本地浏览器，任何人都可以查看。</p>
+<h2 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h2><p>Session通过Cookie传递SessionID，服务器可以通过SessionID找到对应的浏览器信息。</p>
+<h2 id="Cookie被禁用了怎么办"><a href="#Cookie被禁用了怎么办" class="headerlink" title="Cookie被禁用了怎么办"></a>Cookie被禁用了怎么办</h2><p>直接把SessionID附加在URL路径后面。</p>
+<h2 id="HTTP-2-0的主要新特性"><a href="#HTTP-2-0的主要新特性" class="headerlink" title="HTTP 2.0的主要新特性"></a>HTTP 2.0的主要新特性</h2><ol>
+<li>新的二进制格式：HTTP 1.x基于文本解析，HTTP 2.0采用二进制格式。</li>
+<li>多路复用：一个TCP连接中会存在多个请求流，每个<strong>帧</strong>会标识出该帧属于哪个流，接收方根据流标识符重新组装请求流。</li>
+<li>header压缩</li>
+<li>服务器推送</li>
+</ol>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p>《计算机网络 第七版》谢希仁</p>
+<p><a href="https://www.jianshu.com/p/14cd2c9d2cd2" target="_blank" rel="noopener">https://www.jianshu.com/p/14cd2c9d2cd2</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag"># 计算机网络</a>
+              <a href="/tags/%E5%BA%94%E7%94%A8%E5%B1%82/" rel="tag"># 应用层</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/07/19/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/SSD/" rel="prev" title="模拟面试问答之经典网络模型七：SSD">
+      <i class="fa fa-chevron-left"></i> 模拟面试问答之经典网络模型七：SSD
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/07/22/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/CornerNet/" rel="next" title="模拟面试问答之经典网络模型八：CornerNet">
+      模拟面试问答之经典网络模型八：CornerNet <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="lv-container" data-id="city" data-uid="MTAyMC8zODU3Mi8xNTEwMA=="></div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#DNS——域名系统"><span class="nav-number">1.</span> <span class="nav-text">DNS——域名系统</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#FTP——文件传送协议"><span class="nav-number">2.</span> <span class="nav-text">FTP——文件传送协议</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TELNET——远程终端协议"><span class="nav-number">3.</span> <span class="nav-text">TELNET——远程终端协议</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#电子邮件协议"><span class="nav-number">4.</span> <span class="nav-text">电子邮件协议</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SMTP——简单邮件传送协议"><span class="nav-number">4.1.</span> <span class="nav-text">SMTP——简单邮件传送协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#POP3——邮局协议"><span class="nav-number">4.2.</span> <span class="nav-text">POP3——邮局协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IMAP——网际报文存取协议"><span class="nav-number">4.3.</span> <span class="nav-text">IMAP——网际报文存取协议</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DHCP——动态主机配置协议"><span class="nav-number">5.</span> <span class="nav-text">DHCP——动态主机配置协议</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTP——超文本传送协议"><span class="nav-number">6.</span> <span class="nav-text">HTTP——超文本传送协议</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP报文结构"><span class="nav-number">6.1.</span> <span class="nav-text">HTTP报文结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Get和Post的区别"><span class="nav-number">6.2.</span> <span class="nav-text">Get和Post的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cookie"><span class="nav-number">6.3.</span> <span class="nav-text">Cookie</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Session"><span class="nav-number">6.4.</span> <span class="nav-text">Session</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cookie被禁用了怎么办"><span class="nav-number">6.5.</span> <span class="nav-text">Cookie被禁用了怎么办</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP-2-0的主要新特性"><span class="nav-number">6.6.</span> <span class="nav-text">HTTP 2.0的主要新特性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">7.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Clover"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Clover</p>
+  <div class="site-description" itemprop="description">汝心安处即吾乡</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="mailto:1210090743@qq.com" title="E-Mail → mailto:1210090743@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/djsFFF" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;djsFFF" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Clover</span>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+  </div>
+
+  
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "topRight";
+      
+          flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+<script>
+NexT.utils.loadComments(document.querySelector('#lv-container'), () => {
+  // window.livereOptions = {
+  //   refer: location.pathname.replace(CONFIG.root, '').replace('index.html', '')
+  // };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+});
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</body>
+</html>

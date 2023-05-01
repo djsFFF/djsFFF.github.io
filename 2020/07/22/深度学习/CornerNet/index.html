@@ -51,20 +51,20 @@
 <meta property="og:site_name" content="Clover">
 <meta property="og:description" content="本文总结了面试过程中可能问到的关于CornerNet模型的一些问题。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://djsfff.github.io/.io//1.png">
-<meta property="og:image" content="http://djsfff.github.io/.io//2.png">
-<meta property="og:image" content="http://djsfff.github.io/.io//3.png">
-<meta property="og:image" content="http://djsfff.github.io/.io//4.png">
-<meta property="og:image" content="http://djsfff.github.io/.io//5.png">
-<meta property="og:image" content="http://djsfff.github.io/.io//6.png">
+<meta property="og:image" content="http://djsfff.github.io/images/CornerNet/1.png">
+<meta property="og:image" content="http://djsfff.github.io/images/CornerNet/2.png">
+<meta property="og:image" content="http://djsfff.github.io/images/CornerNet/3.png">
+<meta property="og:image" content="http://djsfff.github.io/images/CornerNet/4.png">
+<meta property="og:image" content="http://djsfff.github.io/images/CornerNet/5.png">
+<meta property="og:image" content="http://djsfff.github.io/images/CornerNet/6.png">
 <meta property="article:published_time" content="2020-07-22T08:35:01.000Z">
-<meta property="article:modified_time" content="2023-05-01T02:37:57.838Z">
+<meta property="article:modified_time" content="2023-05-01T04:01:31.093Z">
 <meta property="article:author" content="Clover">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="目标检测">
 <meta property="article:tag" content="经典网络">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://djsfff.github.io/.io//1.png">
+<meta name="twitter:image" content="http://djsfff.github.io/images/CornerNet/1.png">
 
 <link rel="canonical" href="http://djsfff.github.io/2020/07/22/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/CornerNet/">
 
@@ -287,7 +287,7 @@
 
       
         <p>本文总结了面试过程中可能问到的关于CornerNet模型的一些问题。</p>
-<p><img src="/.io//1.png" alt="1"></p>
+<p><img src="/./images/CornerNet/1.png" alt="1"></p>
 <a id="more"></a>
 
 <h1 id="介绍一下CornerNet的网络结构？"><a href="#介绍一下CornerNet的网络结构？" class="headerlink" title="介绍一下CornerNet的网络结构？"></a>介绍一下CornerNet的网络结构？</h1><ol>
@@ -306,7 +306,7 @@
 <li><p>Embeddings：输出维度为H×W×1，每个特征点的embedding是一个一维标量，用于计算两个关键点之间的距离。</p>
 </li>
 <li><p>Offsets：输出维度为H×W×2，每个点输出两个坐标偏移量：</p>
-<p><img src="/.io//2.png" alt="2"></p>
+<p><img src="/./images/CornerNet/2.png" alt="2"></p>
 <p>其中$x_k$，$y_k$表示关键点k的坐标。设在heatmap上点$(x,y)$预测为corner，对应的offset为$\hat o&#x3D;(\Delta x, \Delta y)$，那么在原图上corner的坐标为</p>
 <p>$$x_0&#x3D;\lfloor (x+\Delta x)n \rfloor,y_0&#x3D;\lfloor (y+\Delta y)n\rfloor$$</p>
 </li>
@@ -317,12 +317,12 @@
 <h1 id="CornerNet的损失函数是如何计算的？"><a href="#CornerNet的损失函数是如何计算的？" class="headerlink" title="CornerNet的损失函数是如何计算的？"></a>CornerNet的损失函数是如何计算的？</h1><p>CornerNet的损失函数由四部分组成，论文中设置$\alpha&#x3D;\beta&#x3D;\gamma&#x3D;1$：</p>
 <p>$$L&#x3D;L_{det}+\alpha L_{pull}+\beta L_{push}+\gamma L_{off}$$</p>
 <p>$L_{det}$为分类损失，采用focal loss。训练时，当坐标(i,j)处是gt点且类别相同，则该坐标为正样本，其他均为负样本。损失函数中设置距离gt越近的负样本会贡献更小的loss：</p>
-<p><img src="/.io//3.png" alt="3"></p>
+<p><img src="/./images/CornerNet/3.png" alt="3"></p>
 <p>$L_{pull}$损失是为了将属于同一个目标的两个关键点的embedding拉的更近，$L_{push}$损失是为了将属于不同目标的两个关键点的embedding距离尽可能推开。</p>
-<p><img src="/.io//4.png" alt="4"></p>
+<p><img src="/./images/CornerNet/4.png" alt="4"></p>
 <p>$L_{off}$为坐标偏移损失，采用Smooth L1损失：</p>
-<p><img src="/.io//5.png" alt="5"></p>
-<h1 id="介绍一下corner-pooling？"><a href="#介绍一下corner-pooling？" class="headerlink" title="介绍一下corner pooling？"></a>介绍一下corner pooling？</h1><p><img src="/.io//6.png" alt="6"></p>
+<p><img src="/./images/CornerNet/5.png" alt="5"></p>
+<h1 id="介绍一下corner-pooling？"><a href="#介绍一下corner-pooling？" class="headerlink" title="介绍一下corner pooling？"></a>介绍一下corner pooling？</h1><p><img src="/./images/CornerNet/6.png" alt="6"></p>
 <p>考虑到左上角角点的右边有目标顶端的特征信息，左上角角点的下边有目标左侧的特征信息，因此如果左上角角点经过池化操作后能有这两个信息，那么就有利于该点的预测，这就有了corner pooling。</p>
 
     </div>
@@ -344,11 +344,11 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/07/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C3%EF%BC%9A%E5%BA%94%E7%94%A8%E5%B1%82/" rel="prev" title="计算机网络三：应用层">
+    <a href="/2020/07/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C3%EF%BC%9A%E5%BA%94%E7%94%A8%E5%B1%82/" rel="prev" title="计算机网络三：应用层">
       <i class="fa fa-chevron-left"></i> 计算机网络三：应用层
     </a></div>
       <div class="post-nav-item">
-    <a href="/2020/07/23/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="next" title="设计模式">
+    <a href="/2020/07/23/%E6%9E%B6%E6%9E%84/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="next" title="设计模式">
       设计模式 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
