@@ -8,12 +8,11 @@ tags:
 categories:
     - 面试
 mathjax: true
-typora-root-url: ..
 ---
 
 本文总结了面试过程中可能问到的关于CornerNet模型的一些问题。
 
-![1](/images/CornerNet/1.png)
+![1](./CornerNet.assets/1.png)
 
 <!--more-->
 
@@ -35,7 +34,7 @@ typora-root-url: ..
 
    - Offsets：输出维度为H×W×2，每个点输出两个坐标偏移量：
 
-     ![2](/images/CornerNet/2.png)
+     ![2](./CornerNet.assets/2.png)
 
      其中$x_k$，$y_k$表示关键点k的坐标。设在heatmap上点$(x,y)$预测为corner，对应的offset为$\hat o=(\Delta x, \Delta y)$，那么在原图上corner的坐标为
 
@@ -53,18 +52,18 @@ $$L=L_{det}+\alpha L_{pull}+\beta L_{push}+\gamma L_{off}$$
 
 $L_{det}$为分类损失，采用focal loss。训练时，当坐标(i,j)处是gt点且类别相同，则该坐标为正样本，其他均为负样本。损失函数中设置距离gt越近的负样本会贡献更小的loss：
 
-![3](/images/CornerNet/3.png)
+![3](./CornerNet.assets/3.png)
 
 $L_{pull}$损失是为了将属于同一个目标的两个关键点的embedding拉的更近，$L_{push}$损失是为了将属于不同目标的两个关键点的embedding距离尽可能推开。
 
-![4](/images/CornerNet/4.png)
+![4](./CornerNet.assets/4.png)
 
 $L_{off}$为坐标偏移损失，采用Smooth L1损失：
 
-![5](/images/CornerNet/5.png)
+![5](./CornerNet.assets/5.png)
 
 # 介绍一下corner pooling？
 
-![6](/images/CornerNet/6.png)
+![6](./CornerNet.assets/6.png)
 
 考虑到左上角角点的右边有目标顶端的特征信息，左上角角点的下边有目标左侧的特征信息，因此如果左上角角点经过池化操作后能有这两个信息，那么就有利于该点的预测，这就有了corner pooling。

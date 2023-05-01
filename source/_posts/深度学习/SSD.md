@@ -8,14 +8,13 @@ tags:
 categories:
 	- 面试
 mathjax: true
-typora-root-url: ..
 ---
 
 本文总结了面试过程中可能问到的关于SSD模型的一些问题。
 
 [论文地址：Single Shot MultiBox Detector](https://arxiv.org/abs/1512.02325)
 
-![](/images/SSD/1.png)
+![](./SSD.assets/1.png)
 
 <center><b>图1 SSD与YOLOv1网络结构对比图</b></center>
 
@@ -27,7 +26,7 @@ typora-root-url: ..
 
 2. 类似Faster RCNN，使用了先验框。
 
-   ![2](/images/SSD/2.png)
+   ![2](./SSD.assets/2.png)
 
    <center><b>图2 SSD详细网络结构图</b></center>
 
@@ -61,7 +60,7 @@ SSD包括6个输出，分别是38×38×4×(4+21)，19×19×4×(4+21)，10×10×6
 
 5. 损失函数由位置误差和分类置信度误差组成：
 
-   ![3](/images/SSD/3.png)
+   ![3](./SSD.assets/3.png)
 
    位置误差采用Smooth L1损失，预测的$(\Delta x, \Delta y,S_w,S_h)$与RCNN系列中的定义一致。分类置信度误差采用softmax损失（交叉熵损失）。
 

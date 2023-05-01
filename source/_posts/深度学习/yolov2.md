@@ -8,13 +8,12 @@ tags:
 categories:
 	- 面试
 mathjax: true
-typora-root-url: ..
 ---
 
 本文总结了面试过程中可能问到的关于YOLOv2模型的一些问题。
 
 [论文地址：YOLO9000: Better, Faster, Stronger](https://arxiv.org/abs/1612.08242)
-![](/images/yolov2/1.png)
+![](./yolov2.assets/1.png)
 
 <center><b>图1 YOLOv2与YOLOv1技巧对比图</b></center>
 
@@ -32,13 +31,13 @@ typora-root-url: ..
 
 # YOLOv2的网络结构有哪些改进？
 
-![2](/images/yolov2/2.png)
+![2](./yolov2.assets/2.png)
 
 <center><b>图2 Darknet19网络结构图</b></center>
 
 1. 预训练时，如图2所示，Darknet 19包含19个卷积层（YOLOv1网络包含24个卷积层和2个全连接层）。
 
-   ![3](/images/yolov2/3.png)
+   ![3](./yolov2.assets/3.png)
 
    <center><b>图2 YOLOv2网络结构图</b></center>
 
