@@ -8,12 +8,13 @@ tags:
 categories:
     - 面试
 mathjax: true
+typora-root-url: ../..
 ---
 
 本文总结了面试过程中可能问到的关于Faster RCNN模型的一些问题。
 
 [论文地址：Faster R-CNN](https://arxiv.org/abs/1506.01497)
-![1](./FasterRCNN.assets/1.png)
+![1](./images/FasterRCNN/1.png)
 
 <center><b>图1 Faster RCNN网络结构图</b></center>
 
@@ -31,7 +32,7 @@ mathjax: true
 2. RPN网络在生成候选框后会对候选框进行筛选，只保留可能包含物体的候选框（～300个），为后续计算节约计算成本。
 
 # 介绍一下RPN网络？
-![3](./FasterRCNN.assets/3.png)
+![3](./images/FasterRCNN/3.png)
 <center><b>图2 RPN网络结构图</b></center>
 
 1. 首先通过一个3×3的卷积进一步集中特征信息，然后在特征图上的每个特征点生成9个anchor box（三个尺度，三个比例），把生成的anchor boxes分别送入分类分支和回归分支。

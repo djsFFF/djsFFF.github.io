@@ -8,13 +8,14 @@ tags:
 categories:
 	- 面试
 mathjax: true
+typora-root-url: ../..
 ---
 
 本文总结了面试过程中可能问到的关于YOLOv1模型的一些问题。
 
 [论文地址：You Only Look Once: Unified, Real-Time Object Detection](https://arxiv.org/abs/1506.02640)
 
-![1](./yolov1.assets/1-1598799595413.png)
+![1](./images/yolov1/1-1598799595413.png)
 
 <center><b>图1 YOLOv1网络结构图</b></center>
 
@@ -43,7 +44,7 @@ YOLOv1将图片划分为7×7个格子，每个格子负责预测中心点落在�
 
 3. Loss函数由五个平方和误差（L2损失）组成：
 
-   ![2](./yolov1.assets/2-1598799622298.png)
+   ![2](./images/yolov1/2-1598799622298.png)
 
    其中$\lambda_{coord}=5$，$\lambda_{noobj}=0.5$，由于含有物体的格子较少，因此加大含有物体的格子的损失贡献。
 

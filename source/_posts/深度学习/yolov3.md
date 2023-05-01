@@ -8,12 +8,13 @@ tags:
 categories:
 	- 面试
 mathjax: true
+typora-root-url: ../..
 ---
 
 本文总结了面试过程中可能问到的关于YOLOv3模型的一些问题。
 
 [论文地址：YOLOv3: An Incremental Improvement](https://arxiv.org/abs/1804.02767)
-![1](./yolov3.assets/1.png)
+![1](./images/yolov3/1.png)
 
 <center><b>图1 Darknet-53网络结构图</b></center>
 
@@ -23,7 +24,7 @@ mathjax: true
 
 1. Darknet-53代替Darknet-19，使用了残差模块，步长为2的卷积层代替池化层进行下采样。
 
-   ![3](./yolov3.assets/3.jpg)
+   ![3](./images/yolov3/3.jpg)
 
    <center><b>图2 YOLOv3网络结构图</b></center>
 
@@ -39,7 +40,7 @@ mathjax: true
 
 置信度和类别用交叉熵损失替换了平方和损失。为了提高小物体的损失贡献，位置回归损失会乘以系数(2-w×h)。
 
-![2](./yolov3.assets/2-1596723997996.png)
+![2](./images/yolov3/2-1596723997996.png)
 
 # 参考资料
 
