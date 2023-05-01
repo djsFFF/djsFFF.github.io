@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://djsFFF.github.io').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.7.1',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="记录Java学习过程中的一些笔记。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面试知识点一：Java基础">
+<meta property="og:url" content="http://djsfff.github.io/2020/07/28/Java%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:site_name" content="Clover">
+<meta property="og:description" content="记录Java学习过程中的一些笔记。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://djsfff.github.io/images/Java%E5%9F%BA%E7%A1%80/image-20201012130111575.png">
+<meta property="og:image" content="http://djsfff.github.io/images/Java%E5%9F%BA%E7%A1%80/image-20200824195854215.png">
+<meta property="og:image" content="http://djsfff.github.io/images/Java%E5%9F%BA%E7%A1%80/image-20200824201627280.png">
+<meta property="og:image" content="http://djsfff.github.io/images/Java%E5%9F%BA%E7%A1%80/image-20200824203844421.png">
+<meta property="article:published_time" content="2020-07-28T09:48:12.000Z">
+<meta property="article:modified_time" content="2023-05-01T01:37:16.613Z">
+<meta property="article:author" content="Clover">
+<meta property="article:tag" content="JAVA">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://djsfff.github.io/images/Java%E5%9F%BA%E7%A1%80/image-20201012130111575.png">
+
+<link rel="canonical" href="http://djsfff.github.io/2020/07/28/Java%E5%9F%BA%E7%A1%80/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>面试知识点一：Java基础 | Clover</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?b759ac2a7fa45129e3ef060bf68259f0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Clover</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <h1 class="site-subtitle" itemprop="description">学无止境</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/djsFFF" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://djsfff.github.io/2020/07/28/Java%E5%9F%BA%E7%A1%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Clover">
+      <meta itemprop="description" content="汝心安处即吾乡">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Clover">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          面试知识点一：Java基础
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-07-28 17:48:12" itemprop="dateCreated datePublished" datetime="2020-07-28T17:48:12+08:00">2020-07-28</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JAVA/" itemprop="url" rel="index">
+                    <span itemprop="name">JAVA</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>记录Java学习过程中的一些笔记。</p>
+<a id="more"></a>
+
+<h1 id="Java基础"><a href="#Java基础" class="headerlink" title="Java基础"></a>Java基础</h1><h2 id="JRE与JDK"><a href="#JRE与JDK" class="headerlink" title="JRE与JDK"></a>JRE与JDK</h2><ul>
+<li>JRE：Java运行时环境，可以运行已编译的Java程序，包括JVM、Java类库、Java命令等。</li>
+<li>JDK：JDK包含JRE，能够创建和编译程序。</li>
+</ul>
+<h2 id="面向对象特性"><a href="#面向对象特性" class="headerlink" title="面向对象特性"></a>面向对象特性</h2><ul>
+<li>封装：将对象的实现细节隐藏起来，通过公共的方法暴露对象的功能。</li>
+<li>继承：继承使子类能够获取父类中的非private修饰的成员。</li>
+<li>多态：程序中定义的引用变量的具体类型和通过该引用变量调用的方法在编程时是不确定的，而是在运行时才确定。继承，重写，向上转型。</li>
+</ul>
+<h2 id="Java基本数据类型"><a href="#Java基本数据类型" class="headerlink" title="Java基本数据类型"></a>Java基本数据类型</h2><table>
+<thead>
+<tr>
+<th>类型</th>
+<th></th>
+<th>存储需求</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>整形</td>
+<td>int</td>
+<td>4字节</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>short</td>
+<td>2字节</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>long</td>
+<td>8字节</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>byte</td>
+<td>1字节</td>
+<td></td>
+</tr>
+<tr>
+<td>浮点类型</td>
+<td>float</td>
+<td>4字节</td>
+<td>6-7位精度</td>
+</tr>
+<tr>
+<td></td>
+<td>double</td>
+<td>8字节</td>
+<td>15-16位精度</td>
+</tr>
+<tr>
+<td>字符</td>
+<td>char</td>
+<td>2字节</td>
+<td></td>
+</tr>
+<tr>
+<td>布尔类型</td>
+<td>boolean</td>
+<td>4字节</td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="String、StringBuilder与StringBuffer"><a href="#String、StringBuilder与StringBuffer" class="headerlink" title="String、StringBuilder与StringBuffer"></a>String、StringBuilder与StringBuffer</h2><ul>
+<li>String：使用final修饰的char数组保存字符串，线程安全。</li>
+<li>StringBuilder：没有使用final修饰，因此是可变的，线程不安全。</li>
+<li>StringBuffer：与StringBuilder类似，但是使用了synchronized保证线程安全。</li>
+</ul>
+<h2 id="接口与抽象类的区别"><a href="#接口与抽象类的区别" class="headerlink" title="接口与抽象类的区别"></a>接口与抽象类的区别</h2><ol>
+<li>抽象类里可以有非抽象方法，接口里不能有实现的方法（JDK 8开始可以有default 修饰的方法）。</li>
+<li>抽象类可以使用protected、public、default修饰符，接口里只能且默认都是是public。</li>
+<li>一个类只能继承一个抽象类，但是可以实现多个接口。</li>
+<li>抽象类里可以有类变量，接口里只能有静态常量static或static修饰的变量，且必须被初始化。</li>
+</ol>
+<h2 id="x3D-x3D-与equals-区别"><a href="#x3D-x3D-与equals-区别" class="headerlink" title="&#x3D;&#x3D;与equals()区别"></a>&#x3D;&#x3D;与equals()区别</h2><ol>
+<li>对于基本类型，&#x3D;&#x3D;是值比较；对于对象，&#x3D;&#x3D;是内存地址比较。</li>
+<li>equals()默认实现就是&#x3D;&#x3D;，但是大多数类进行了重写，比如String、Interger等重写成了值比较。</li>
+</ol>
+<h2 id="为什么重写equals-时需要重写hashCode"><a href="#为什么重写equals-时需要重写hashCode" class="headerlink" title="为什么重写equals()时需要重写hashCode()"></a>为什么重写equals()时需要重写hashCode()</h2><p>这个问题有个前提是该类需要被存储到HashSet、HashMap等散列表中，否则不需要用到hashCode()。</p>
+<ol>
+<li><p>hashCode()默认返回值是根据对象的内存地址生成的一个整数，就算两个对象内容相同，也不会产生一样的hash值，因此需要重写。</p>
+</li>
+<li><p>虽然不同的对象产生的hash值一定不同，但是具有相同hash值相同的对象却不一定相同，因此需要重写equals()对对象的内容进行进一步判断。</p>
+</li>
+</ol>
+<h2 id="使用多线程有什么优势"><a href="#使用多线程有什么优势" class="headerlink" title="使用多线程有什么优势"></a>使用多线程有什么优势</h2><ol>
+<li>更有效地利用资源：当一个线程阻塞时，另一个线程可以执行其他事情。</li>
+<li>更快地响应：单线程只能串行地处理一个请求，然后监听下一个请求。多线程虽然处理速度不一定会更快，但是可以快速地进行线程切换，短时间内响应多个请求。</li>
+</ol>
+<h2 id="static关键字"><a href="#static关键字" class="headerlink" title="static关键字"></a>static关键字</h2><ol>
+<li><p>static修饰的变量为类变量，可以通过类名调用，静态变量存放在方法区（不能修饰方法中的局部变量）。</p>
+</li>
+<li><p>static修饰的方法为类方法，可以通过类名调用，静态方法不能被重写。</p>
+</li>
+<li><p>static修饰的代码块为静态代码块，会在类加载时被执行。</p>
+</li>
+<li><p>static修饰的内部类为静态内部类，不能使用外部类的非静态成员变量和方法。</p>
+</li>
+</ol>
+<h2 id="final关键字"><a href="#final关键字" class="headerlink" title="final关键字"></a>final关键字</h2><ol>
+<li>final修饰类变量时，初始化后不能发生变化，必须在声明时初始化或在构造函数中初始化。</li>
+<li>final修饰方法中局部变量时，只能赋值一次，赋值后不能发生变化。</li>
+<li>final修饰的方法无法被重写（private方法也会被隐式地指定为final方法）。</li>
+<li>final修饰的类无法被继承。</li>
+</ol>
+<h2 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h2><ul>
+<li>Error：程序无法处理的错误，通常是JVM出现的问题。</li>
+<li>Exception：程序本身能够处理的错误。</li>
+</ul>
+<p><img src="/images/Java%E5%9F%BA%E7%A1%80/image-20201012130111575.png" alt="image-20201012130111575"></p>
+<h2 id="finally块不会执行的情况"><a href="#finally块不会执行的情况" class="headerlink" title="finally块不会执行的情况"></a>finally块不会执行的情况</h2><ul>
+<li>finally语句块第一行发生了异常。</li>
+<li>在前面的代码中执行<code>System.exit(int)</code>退出了程序。</li>
+<li>程序所在的线程死亡。</li>
+<li>关闭CPU。</li>
+</ul>
+<h2 id="内部类"><a href="#内部类" class="headerlink" title="内部类"></a>内部类</h2><p>在编译时，每个内部类会生成一个独立的class文件。</p>
+<h3 id="静态内部类"><a href="#静态内部类" class="headerlink" title="静态内部类"></a>静态内部类</h3><p>static修饰内部类为静态内部类，可以通过<code>外部类名.静态内部类名</code>来创建。</p>
+<p>只能访问外部类的<strong>静态</strong>方法和变量。</p>
+<h3 id="成员内部类"><a href="#成员内部类" class="headerlink" title="成员内部类"></a>成员内部类</h3><p>成员内部类只能通过外部类的实例来创建。编译时，会将成员内部类单独编译成一个字节码文件，并添加一个外部类实例的final引用参数。</p>
+<p>成员内部类类似于<strong>成员方法</strong>，不能有static修饰的成员或方法。可以访问外部类的<strong>所有</strong>变量和方法，外部类需要创建一个内部类实例才能访问内部类的属性和方法。</p>
+<h3 id="局部内部类"><a href="#局部内部类" class="headerlink" title="局部内部类"></a>局部内部类</h3><p>局部内部类存在于方法中，只能在方法中访问该类，局部内部类中只能访问所在方法的final变量。</p>
+<h3 id="匿名内部类"><a href="#匿名内部类" class="headerlink" title="匿名内部类"></a>匿名内部类</h3><p>匿名内部类必须实现一个接口或继承一个抽象类，且只能使用所在方法的final变量。</p>
+<h1 id="Java集合"><a href="#Java集合" class="headerlink" title="Java集合"></a>Java集合</h1><h2 id="常用集合"><a href="#常用集合" class="headerlink" title="常用集合"></a>常用集合</h2><ul>
+<li>Collection<ul>
+<li>List：ArrayList、Vector、LinkedList</li>
+<li>Set：HashSet、TreeSet、LinkedHashSet</li>
+</ul>
+</li>
+<li>Map：HashMap、HashTable、LinkedHashMap、ConcurrentHashMap</li>
+</ul>
+<h2 id="ArrayList与LinkedList的区别"><a href="#ArrayList与LinkedList的区别" class="headerlink" title="ArrayList与LinkedList的区别"></a>ArrayList与LinkedList的区别</h2><ol>
+<li>底层数据结构不同：ArrayList基于数组实现，LinkedList基于双向链表实现。</li>
+<li>随机访问和删除效率不同：ArrayList能快速随机访问，LinkedList只能从头遍历；ArrayList删除元素后需要移动后面的元素，LinkedList能快速删除元素。</li>
+<li>插入操作不同：ArrayList插入前，需要移动插入位置之后的元素；LinkedList插入时需要先遍历定位到元素。</li>
+<li>内存空间占用不同：ArrayList是一次性分配一批空间，而LinkedList是在需要时分配空间，但是LinkedList一个元素需要消耗更多的空间。</li>
+</ol>
+<h2 id="ArrayList与Vector的区别"><a href="#ArrayList与Vector的区别" class="headerlink" title="ArrayList与Vector的区别"></a>ArrayList与Vector的区别</h2><ol>
+<li>线程安全性：ArrayList线程不安全，Vector中主要方法使用synchronized关键字保证线程同步。</li>
+<li>扩容因子不同，ArrayList在容量满时扩容为原来的1.5倍，Vector在容量满时扩容为原来的2倍。</li>
+</ol>
+<h2 id="HashMap与HashTable的区别"><a href="#HashMap与HashTable的区别" class="headerlink" title="HashMap与HashTable的区别"></a>HashMap与HashTable的区别</h2><ol>
+<li>线程安全性：HashMap线程不安全，HashTable中主要方法使用synchronized关键字进行线程同步。</li>
+<li>HashMap的key和value可以是null，HashTable的key和value不能为null。</li>
+<li>初始容量和扩容：HashMap默认初始容量为16，每次扩容为原来的2倍。HashTable默认初始容量为11，每次扩容为原来的2倍+1。</li>
+<li>底层数据结构：JDK 1.8以后的HashMap使用数组+链表&#x2F;红黑树结构，而Hashtable使用数组+链表结构。</li>
+</ol>
+<h2 id="ConcurrentHashMap与Hashtable的区别"><a href="#ConcurrentHashMap与Hashtable的区别" class="headerlink" title="ConcurrentHashMap与Hashtable的区别"></a>ConcurrentHashMap与Hashtable的区别</h2><p>ConcurrentHashMap是线程安全版HashMap，ConcurrentHashMap与HashTable的key和value不能为null。</p>
+<ol>
+<li>初始容量和扩容：HashMap默认初始容量为16，每次扩容为原来的2倍。HashTable默认初始容量为11，每次扩容为原来的2倍+1。</li>
+<li>底层数据结构：JDK 1.8以后ConcurrentHashMap采用数组+链表&#x2F;红黑树结构，而Hashtable使用数组+链表结构。</li>
+<li>实现线程安全的方式：<ul>
+<li>ConcurrentHashMap：JDK1.8以前采用分段锁（Segment继承自ReentrantLock）；JDK 1.8及以后，锁的粒度更小，使用synchronized + CAS实现，数组被volatile关键字修饰，只对当前使用的链表头结点加锁。</li>
+<li>Hashtable：使用synchronized整体加锁。</li>
+</ul>
+</li>
+</ol>
+<h2 id="Comparable与Comparator"><a href="#Comparable与Comparator" class="headerlink" title="Comparable与Comparator"></a>Comparable与Comparator</h2><p>实现java.lang.Comparable接口的类可以通过实现int compareTo(T o)进行两个类之间的比较。</p>
+<p>实现java.util.Comparator接口的类为比较器类，需要实现int compare(T o1, T o2)，Arrays.sort()等方法可以通过传递一个比较器类实例来自定义比较规则。</p>
+<h2 id="LinkedHashMap-与TreeMap"><a href="#LinkedHashMap-与TreeMap" class="headerlink" title="LinkedHashMap 与TreeMap"></a>LinkedHashMap 与TreeMap</h2><p>LinkedHashMap在HashMap的基础上使用一个双向循环链表记录顺序，根据元素的添加或访问顺序进行排序。</p>
+<p> TreeMap基于红黑树实现，根据元素的 Key 进行排序，也可以自定义比较器。</p>
+<h1 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h1><h2 id="什么是上下文切换"><a href="#什么是上下文切换" class="headerlink" title="什么是上下文切换"></a>什么是上下文切换</h2><p>当前线程在执行完CPU时间片后切换到另一个线程前会先保存当前的运行状态，以便下次再切换回来。</p>
+<h2 id="synchronized与ReentrantLock的区别"><a href="#synchronized与ReentrantLock的区别" class="headerlink" title="synchronized与ReentrantLock的区别"></a>synchronized与ReentrantLock的区别</h2><ol>
+<li>底层实现不同<ul>
+<li>synchronized依赖于jvm实现，synchronized关键字在编译后会在代码块前后生成monitorenter和monitorexit指令，并通过计数器记录重入次数。</li>
+<li>ReentrantLock依赖于API实现，基于AQS实现，AQS的state字段用于记录重入次数，通过CAS操作更新state的值。</li>
+</ul>
+</li>
+<li>ReentrantLock有一些特殊功能<ul>
+<li>等待可中断：可以设置等待锁的超时时间。</li>
+<li>公平锁：按顺序获取锁。</li>
+<li>可绑定多个Condition：可以根据不同的Condition对线程进行分组，有选择性地进行线程通知；synchronized通常与wait()和notify()&#x2F;notifyAll()结合实现线程间的通知。</li>
+</ul>
+</li>
+<li>synchronized在JDK 1.6及以后增加了许多优化，有偏向锁，轻量级锁和重量级锁三个级别。</li>
+</ol>
+<h2 id="synchronized与volatile的区别"><a href="#synchronized与volatile的区别" class="headerlink" title="synchronized与volatile的区别"></a>synchronized与volatile的区别</h2><ol>
+<li>volatile只能修饰变量，而synchronized可以修饰方法和代码块。</li>
+<li>多线程情况下volatile不会发生阻塞，而synchronized可能会发生阻塞。</li>
+<li>volatile能保证可见性，但不能保证原子性；synchronized两者都能保证。</li>
+<li>volatile解决变量在多个线程直接的可见性，而synchronized解决多个线程之间访问资源的同步性。</li>
+</ol>
+<h2 id="ThreadLocal内存泄漏问题"><a href="#ThreadLocal内存泄漏问题" class="headerlink" title="ThreadLocal内存泄漏问题"></a>ThreadLocal内存泄漏问题</h2><p>ThreadLocalMap中使用的key为ThreadLocal的弱引用，当ThreadLocal没有被ThreadLocalMap以外的对象引用时，ThreadLocal就在下一次GC时被回收，而ThreadLocalMap的value是强引用，可能出现key被回收但value还存在的情况，但是value已经不可访问，造成内存泄漏。因此使用玩ThreadLocal后应该手动调用remove()方法。</p>
+<h2 id="线程池执行execute-和submit-的区别"><a href="#线程池执行execute-和submit-的区别" class="headerlink" title="线程池执行execute()和submit()的区别"></a>线程池执行execute()和submit()的区别</h2><ol>
+<li>execute()用于提交不需要返回值的任务，参数为Runnable对象。</li>
+</ol>
+<p><img src="/images/Java%E5%9F%BA%E7%A1%80/image-20200824195854215.png" alt="image-20200824195854215"></p>
+<ol start="2">
+<li>submit()用于提交需要返回值的任务，会返回一个Future对象，参数为Runnable对象，内部还是会调用execute()。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> Future&lt;?&gt; submit(Runnable task) &#123;</span><br><span class="line">	<span class="keyword">if</span> (task == <span class="keyword">null</span>) <span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException();</span><br><span class="line">    RunnableFuture&lt;<span class="keyword">void</span>&gt; ftask = <span class="keyword">new</span> TaskFor(task, <span class="keyword">null</span>);</span><br><span class="line">    execute(ftask);</span><br><span class="line">    <span class="keyword">return</span> ftask;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h1><h2 id="内存区域（JDK-1-8及以后）"><a href="#内存区域（JDK-1-8及以后）" class="headerlink" title="内存区域（JDK 1.8及以后）"></a>内存区域（JDK 1.8及以后）</h2><p><img src="/images/Java%E5%9F%BA%E7%A1%80/image-20200824201627280.png" alt="image-20200824201627280"></p>
+<h2 id="为什么要将永久代（PermGen）替换为元空间（MetaSpace）"><a href="#为什么要将永久代（PermGen）替换为元空间（MetaSpace）" class="headerlink" title="为什么要将永久代（PermGen）替换为元空间（MetaSpace）"></a>为什么要将永久代（PermGen）替换为元空间（MetaSpace）</h2><p>永久代有一个JVM默认设置的固定大小，无法进行调整，而元空间使用的是直接内存，只受操作系统内存的限制。</p>
+<h2 id="对象创建过程"><a href="#对象创建过程" class="headerlink" title="对象创建过程"></a>对象创建过程</h2><p><img src="/images/Java%E5%9F%BA%E7%A1%80/image-20200824203844421.png" alt="image-20200824203844421"></p>
+<ol>
+<li>类加载检查：首先根据new指令的参数在常量池中查找该对象的符号引用，如果不存在则先执行类加载过程：加载、验证、准备、解析、初始化。</li>
+<li>分配内存：根据对内存是否规整采用指针碰撞或空闲列表在堆中为新对象分配一块连续内存。</li>
+<li>初始化默认值：将内存空间中的实例字段初始化为默认值。</li>
+<li>设置对象头：在对象头中保存对象所属的类、哈希码、GC年龄等信息。</li>
+<li>执行&lt;init&gt;()：在以上工作完成后，在虚拟机中已经生成了一个完整的新对象。但通常还需要调用构造函数进行初始化。</li>
+</ol>
+<h2 id="如何判断一个类是无用的类"><a href="#如何判断一个类是无用的类" class="headerlink" title="如何判断一个类是无用的类"></a>如何判断一个类是无用的类</h2><p>同时满足以下条件：</p>
+<ol>
+<li>该类的所有实例都已被回收。</li>
+<li>加载该类的ClassLoader已被回收。</li>
+<li>该类对应的java.lang.Class对象没有被引用。</li>
+</ol>
+<h2 id="什么时候会触发GC"><a href="#什么时候会触发GC" class="headerlink" title="什么时候会触发GC"></a>什么时候会触发GC</h2><ul>
+<li>Eden区满的时候。</li>
+<li>Young GC时，空间分配担保触发FullGC。</li>
+<li>分配大对象，没有足够的连续空间。</li>
+</ul>
+<h1 id="软件开发流程"><a href="#软件开发流程" class="headerlink" title="软件开发流程"></a>软件开发流程</h1><p>需求分析，概要设计，详细设计，编码，测试，软件交付，验收，维护。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/JAVA/" rel="tag"># JAVA</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/07/25/%E5%88%86%E5%B8%83%E5%BC%8F%E7%9B%B8%E5%85%B3/" rel="prev" title="分布式相关知识点">
+      <i class="fa fa-chevron-left"></i> 分布式相关知识点
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/08/03/%E6%8F%90%E4%BA%A4%E5%91%BD%E4%BB%A4/" rel="next" title="提交命令">
+      提交命令 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="lv-container" data-id="city" data-uid="MTAyMC8zODU3Mi8xNTEwMA=="></div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java基础"><span class="nav-number">1.</span> <span class="nav-text">Java基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JRE与JDK"><span class="nav-number">1.1.</span> <span class="nav-text">JRE与JDK</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#面向对象特性"><span class="nav-number">1.2.</span> <span class="nav-text">面向对象特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java基本数据类型"><span class="nav-number">1.3.</span> <span class="nav-text">Java基本数据类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#String、StringBuilder与StringBuffer"><span class="nav-number">1.4.</span> <span class="nav-text">String、StringBuilder与StringBuffer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接口与抽象类的区别"><span class="nav-number">1.5.</span> <span class="nav-text">接口与抽象类的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#x3D-x3D-与equals-区别"><span class="nav-number">1.6.</span> <span class="nav-text">&#x3D;&#x3D;与equals()区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么重写equals-时需要重写hashCode"><span class="nav-number">1.7.</span> <span class="nav-text">为什么重写equals()时需要重写hashCode()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用多线程有什么优势"><span class="nav-number">1.8.</span> <span class="nav-text">使用多线程有什么优势</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#static关键字"><span class="nav-number">1.9.</span> <span class="nav-text">static关键字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#final关键字"><span class="nav-number">1.10.</span> <span class="nav-text">final关键字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异常"><span class="nav-number">1.11.</span> <span class="nav-text">异常</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#finally块不会执行的情况"><span class="nav-number">1.12.</span> <span class="nav-text">finally块不会执行的情况</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内部类"><span class="nav-number">1.13.</span> <span class="nav-text">内部类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#静态内部类"><span class="nav-number">1.13.1.</span> <span class="nav-text">静态内部类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#成员内部类"><span class="nav-number">1.13.2.</span> <span class="nav-text">成员内部类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#局部内部类"><span class="nav-number">1.13.3.</span> <span class="nav-text">局部内部类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#匿名内部类"><span class="nav-number">1.13.4.</span> <span class="nav-text">匿名内部类</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java集合"><span class="nav-number">2.</span> <span class="nav-text">Java集合</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#常用集合"><span class="nav-number">2.1.</span> <span class="nav-text">常用集合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ArrayList与LinkedList的区别"><span class="nav-number">2.2.</span> <span class="nav-text">ArrayList与LinkedList的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ArrayList与Vector的区别"><span class="nav-number">2.3.</span> <span class="nav-text">ArrayList与Vector的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HashMap与HashTable的区别"><span class="nav-number">2.4.</span> <span class="nav-text">HashMap与HashTable的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ConcurrentHashMap与Hashtable的区别"><span class="nav-number">2.5.</span> <span class="nav-text">ConcurrentHashMap与Hashtable的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Comparable与Comparator"><span class="nav-number">2.6.</span> <span class="nav-text">Comparable与Comparator</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LinkedHashMap-与TreeMap"><span class="nav-number">2.7.</span> <span class="nav-text">LinkedHashMap 与TreeMap</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#多线程"><span class="nav-number">3.</span> <span class="nav-text">多线程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是上下文切换"><span class="nav-number">3.1.</span> <span class="nav-text">什么是上下文切换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#synchronized与ReentrantLock的区别"><span class="nav-number">3.2.</span> <span class="nav-text">synchronized与ReentrantLock的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#synchronized与volatile的区别"><span class="nav-number">3.3.</span> <span class="nav-text">synchronized与volatile的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ThreadLocal内存泄漏问题"><span class="nav-number">3.4.</span> <span class="nav-text">ThreadLocal内存泄漏问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程池执行execute-和submit-的区别"><span class="nav-number">3.5.</span> <span class="nav-text">线程池执行execute()和submit()的区别</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JVM"><span class="nav-number">4.</span> <span class="nav-text">JVM</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#内存区域（JDK-1-8及以后）"><span class="nav-number">4.1.</span> <span class="nav-text">内存区域（JDK 1.8及以后）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要将永久代（PermGen）替换为元空间（MetaSpace）"><span class="nav-number">4.2.</span> <span class="nav-text">为什么要将永久代（PermGen）替换为元空间（MetaSpace）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象创建过程"><span class="nav-number">4.3.</span> <span class="nav-text">对象创建过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何判断一个类是无用的类"><span class="nav-number">4.4.</span> <span class="nav-text">如何判断一个类是无用的类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么时候会触发GC"><span class="nav-number">4.5.</span> <span class="nav-text">什么时候会触发GC</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#软件开发流程"><span class="nav-number">5.</span> <span class="nav-text">软件开发流程</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Clover"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Clover</p>
+  <div class="site-description" itemprop="description">汝心安处即吾乡</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="mailto:1210090743@qq.com" title="E-Mail → mailto:1210090743@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/djsFFF" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;djsFFF" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Clover</span>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+  </div>
+
+  
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "topRight";
+      
+          flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+<script>
+NexT.utils.loadComments(document.querySelector('#lv-container'), () => {
+  // window.livereOptions = {
+  //   refer: location.pathname.replace(CONFIG.root, '').replace('index.html', '')
+  // };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+});
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</body>
+</html>
